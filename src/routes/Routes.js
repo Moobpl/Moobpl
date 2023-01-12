@@ -16,7 +16,8 @@ import Setting from "../pages/Setting";
 import Event from "../pages/Event";
 
 
-function routes() {
+const routes = () => {
+  return(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<Intro />}/>
@@ -30,11 +31,12 @@ function routes() {
       <Route path="/areainfolist" element={<AreaInfoList />}/>
       <Route path="/areainfodetail/:id" element={<AreaInfoDetail />}/>
       <Route path="/lifeinfolist" element={<LifeInfoList />}/>
-      <Route path="/lifeinfodetail/:id" element={<LifeInfoDetail />}/>
+      <Route path="/lifeinfodetail" element={<LifeInfoDetail />}/>
       <Route path="/setting" element={<Setting />}/>
       <Route path="/event" element={<Event />}/>
     </Routes>
   </BrowserRouter>
+  );
 }
 
 export default routes;
