@@ -28,14 +28,18 @@ const Header = ({headstate}) => {
 export default Header;
 
 const HeaderWrap = styled.header`
+  max-width: 375px;
   width: 100%;
   height: 60px;
   display: flex;
-  position: absolute;
+  justify-content: center;
+  position: fixed;
+  background-color: #fff;
+  z-index: 999;
 `
 
 const Container = styled.div`
-  width: 100%;
+  width: calc(100% - 48px);
   display: flex;
   justify-content: space-between;
   align-items: center;

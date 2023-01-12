@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 
 const MainCard = () => {
     const navigate = useNavigate();
-
     return (
         <CardWrap>
             <div>
