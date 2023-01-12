@@ -1,21 +1,25 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import Hamberger from "./Hamberger";
 
 const Header = () => {
   const navigate = useNavigate();
 
   return (
+    <>
     <HeaderWrap>
       <Container>
         <img src="images/backarrow.png" alt="" onClick={()=>{navigate(-1)}}/>
-        <Menu>
+        <Menu onClick={}>
           <span></span>
           <span></span>
           <span></span>
         </Menu>
       </Container>
     </HeaderWrap>
+    <Hamberger></Hamberger>
+    </>
   );
 };
 
