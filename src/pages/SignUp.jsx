@@ -6,11 +6,12 @@ import { useNavigate } from "react-router-dom";
 
 function Signup() {
   const name = "회원가입"
+  const headstate = false;
 
   return (
     <div>
       <Wrap>
-        <Header></Header>
+        <Header headstate={headstate}></Header>
         <TextBox>
           <span>Hello!</span>
           <h1>
