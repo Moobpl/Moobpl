@@ -13,7 +13,7 @@ export default Header;
 
 const HeaderWrap = styled.header`
   width: 100%;
-  height: 80px;
+  height: 60px;
   display: flex;
   background-color:red;
 `
