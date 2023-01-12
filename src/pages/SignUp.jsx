@@ -1,29 +1,51 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ButtonSubmit from "../components/ButtonSubmit";
 import Header from "../components/Header";
-import { useNavigate } from "react-router-dom";
 
 function Signup() {
   const name = "회원가입"
   const headstate = false;
+  const [nickName, setNickName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordCheck, setPasswordCheck] = useState("");
 
+  useEffect(() => {
+
+  }, [])
+
+  const onSubmit = () => {
+    if(nickName.trim() === ""){
+      alert("닉네임을 입력하세요.")
+      return false;
+    } else if (email.trim() === ""){
+      alert("이메일을 입력하세요.")
+      return false;
+    } else if (password.trim() === "") {
+      alert("비밀번호를 입력하세요.")
+      return false;
+    } else if (passwordCheck !== password) {
+      alert("동일한 비밀번호를 입력하세요.")
+      return false;
+    }
+  }
   return (
     <div>
+      <Header headstate={headstate}></Header>
       <Wrap>
-        <Header headstate={headstate}></Header>
         <TextBox>
           <span>Hello!</span>
           <h1>
             회원가입
           </h1>
         </TextBox>
-        <InputNickName placeholder="닉네임"></InputNickName>
-        <InputNickEmail placeholder="Email를 입력하세요."></InputNickEmail>
-        <InputPassword placeholder="비밀번호를 입력하세요."></InputPassword>
-        <InputPassword placeholder="동일한 비밀번호를 입력하세요."></InputPassword>
+        <InputNickName placeholder="닉네임" value={nickName} onChange={(e) => { setNickName(e.target.value) }}></InputNickName>
+        <InputNickEmail placeholder="Email를 입력하세요." value={email} onChange={(e) => { setEmail(e.target.value) }}></InputNickEmail>
+        <InputPassword placeholder="비밀번호를 입력하세요." value={password} onChange={(e) => { setPassword(e.target.value) }}></InputPassword>
+        <InputPassword placeholder="동일한 비밀번호를 입력하세요." value={passwordCheck} onChange={(e) => { setPasswordCheck(e.target.value) }}></InputPassword>
 
-        <ButtonWrap>
+        <ButtonWrap onClick={onSubmit}>
           <ButtonSubmit buttonName={name}></ButtonSubmit>
         </ButtonWrap>
       </Wrap>

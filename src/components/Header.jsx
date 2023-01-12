@@ -1,12 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import Hamberger from "./Hamberger";
 
 const Header = ({headstate}) => {
-
-  const [open, setOpen] = useState(true)
 
   const navigate = useNavigate();
 
