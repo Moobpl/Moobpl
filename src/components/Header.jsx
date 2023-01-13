@@ -1,23 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import Hamberger from "../components/Hamberger"
 
-const Header = ({headstate}) => {
-
+const Header = ({ headstate }) => {
   const navigate = useNavigate();
-
+  const [open , setOpen] = useState(false)
   return (
+    <>
       <HeaderWrap>
         <Container>
           <img src="images/backarrow.png" alt="" onClick={() => { navigate(-1) }} />
-          {headstate ? <Menu>
+          {headstate ? <Menu onClick={() => {setOpen(!open)}}>
             <span></span>
             <span></span>
             <span></span>
-          </Menu> : null }
-          
+          </Menu> : null}
         </Container>
       </HeaderWrap>
+      <Hamberger open={open}></Hamberger>
+    </>
   );
 };
 
@@ -32,6 +34,7 @@ const HeaderWrap = styled.header`
   position: fixed;
   background-color: #fff;
   z-index: 999;
+  overflow: hidden;
 `
 
 const Container = styled.div`

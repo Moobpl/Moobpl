@@ -24,8 +24,8 @@ const MainCityCard = () => {
 
     return (
         <Wrap>
-            {datas.map((data) =>
-                <CardWrap>
+            {datas.map((data, index) =>
+                <CardWrap key={index}>
                     <div>
                         <ImgWrap>
                             <img src="" alt="" />

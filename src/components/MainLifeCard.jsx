@@ -15,8 +15,8 @@ const MainLifeCard = () => {
 
     return (
         <Wrap>
-            {datas.map((data) =>
-                <CardWrap>
+            {datas.map((data, index) =>
+                <CardWrap key={index}>
                     <div>
                         <div>
                             <img src="" alt="" />
