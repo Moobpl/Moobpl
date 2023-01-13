@@ -34,7 +34,7 @@ const HambergerList = ({ margin }) => {
 export default HambergerList
 
 const Wrap = styled.ul`
-    margin-top: ${props => props.margin};
+    /* margin-top: ${props => props.margin}; */
     li{
         display: flex;
         align-items: center;
