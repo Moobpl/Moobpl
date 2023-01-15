@@ -21,10 +21,11 @@ const MainCard = () => {
 export default MainCard
 
 const CardWrap = styled.div`
-    width: 100%;
+    width: calc(100% - 48px);
     height: 127px;
     background: #F9A76F;
     border-radius: 16px;
+    margin: 0 auto;
     img {
         width: 140px;
         margin-left:17px;

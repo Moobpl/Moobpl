@@ -5,20 +5,25 @@ import Hamberger from "../components/Hamberger"
 
 const Header = ({ headstate }) => {
   const navigate = useNavigate();
-  const [open , setOpen] = useState(false)
+  const [menuOpen , setMenuOpen] = useState("close")
+
+  const openHandler = (text) =>{
+    setMenuOpen(text)
+  }
+
   return (
     <>
       <HeaderWrap>
         <Container>
           <img src="images/backarrow.png" alt="" onClick={() => { navigate(-1) }} />
-          {headstate ? <Menu onClick={() => {setOpen(!open)}}>
+          {headstate ? <Menu onClick={()=>{openHandler("open")}}>
             <span></span>
             <span></span>
             <span></span>
           </Menu> : null}
         </Container>
       </HeaderWrap>
-      <Hamberger open={open}></Hamberger>
+      <Hamberger open={menuOpen} openHandler={openHandler}></Hamberger>
     </>
   );
 };

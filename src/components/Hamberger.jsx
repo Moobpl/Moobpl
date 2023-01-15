@@ -1,20 +1,19 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import HambergerList from './HambergerList'
 
-const Hamberger = ({ open }) => {
-  const [close, setClose] = useState(true)
-  const closeHandler = () => {
-    setClose(!close)
-  }
+const Hamberger = ({ open, openHandler }) => {
+  const [close, setClose] = useState(false)
+  const [className, setClassname] = useState("")
+
   return (
-    <Wrap className={`${open ? "open" : close ? false : "close"}`}>
+    <Wrap className={`${open}`}>
       <header>
-        <span onClick={closeHandler}></span>
+        <img src="images/hamberger/1x/Asset 7.png" alt="" onClick={()=>{openHandler("close")}} />
       </header>
       <section>
         <Profile>
-          {/* <Photo></Photo> */}
+          <Photo></Photo>
           <h4>닉네임</h4>
         </Profile>
         <Myplan>내 계획 : 0</Myplan>
@@ -35,6 +34,8 @@ const Wrap = styled.div`
     background-color: #fff;
     transition: 0.3s;
     z-index: 9999;
+    transform: translateX(100%);
+
     &.close{
       transform: translateX(100%);
     }
@@ -44,7 +45,17 @@ const Wrap = styled.div`
     }
 
     header {
+      width: calc(100% - 48px);
       height: 60px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin: 0 auto;
+      >img{
+        display: block;
+        width: 14px;
+        height: 14px;
+      }
     }
 
     section {
@@ -55,12 +66,21 @@ const Wrap = styled.div`
 
 const Profile = styled.div`
   width: 100%;
-
+  display: flex;
+  align-items: center;
   h4{
+    margin-left: 30px;
     font-size: 18px;
     font-weight: 500;
     color: #333333;
   }
+`
+
+const Photo = styled.div`
+  width: 60px;
+  height: 60px;
+  background-color: #666666;
+  border-radius: 100%;
 `
 
 const Myplan = styled.div`

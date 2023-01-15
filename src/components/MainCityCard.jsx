@@ -1,36 +1,20 @@
-import React from 'react'
+import React,{useEffect} from 'react'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
-const MainCityCard = () => {
-    const datas = [{
-        id: "영등포구",
-        disc: "미래도시 영등포"
-    },{
-        id: "종로구",
-        disc: "힘내자"
-    },{
-        id: "생활정보",
-        disc: "힘내자"
-    },{
-        id: "생활정보",
-        disc: "힘내자"
-    },{
-        id: "생활정보",
-        disc: "힘내자"
-    },{
-        id: "생활정보",
-        disc: "힘내자"
-    }]
-
+const MainCityCard = ({datas}) => {
+    const navigate = useNavigate()
+    const arr = datas
+    console.log(arr)
     return (
         <Wrap>
-            {datas.map((data, index) =>
-                <CardWrap key={index}>
+            {arr.map((data, index) =>
+                <CardWrap key={index} onClick={()=>{navigate(`/areainfodetail/${data._id}`)}}>
                     <div>
                         <ImgWrap>
-                            <img src="" alt="" />
+                            <img src={data.imgSrc} alt="" />
                         </ImgWrap>
-                        <h4>{data.id}</h4>
+                        <h4>{data.name}</h4>
                         <p>{data.disc}</p>
                     </div>
                 </CardWrap>
@@ -60,6 +44,7 @@ const CardWrap = styled.div`
         line-height: 21px;
         letter-spacing: 0.3px;
         color: #7E7E7E;
+        margin-top: 6px;
     }
 
     p{
@@ -72,5 +57,10 @@ const CardWrap = styled.div`
 
 const ImgWrap = styled.div`
     width: 100%;
-    height: 120px;
+    border-radius: 16px;
+    overflow: hidden;
+    img{
+        display: block;
+        width: 100%;
+    }
 `

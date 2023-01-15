@@ -27,6 +27,10 @@ const HambergerList = ({ margin }) => {
                 <span>프로필 수정</span>
             </li>
             <img src="images/hamberger/adbanner.png" alt="" />
+            <Logout className="logout">
+                <img src="images/hamberger/1x/Asset 6.png" alt="" />
+                <span>로그아웃</span>
+            </Logout>
         </Wrap>
     )
 }
@@ -34,7 +38,7 @@ const HambergerList = ({ margin }) => {
 export default HambergerList
 
 const Wrap = styled.ul`
-    /* margin-top: ${props => props.margin}; */
+    margin-top: ${props => props.margin};
     li{
         display: flex;
         align-items: center;
@@ -56,7 +60,25 @@ const Wrap = styled.ul`
             margin-left:14px;
         }
     }
+
     >img{
         width: 100%;
+    }
+`
+
+const Logout = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 17px;
+    >img {
+        margin-right: 13px;
+    }
+    >span {
+        font-weight: 400;
+        font-size: 14px;
+        text-align: right;
+        letter-spacing: 0.3px;
+        color: #666666;
     }
 `
