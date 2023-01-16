@@ -1,39 +1,34 @@
-import React, { useState } from "react";
-import AreaCategory from "../components/category/AreaCategory";
+import React from "react";
+import styled from "styled-components";
+import RegionCategory from "../components/category/RegionCategory";
+import {AREACATEGORIES} from '../components/category/AREACATEGORIES';
 
-
-const MoobAdd = ({ list, city, subCategory }) => {
-  const [isCategoryOpen, setIsCategoryOpen] = useState(true);
-  const [categoryAnimation, setCategoryAnimation] = useState(true);
-
-  const openCategory = () => {
-    setIsCategoryOpen(true);
-  }
-
-  const closeCategory = () => {
-    setCategoryAnimation(false);
-    setTimeout(() => {
-      setIsCategoryOpen(false);
-      setCategoryAnimation(true);
-    }, 100);
-  }
+const MoobAddPlus = () => {
   return (
-    <>
-      <div className="SelectCategory" 
-        onMouseEnter={openCategory}
-      >
-        <span>{city}</span>
-        <span>{subCategory}</span>
-        {isCategoryOpen && (
-          <AreaCategory 
-            list={list}
-            closeCategory={closeCategory}
-            categoryAnimation={categoryAnimation}
-          />
-        )}
-      </div>
-    </>
-  );
+    <Wrap>
+      {AREACATEGORIES.map((item) => {
+          return(
+            <>
+              <RegionCategory
+                key={item.id}
+                title={item.name}
+                subcategory={item.subcategories}
+              >
+              </RegionCategory>
+            </>
+          );
+        })
+      }
+    </Wrap>
+  )
 };
 
-export default MoobAdd;
+const Wrap = styled.div`
+  width:100%;
+  margin-top:15px;
+  padding:0 24px;
+  box-sizing: border-box;
+  overflow-y: hidden;
+`;
+
+export default MoobAddPlus;

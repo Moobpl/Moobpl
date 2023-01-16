@@ -15,5 +15,5 @@ const HeaderWrap = styled.header`
   width: 100%;
   height: 60px;
   display: flex;
-  background-color:red;
+  background-color:transparent;
 `
