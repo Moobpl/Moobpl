@@ -3,11 +3,11 @@ import styled from "styled-components";
 import ButtonSubmit from "../components/ButtonSubmit";
 import Header from "../components/Header";
 import { useDispatch, useSelector } from "react-redux";
-import { __postUser } from "../redux/modules/postSlice";
+import { __postUser } from "../redux/modules/userSlice";
 import { useNavigate } from "react-router-dom";
 
 function Signup() {
-  const isSignupSucess = useSelector((state) => state.isSignupSucess);
+  const { isSignupSucess, isSignupError } = useSelector((state) => state.user);
   console.log(isSignupSucess)
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -77,40 +77,44 @@ function Signup() {
 
   // 비밀번호 확인
   const onChangePasswordConfirm = useCallback((e) => {
-      const passwordConfirmCurrent = e.target.value
-      setIsPasswordConfirm(passwordConfirmCurrent)
-      setPasswordCheck(e.target.value)
-      if (password === passwordConfirmCurrent) {
-        setPasswordConfirmMessage('동일한 비밀번호 입니다.)')
-        setIsPasswordConfirm(true)
-      } else {
-        setPasswordConfirmMessage('비밀번호가 다릅니다. 다시 확인해주세요')
-        setIsPasswordConfirm(false)
-      }
-    },
+    const passwordConfirmCurrent = e.target.value
+    setIsPasswordConfirm(passwordConfirmCurrent)
+    setPasswordCheck(e.target.value)
+    if (password === passwordConfirmCurrent) {
+      setPasswordConfirmMessage('동일한 비밀번호 입니다.)')
+      setIsPasswordConfirm(true)
+    } else {
+      setPasswordConfirmMessage('비밀번호가 다릅니다. 다시 확인해주세요')
+      setIsPasswordConfirm(false)
+    }
+  },
     [password]
   )
 
   const onSubmit = () => {
-    if (nickName.trim() === "") {
+    if (nickName.trim() === "" || isName === false) {
       setNameMessage('2글자 이상 5글자 미만으로 입력해주세요.')
       return false
-    } else if (email.trim() === ""){
+    } else if (email.trim() === "" || isEmail === false) {
       setEmailMessage("이메일를 입력하세요.")
       return false
-    } else if (password.trim() === ""){
+    } else if (password.trim() === "" || isPassword === false) {
       setPasswordMessage("비밀번호를 입력하세요.")
       return false
     }
     const userInfo = {
-      nickname : nickName,
-      email: email,
-      password : password,
+      "nickName": nickName,
+      "email": email,
+      "password": password,
     }
     dispatch(__postUser(userInfo))
 
     if(isSignupSucess){
       navigate("/login")
+    }
+
+    if(isSignupError) {
+      alert(isSignupError)
     }
   }
 

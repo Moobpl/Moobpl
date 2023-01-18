@@ -1,60 +1,49 @@
-import React, { useCallback } from "react";
+import React, { useEffect, useRef } from "react";
 import Header from "../components/Header";
 import MainCard from "../components/MainCard";
 import MainLifeCard from "../components/MainLifeCard";
 import MainCityCard from "../components/MainCityCard";
+import TopButton from "../components/TopButton";
+import Footer from "../components/Footer";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux";
+import { __getUser } from "../redux/modules/userSlice";
 
 const Main = () => {
+  const { citys, life } = useSelector((state) => state.city)
+  const { me } = useSelector((state) => state.user)
+  const dispatch = useDispatch()
   const headstate = true;
+  const page = "main"
   const navigate = useNavigate();
-  const datas = [{
-    _id : 1,
-    name: "서울시",
-    disc: "미래도시 영등포",
-    imgSrc: "images/city/seoul.jpg"
-  }, {
-    _id : 2,
-    name: "인천시",
-    disc: "힘내자",
-    imgSrc: "images/city/yeongdeungpo.png"
-  }, {
-    _id : 3,
-    name: "제주시",
-    disc: "힘내자",
-    imgSrc: "images/city/jeju.jpg"
-  }, {
-    _id : 4,
-    name: "광주시",
-    disc: "힘내자",
-    imgSrc: "images/city/yeongdeungpo.png"
-  }, {
-    _id : 5,
-    name: "세종시",
-    disc: "힘내자",
-    imgSrc: "images/city/suwon.jpg"
-  }, {
-    _id : 6,
-    name: "수원시",
-    disc: "힘내자",
-    imgSrc: "images/city/suwon.jpg"
-  }]
-  
-  const newData = datas.slice(0, 4)
+  const wrap = useRef();
+  const newArr = [...citys]
+  const newArr2 = [...life]
 
-  console.log(newData)
-  const shuffleArray = useCallback((arr)=>{
+  const sliceArr = newArr.slice(0, 6)
+  const sliceArr2 = newArr2.slice(0, 4)
+
+  const shuffleArray = (arr) => {
     arr.sort(() => Math.random() - 0.5);
-      console.log("hello")
+    console.log('실행중')
+  }
+
+  console.log()
+
+  useEffect(() => {
+    dispatch(__getUser())
   },[])
 
-  shuffleArray(newData)
+  shuffleArray(sliceArr)
+  shuffleArray(sliceArr2)
+
+
 
   return (
     <>
-      <Header headstate={headstate}></Header>
-      <Wrap>
+      <Header headstate={headstate} page={page}></Header>
+      <Wrap ref={wrap}>
         <Section>
           <TextBox>
             <span>뭅플</span>
@@ -69,7 +58,9 @@ const Main = () => {
               <h2>생활정보</h2>
               <span onClick={() => { navigate("/lifeinfolist") }}>더 보기</span>
             </Subtitle>
-            <MainLifeCard></MainLifeCard>
+            <LifeCardWrap>
+              <MainLifeCard datas={sliceArr2}></MainLifeCard>
+            </LifeCardWrap>
           </LifeWrap>
 
           <CityWrap>
@@ -77,10 +68,12 @@ const Main = () => {
               <h2>도시정보</h2>
               <span onClick={() => { navigate("/areainfolist") }}>더 보기</span>
             </div>
-            <MainCityCard datas={newData}></MainCityCard>
+            <MainCityCard datas={sliceArr}></MainCityCard>
           </CityWrap>
+          <Footer></Footer>
         </Section>
       </Wrap>
+      <TopButton wrap={wrap}></TopButton>
     </>
   );
 }
@@ -125,17 +118,6 @@ const TextBox = styled.div`
     /* or 154% */
     letter-spacing: 0.5px;
     color: #282B49;
-
-    span{
-      font-size: 26px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: 40px;
-      /* or 154% */
-      letter-spacing: 0.5px;
-      color: #f9a76f;
-    }
-
   }
 `
 
@@ -145,13 +127,29 @@ const LifeWrap = styled.div`
   /* margin-top: 31px; */
 `
 
+const LifeCardWrap = styled.div`
+  margin-left: 24px;
+  display: flex;
+  gap: 16px;
+  overflow: scroll;
+  padding-bottom: 70px;
+
+  &::-webkit-scrollbar {
+  display: none; /* 크롬, 사파리, 오페라, 엣지 */
+  }
+
+  >div{
+    min-width: 218px;
+  }
+`
+
 const Subtitle = styled.div`
     width: calc(100% - 48px);
     display: flex;
     justify-content: space-between;
     align-items: baseline;
     margin: 0 auto;
-
+    margin-bottom: 11px;
     h2{
       font-weight: 400;
       font-size: 18px;
@@ -165,12 +163,13 @@ const Subtitle = styled.div`
       font-size: 12px;
       line-height: 18px;
       color: #BEBEBE;
+      cursor: pointer;
     }
 `
 
 const CityWrap = styled.div`
   width: ${wrapCalc};
-  margin: 15px auto 0px auto;
+  margin: -55px auto 0px auto;
   > div {
     display: flex;
     justify-content: space-between;
@@ -190,6 +189,7 @@ const CityWrap = styled.div`
       font-size: 12px;
       line-height: 18px;
       color: #BEBEBE;
+      cursor: pointer;
     }
   }
 `

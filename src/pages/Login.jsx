@@ -1,11 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ButtonSubmit from "../components/ButtonSubmit";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { __postLogin } from "../redux/modules/userSlice";
 
 function Login() {
   const name = "로그인"
   const navigate = useNavigate()
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("")
+  const dispatch = useDispatch();
+  const { isLoginError, me, isLoginSucess } = useSelector((state)=>state.user)
+
+  const userInfo = {
+    email: email,
+    password: password,
+  }
+
+  const onSubmit = () =>{
+    dispatch(__postLogin(userInfo))
+  }
+  
+  useEffect(()=>{
+    if(isLoginSucess){
+      navigate('/main')
+    }
+  },[isLoginSucess])
 
   return (
     <>
@@ -17,10 +38,10 @@ function Login() {
             <span>뭅플</span>입니다.
           </h1>
         </TextBox>
-        <InputEmail placeholder="Email"></InputEmail>
-        <InputPassword placeholder="password"></InputPassword>
+        <InputEmail placeholder="Email" value={email} onChange={(e)=>{setEmail(e.target.value)}}></InputEmail>
+        <InputPassword placeholder="password" type="password" value={password} onChange={(e)=>{setPassword(e.target.value)}}></InputPassword>
 
-        <ButtonWrap>
+        <ButtonWrap onClick={onSubmit}>
           <ButtonSubmit buttonName={name}></ButtonSubmit>
           <p>아직 회원이 아니신가요? <span onClick={() => { navigate("/signup") }}>회원가입</span></p>
         </ButtonWrap>

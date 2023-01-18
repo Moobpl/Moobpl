@@ -1,34 +1,41 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
+import { __postLogout } from '../redux/modules/userSlice';
+import { useDispatch } from 'react-redux';
 
 const HambergerList = ({ margin }) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const logoutHandler = () => {
+        dispatch(__postLogout())
+    }
     return (
         <Wrap margin={"60px"}>
             <li onClick={()=>{navigate("/areainfolist")}}>
-                <div><img src="images/hamberger/1x/Asset 1.png" alt="" /></div>
+                <div><img src={`${process.env.PUBLIC_URL}/images/hamberger/1x/Asset 1.png`} alt="" /></div>
                 <span>도시정보</span>
             </li>
             <li onClick={()=>{navigate("/lifeinfolist")}}>
-                <div><img src="images/hamberger/1x/Asset 2.png" alt="" /></div>
+                <div><img src={`${process.env.PUBLIC_URL}/images/hamberger/1x/Asset 2.png`} alt="" /></div>
                 <span>생활정보</span>
             </li>
             <li onClick={()=>{navigate("/event")}}>
-                <div><img src="images/hamberger/1x/Asset 3.png" alt="" /></div>
+                <div><img src={`${process.env.PUBLIC_URL}/images/hamberger/1x/Asset 3.png`} alt="" /></div>
                 <span>이벤트</span>
             </li>
             <li onClick={()=>{navigate("/setting")}}>
-                <div><img src="images/hamberger/1x/Asset 4.png" alt="" /></div>
+                <div><img src={`${process.env.PUBLIC_URL}/images/hamberger/1x/Asset 4.png`} alt="" /></div>
                 <span>설정</span>
             </li>
             <li onClick={()=>{navigate("/profile")}}>
-                <div><img src="images/hamberger/1x/Asset 5.png" alt="" /></div>
+                <div><img src={`${process.env.PUBLIC_URL}/images/hamberger/1x/Asset 5.png`} alt="" /></div>
                 <span>프로필 수정</span>
             </li>
-            <img src="images/hamberger/adbanner.png" alt="" />
-            <Logout className="logout">
-                <img src="images/hamberger/1x/Asset 6.png" alt="" />
+            <img src={`${process.env.PUBLIC_URL}/images/hamberger/adbanner.png`} alt="" />
+            <Logout className="logout" onClick={logoutHandler}>
+                <img src={`${process.env.PUBLIC_URL}/images/hamberger/1x/Asset 6.png`} alt="" />
                 <span>로그아웃</span>
             </Logout>
         </Wrap>

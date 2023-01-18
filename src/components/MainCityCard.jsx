@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -12,7 +12,7 @@ const MainCityCard = ({datas}) => {
                 <CardWrap key={index} onClick={()=>{navigate(`/areainfodetail/${data._id}`)}}>
                     <div>
                         <ImgWrap>
-                            <img src={data.imgSrc} alt="" />
+                            <img src={`${process.env.PUBLIC_URL}/${data.imgSrc}`} alt="" />
                         </ImgWrap>
                         <h4>{data.name}</h4>
                         <p>{data.disc}</p>
@@ -37,9 +37,12 @@ const CardWrap = styled.div`
     border-radius: 16px;
     padding:8px;
     box-sizing: border-box;
-
+    cursor: pointer;
+    &:hover{
+        box-shadow: 10px 24px 54px rgba(0, 0, 0, 0.10);
+    }
     h4{
-        font-weight: 500;
+        font-weight: 400;
         font-size: 14px;
         line-height: 21px;
         letter-spacing: 0.3px;
@@ -48,10 +51,14 @@ const CardWrap = styled.div`
     }
 
     p{
+        width: 100%;
         font-weight: 400;
         font-size: 12px;
         line-height: 18px;
         color: #ACACAC;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 `
 

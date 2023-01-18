@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import Hamberger from "../components/Hamberger"
 
-const Header = ({ headstate }) => {
+const Header = ({ headstate, page }) => {
   const navigate = useNavigate();
   const [menuOpen , setMenuOpen] = useState("close")
 
@@ -15,15 +15,20 @@ const Header = ({ headstate }) => {
     <>
       <HeaderWrap>
         <Container>
-          <img src="images/backarrow.png" alt="" onClick={() => { navigate(-1) }} />
-          {headstate ? <Menu onClick={()=>{openHandler("open")}}>
+          {
+           page ? 
+            "로고" : <img src={`${process.env.PUBLIC_URL}/images/backarrow.png`} alt="" onClick={() => { navigate(-1) }} />
+          }
+          {headstate ?
+          <Menu onClick={()=>{openHandler("open")}}>
             <span></span>
             <span></span>
             <span></span>
           </Menu> : null}
         </Container>
       </HeaderWrap>
-      <Hamberger open={menuOpen} openHandler={openHandler}></Hamberger>
+      {headstate ? <Hamberger open={menuOpen} openHandler={openHandler}></Hamberger> : null}
+      {menuOpen === "open" ? <BackWrap /> : null}
     </>
   );
 };
@@ -37,8 +42,8 @@ const HeaderWrap = styled.header`
   display: flex;
   justify-content: center;
   position: fixed;
-  background-color: #fff;
-  z-index: 999;
+  background-color: #FBFBFC;
+  z-index: 998;
   overflow: hidden;
 `
 
@@ -49,7 +54,7 @@ const Container = styled.div`
   align-items: center;
 
   img{
-
+    cursor: pointer;
   }
 `
 
@@ -57,6 +62,7 @@ const Menu = styled.div`
   width: 18px;
   height: 16px;
   position: relative;
+  cursor: pointer;
 
   span{
     display: block;
@@ -81,4 +87,13 @@ const Menu = styled.div`
     bottom: 0px;
     right: 0;
   }
+`
+
+const BackWrap = styled.div`
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3.5px);
+  position: absolute;
+  z-index: 998;
 `

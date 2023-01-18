@@ -1,23 +1,29 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import HambergerList from './HambergerList'
 
 const Hamberger = ({ open, openHandler }) => {
-  const [close, setClose] = useState(false)
-  const [className, setClassname] = useState("")
+  const navigate = useNavigate();
+  const { me, isLogoutSucess } = useSelector((state) => state.user)
 
   return (
     <Wrap className={`${open}`}>
       <header>
-        <img src="images/hamberger/1x/Asset 7.png" alt="" onClick={()=>{openHandler("close")}} />
+        <div>
+          <img src={`${process.env.PUBLIC_URL}/images/hamberger/1x/Asset 7.png`} alt="" onClick={() => { openHandler("close") }} />
+        </div>
       </header>
       <section>
-        <Profile>
-          <Photo></Photo>
-          <h4>닉네임</h4>
-        </Profile>
-        <Myplan>내 계획 : 0</Myplan>
-        <HambergerList margin={"60px"}></HambergerList>
+        <Container>
+          <Profile>
+            <Photo></Photo>
+            <h4>{me?.nickName}</h4>
+          </Profile>
+          <Myplan onClick={() => { navigate("/myplan") }}>내 계획 : 0</Myplan>
+          <HambergerList margin={"60px"}></HambergerList>
+        </Container>
       </section>
     </Wrap>
   )
@@ -27,12 +33,12 @@ export default Hamberger
 
 const Wrap = styled.div`
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
     position: absolute;
     top: 0;
     left: 0;
     background-color: #fff;
-    transition: 0.3s;
+    transition: 0.6s;
     z-index: 9999;
     transform: translateX(100%);
 
@@ -45,23 +51,36 @@ const Wrap = styled.div`
     }
 
     header {
-      width: calc(100% - 48px);
+      width: 100%;
       height: 60px;
+      position: fixed;
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      margin: 0 auto;
-      >img{
-        display: block;
-        width: 14px;
-        height: 14px;
+      background-color: #fff;
+
+      >div{
+        width: calc(100% - 48px);
+        margin: 0 auto;
+        >img{
+          display: block;
+          width: 14px;
+          height: 14px;
+          float: right;
+        }
       }
     }
 
     section {
-      width: calc(100% - 48px);
-      margin: 0 auto;
+      height: 100vh;
+      overflow-y: auto;
     }
+`
+
+const Container = styled.div`
+    width: calc(100% - 48px);
+    margin: 0 auto;
+    padding-top: 60px;
 `
 
 const Profile = styled.div`

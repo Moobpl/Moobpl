@@ -7,7 +7,7 @@ const MainCard = () => {
     return (
         <CardWrap>
             <div>
-                <img src="images/Blue Blank Cartoon Calendar.H03.2k.png" alt="" />
+                <img src={`${process.env.PUBLIC_URL}/images/Blue Blank Cartoon Calendar.H03.2k.png`} alt="" />
                 <div>
                     <h2>이사스케줄</h2>
                     <p>일정관리를 시작합니다!</p>
