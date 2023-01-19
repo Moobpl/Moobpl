@@ -13,6 +13,10 @@ import AreaInfoDetail from "../pages/AreaInfoDetail";
 import LifeInfoList from "../pages/LifeInfoList";
 import LifeInfoDetail from "../pages/LifeInfoDetail";
 import Setting from "../pages/Setting";
+import Announcement from "../pages/Announcement";
+import AnnouncementDetail from "../pages/AnnouncementDetail";
+import Service from "../pages/Service";
+import Privacy from "../pages/Privacy";
 import Event from "../pages/Event";
 
 
@@ -33,6 +37,10 @@ const routes = () => {
       <Route path="/lifeinfolist" element={<LifeInfoList />}/>
       <Route path="/lifeinfodetail" element={<LifeInfoDetail />}/>
       <Route path="/setting" element={<Setting />}/>
+      <Route path="/setting/announcement" element={<Announcement />}/>
+      <Route path="/setting/announcement/:id" element={<AnnouncementDetail />}/>
+      <Route path="/setting/service" element={<Service />}/>
+      <Route path="/setting/privacy" element={<Privacy />}/> 
       <Route path="/event" element={<Event />}/>
     </Routes>
   </BrowserRouter>

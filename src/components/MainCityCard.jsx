@@ -8,7 +8,7 @@ const MainCityCard = ({datas}) => {
     console.log(arr)
     return (
         <Wrap>
-            {arr.map((data, index) =>
+            {datas.map((data, index) =>
                 <CardWrap key={index} onClick={()=>{navigate(`/areainfodetail/${data._id}`)}}>
                     <div>
                         <ImgWrap>

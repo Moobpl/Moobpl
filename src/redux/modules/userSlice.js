@@ -19,7 +19,7 @@ export const __postLogin = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log(payload)
     try {
-      const data = await axios.post("http://localhost:8080/user/login", payload , {
+      const data = await axios.post("http://localhost:8080/user/login", payload, {
         withCredentials: true,
       });
       return thunkAPI.fulfillWithValue(data.data);
@@ -34,7 +34,7 @@ export const __getUser = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log(payload)
     try {
-      const data = await axios.get("http://localhost:8080/user/" , {
+      const data = await axios.get("http://localhost:8080/user/", {
         withCredentials: true,
       });
       return thunkAPI.fulfillWithValue(data.data);
@@ -49,7 +49,7 @@ export const __postLogout = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log(payload)
     try {
-      const data = await axios.post("http://localhost:8080/user/logout", payload , {
+      const data = await axios.post("http://localhost:8080/user/logout", payload, {
         withCredentials: true,
       });
       return thunkAPI.fulfillWithValue(data.data);
@@ -59,15 +59,31 @@ export const __postLogout = createAsyncThunk(
   }
 );
 
-const initialState = {
-  me: [
+export const __patchUser = createAsyncThunk(
+  "patch/User",
+  async (payload, thunkAPI) => {
+    console.log(payload)
+    try {
+      const data = await axios.patch("http://localhost:8080/user", payload, {
+        withCredentials: true,
+      });
+      console.log(data.data)
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
 
-  ],
+const initialState = {
+  me: [],
   isLoading: false,
   isSignupSucess: false,
   isSignupError: false,
   isLoginSucess: false,
   isLoginError: false,
+  isUpdateSucess : false, // 프로필 업데이트 성공여부
+  isUpdateError : false, // 프로필 업데이트 에러
 };
 
 const userSlice = createSlice({
@@ -124,8 +140,19 @@ const userSlice = createSlice({
       state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
       state.logoutErr = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
     },
+    [__patchUser.pending]: (state) => {
+      state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
+    },
+    [__patchUser.fulfilled]: (state, action) => {
+      state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
+      state.isUpdateSucess = true;
+    },
+    [__patchUser.rejected]: (state, action) => {
+      state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
+      state.isUpdateError = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
+    },
   }
 });
 
-export const {} = userSlice.actions;
+export const { } = userSlice.actions;
 export default userSlice.reducer;

@@ -1,9 +1,11 @@
 import React from "react";
 import Header from "../components/Header";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const Setting = () => {
   const headstate = true;
+  const navigate = useNavigate();
   return (
     <>
       <Header headstate={headstate}></Header>
@@ -15,7 +17,41 @@ const Setting = () => {
           </h1>
         </TextBox>
         <Section>
-          <h5>어플리케이션 정보</h5>
+          <dl>
+            <dt>사이트 정보</dt>
+            <dd>
+              <ul>
+                <li>버전정보</li>
+                <li>1.0</li>
+              </ul>
+            </dd>
+            <dt style={{ marginTop: "24px" }}>고객센터</dt>
+            <dd>
+              <ul>
+                <li>공지사항</li>
+                <li><img src={`${process.env.PUBLIC_URL}/images/backarrow.png`} alt="" onClick={()=>{navigate('./announcement')}}/></li>
+              </ul>
+              <ul>
+                <li>자주묻는 질문</li>
+                <li><img src={`${process.env.PUBLIC_URL}/images/backarrow.png`} alt="" onClick={()=>{alert('서비스 준비중 입니다.')}}/></li>
+              </ul>
+            </dd>
+            <dt style={{ marginTop: "24px" }}>서비스약관</dt>
+            <dd>
+              <ul>
+                <li>서비스 이용약관</li>
+                <li><img src={`${process.env.PUBLIC_URL}/images/backarrow.png`} alt="" onClick={()=>{navigate('./service')}}/></li>
+              </ul>
+              <ul>
+                <li>개인정보 처리방침</li>
+                <li><img src={`${process.env.PUBLIC_URL}/images/backarrow.png`} alt="" onClick={()=>{navigate('./privacy')}}/></li>
+              </ul>
+              <ul>
+                <li>오픈소스 라이선스</li>
+                <li><img src={`${process.env.PUBLIC_URL}/images/backarrow.png`} alt=""/></li>
+              </ul>
+            </dd>
+          </dl>
         </Section>
       </Wrap>
     </>
@@ -62,7 +98,32 @@ const TextBox = styled.div`
 `
 
 const Section = styled.section`
-  height: 100px;
   margin-top: 40px;
-  background-color: red;
+
+  dl{
+    dt{
+      font-weight: 500;
+      font-size: 16px;
+      color: #282B49;
+    }
+    dd{
+      font-weight: 400;
+      font-size: 16px;
+      color: #282B49;
+      ul{
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 0.5px solid #bcbcbc;
+        padding: 15px;
+
+        li{
+          img{
+            width: 80%;
+            transform: rotate(180deg);
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
 `

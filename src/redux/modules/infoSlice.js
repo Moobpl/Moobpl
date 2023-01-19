@@ -46,7 +46,7 @@ const initialState = {
         }
     ],
 
-    life:[
+    life: [
         {
             _id: 1,
             name: "세탁정보",
@@ -82,17 +82,32 @@ const initialState = {
             name: "도배정보",
             disc: "셀프 인테리어의 시작",
             imgSrc: "images/life/2.jpg"
+        },
+    ],
+
+    post: [
+        {
+            _id: 1,
+            title: "뭅플 사이트를 오픈하였습니다.",
+            script: `안녕하세요. 뭅플입니다.\n
+            여러분의 많은 관심 부탁드립니다.\n
+            많은 분들이 기다렸던 그런 어플
+            드디어 소개 됩니다.\n
+            이제 여러분의 설레는 멋진 일정을
+            만들어보세요.
+            `,
+            date: "2023.01.19"
         },
     ]
 };
 
-const citySlice = createSlice({
-    name: "city",
+const infoSlice = createSlice({
+    name: "info",
     initialState,
     reducers: {},
     extraReducers: {
     }
 });
 
-export const {} = citySlice.actions;
-export default citySlice.reducer;
+export const { } = infoSlice.actions;
+export default infoSlice.reducer;

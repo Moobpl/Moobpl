@@ -5,7 +5,7 @@ import { configureStore } from "@reduxjs/toolkit";
  * import 해온 것은 slice.reducer 입니다.
  */
 import user from "../modules/userSlice";
-import city from "../modules/citySlice"
+import info from "../modules/infoSlice"
 
 /**
  * 모듈(Slice)이 여러개인 경우
@@ -16,7 +16,7 @@ import city from "../modules/citySlice"
  */
 const store = configureStore({
   reducer: {
-    city,
+    info,
     user
   }
 });

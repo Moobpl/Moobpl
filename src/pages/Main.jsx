@@ -11,8 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { __getUser } from "../redux/modules/userSlice";
 
 const Main = () => {
-  const { citys, life } = useSelector((state) => state.city)
-  const { me } = useSelector((state) => state.user)
+  const { citys, life } = useSelector((state) => state.info)
+
   const dispatch = useDispatch()
   const headstate = true;
   const page = "main"
@@ -28,12 +28,6 @@ const Main = () => {
     arr.sort(() => Math.random() - 0.5);
     console.log('실행중')
   }
-
-  console.log()
-
-  useEffect(() => {
-    dispatch(__getUser())
-  },[])
 
   shuffleArray(sliceArr)
   shuffleArray(sliceArr2)

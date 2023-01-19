@@ -7,7 +7,7 @@ import Footer from "../components/Footer";
 import { useSelector } from "react-redux";
 
 function AreaInfoList() {
-  const { citys } = useSelector((state) => state.city)
+  const { citys } = useSelector((state) => state.info)
   const wrap = useRef();
   const headstate = true;
   return (

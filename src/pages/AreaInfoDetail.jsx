@@ -6,7 +6,7 @@ import Header from "../components/Header";
 
 function AreaInfoDetail() {
   const headstate = true;
-  const { citys } = useSelector((state) => state.city)
+  const { citys } = useSelector((state) => state.info)
   const { id } = useParams()
   
   const findCity = citys.find((item) => {

@@ -5,9 +5,9 @@ import Hamberger from "../components/Hamberger"
 
 const Header = ({ headstate, page }) => {
   const navigate = useNavigate();
-  const [menuOpen , setMenuOpen] = useState("close")
+  const [menuOpen, setMenuOpen] = useState("close")
 
-  const openHandler = (text) =>{
+  const openHandler = (text) => {
     setMenuOpen(text)
   }
 
@@ -16,15 +16,15 @@ const Header = ({ headstate, page }) => {
       <HeaderWrap>
         <Container>
           {
-           page ? 
-            "로고" : <img src={`${process.env.PUBLIC_URL}/images/backarrow.png`} alt="" onClick={() => { navigate(-1) }} />
+            page ?
+              "로고" : <img src={`${process.env.PUBLIC_URL}/images/backarrow.png`} alt="" onClick={() => { navigate(-1) }} />
           }
           {headstate ?
-          <Menu onClick={()=>{openHandler("open")}}>
-            <span></span>
-            <span></span>
-            <span></span>
-          </Menu> : null}
+            <Menu onClick={() => { openHandler("open") }}>
+              <span></span>
+              <span></span>
+              <span></span>
+            </Menu> : null}
         </Container>
       </HeaderWrap>
       {headstate ? <Hamberger open={menuOpen} openHandler={openHandler}></Hamberger> : null}

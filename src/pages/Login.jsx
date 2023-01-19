@@ -11,22 +11,22 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("")
   const dispatch = useDispatch();
-  const { isLoginError, me, isLoginSucess } = useSelector((state)=>state.user)
+  const { isLoginError, me, isLoginSucess } = useSelector((state) => state.user)
 
   const userInfo = {
     email: email,
     password: password,
   }
 
-  const onSubmit = () =>{
+  const onSubmit = () => {
     dispatch(__postLogin(userInfo))
   }
-  
-  useEffect(()=>{
-    if(isLoginSucess){
+
+  useEffect(() => {
+    if (isLoginSucess) {
       navigate('/main')
     }
-  },[isLoginSucess])
+  }, [isLoginSucess])
 
   return (
     <>
@@ -38,8 +38,8 @@ function Login() {
             <span>뭅플</span>입니다.
           </h1>
         </TextBox>
-        <InputEmail placeholder="Email" value={email} onChange={(e)=>{setEmail(e.target.value)}}></InputEmail>
-        <InputPassword placeholder="password" type="password" value={password} onChange={(e)=>{setPassword(e.target.value)}}></InputPassword>
+        <InputEmail placeholder="Email" value={email} onChange={(e) => { setEmail(e.target.value) }}></InputEmail>
+        <InputPassword placeholder="password" type="password" value={password} onChange={(e) => { setPassword(e.target.value) }}></InputPassword>
 
         <ButtonWrap onClick={onSubmit}>
           <ButtonSubmit buttonName={name}></ButtonSubmit>

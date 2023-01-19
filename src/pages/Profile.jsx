@@ -2,17 +2,24 @@ import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import ButtonSubmit from "../components/ButtonSubmit";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { __patchUser } from "../redux/modules/userSlice";
 
 function Profile() {
   const headstate = true
   const name = "수정완료"
   const { me } = useSelector((state) => state.user)
   const [nickname, setNickname] = useState(me.nickName)
-
+  const dispatch = useDispatch();
   useEffect(() => {
     setNickname(me.nickName)
   }, [me])
+
+  const onEditHandler = (e) => {
+    e.preventDefault()
+    dispatch(__patchUser({nickname}))
+    window.location.reload()
+  }
 
   return (
     <>
@@ -28,7 +35,7 @@ function Profile() {
           <ImgWrap></ImgWrap>
           <span>{me.email}</span>
           <input type="text" value={nickname} onChange={(e) => { setNickname(e.target.value) }} />
-          <ButtonWrap>
+          <ButtonWrap onClick={onEditHandler}>
             <ButtonSubmit buttonName={name}></ButtonSubmit>
           </ButtonWrap>
         </Form>
