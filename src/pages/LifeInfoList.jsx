@@ -11,7 +11,7 @@ const LifeInfoList = () => {
   console.log(life)
   const headstate = true;
   const wrap = useRef();
-
+  const width = 'calc(100% - 48px)'
   return (
     <>
       <Header headstate={headstate}></Header>
@@ -26,7 +26,7 @@ const LifeInfoList = () => {
         <LifeWrap>
           <MainLifeCard datas={life}></MainLifeCard>
         </LifeWrap>
-        <Footer></Footer>
+        <Footer width={width}></Footer>
       </Wrap>
       <TopButton wrap={wrap}></TopButton>
     </>
@@ -73,7 +73,7 @@ const TextBox = styled.div`
 
 const LifeWrap = styled.div`
   width: ${wrapCalc};
-  margin: 45px auto 0px auto;
+  margin: 45px auto 40px auto;
   display: flex;
   flex-direction: column;
   gap: 16px;

@@ -20,7 +20,7 @@ const Main = () => {
   const wrap = useRef();
   const newArr = [...citys]
   const newArr2 = [...life]
-
+  const width = 'calc(100% - 48px)'
   const sliceArr = newArr.slice(0, 6)
   const sliceArr2 = newArr2.slice(0, 4)
 
@@ -64,7 +64,7 @@ const Main = () => {
             </div>
             <MainCityCard datas={sliceArr}></MainCityCard>
           </CityWrap>
-          <Footer></Footer>
+          <Footer width={width}></Footer>
         </Section>
       </Wrap>
       <TopButton wrap={wrap}></TopButton>
@@ -163,7 +163,7 @@ const Subtitle = styled.div`
 
 const CityWrap = styled.div`
   width: ${wrapCalc};
-  margin: -55px auto 0px auto;
+  margin: -55px auto 40px auto;
   > div {
     display: flex;
     justify-content: space-between;

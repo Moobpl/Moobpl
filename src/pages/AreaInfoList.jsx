@@ -10,6 +10,7 @@ function AreaInfoList() {
   const { citys } = useSelector((state) => state.info)
   const wrap = useRef();
   const headstate = true;
+  const width = 'calc(100% - 48px)'
   return (
     <>
       <Header headstate={headstate}></Header>
@@ -24,7 +25,7 @@ function AreaInfoList() {
         <CityWrap>
           <MainCityCard datas={citys}></MainCityCard>
         </CityWrap>
-        <Footer></Footer>
+        <Footer width={width}></Footer>
       </Wrap>
       <TopButton wrap={wrap}></TopButton>
     </>
@@ -71,7 +72,7 @@ const TextBox = styled.div`
 
 const CityWrap = styled.div`
   width: ${wrapCalc};
-  margin: 45px auto 0px auto;
+  margin: 45px auto 40px auto;
   > div {
     display: flex;
     justify-content: space-between;

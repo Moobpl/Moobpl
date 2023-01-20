@@ -26,7 +26,7 @@ const TopButton = ({wrap}) => {
         return () => {
             scrollWrap.removeEventListener("scroll", handleShowButton)
         }
-    }, [wrap]) 
+    }, []) 
     
 
     return showButton && (

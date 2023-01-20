@@ -15,9 +15,8 @@ const AnnouncementDetail = () => {
   const findPost = post.find((item) => {
     return item._id == id
   })
-
   const wrap = useRef()
-
+  const width = 'calc(100% - 48px)'
   return (
     <>
       <Header headstate={headstate}></Header>
@@ -29,7 +28,7 @@ const AnnouncementDetail = () => {
           <span>{findPost.date}</span>
           <TextScript>{findPost.script}</TextScript>
         </TextBox>
-        <Footer></Footer>
+        <Footer width={width}></Footer>
       </Wrap>
       <TopButton wrap={wrap}></TopButton>
     </>

@@ -1,9 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Footer = () => {
+const Footer = ({width}) => {
+
   return (
-    <Wrap>
+    <Wrap width={width}>
         <FooterButton>
             <div>친구에게 추천할래요</div>
             <div>설문조사 참여하기</div>
@@ -19,8 +20,8 @@ const Footer = () => {
 export default Footer
 
 const Wrap = styled.div`
-    width: calc(100% - 48px);
-    margin: 40px auto 24px auto;
+    width: ${(props) => props.width || '100%'};;
+    margin: auto auto 24px auto;
 `
 
 const FooterButton = styled.div`

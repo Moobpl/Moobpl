@@ -80,6 +80,7 @@ const TextBox = styled.div`
 
 const Section = styled.section`
   margin-top: 52px;
+  width: 100%;
 `
 
 const ListCard = styled.div`
