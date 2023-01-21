@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Slider from "../components/Slider"
 
 function AreaInfoDetail() {
   const headstate = true;
@@ -13,31 +14,7 @@ function AreaInfoDetail() {
   const findCity = citys.find((item) => {
     return item._id == id
   })
-  const slide = useRef()
-  let slideWidth = slide.clientWidth;
-  console.log(slideWidth)
-  let startPoint = 0;
-  let endPoint = 0;
-
-  const slideDown = (e) =>{
-    console.log("mousedown", e.pageX);
-    startPoint = e.pageX;
-    console.log(startPoint)
-  }
-
-  const slideUp = (e) =>{
-    console.log("mouseup", e.pageX);
-    let endPoint = e.pageX;
-    if (startPoint < endPoint) {
-      // 마우스가 오른쪽으로 드래그 된 경우
-      console.log("prev move");
-      // prevMove();
-    } else if (startPoint > endPoint) {
-      // 마우스가 왼쪽으로 드래그 된 경우
-      console.log("next move");
-      // nextMove();
-    }
-  }
+  
   return (
     <>
       <Header headstate={headstate}></Header>
@@ -50,15 +27,7 @@ function AreaInfoDetail() {
           <h2>{findCity.name}</h2>
           <MainScript>{findCity.script}</MainScript>
           <span>{findCity.name} 한눈에 보기</span>
-          <Window ref={slide} onMouseDown={slideDown} onMouseUp={slideUp}>
-            <Slide>
-              <li>1</li>
-              <li>2</li>
-              <li>3</li>
-              <li>4</li>
-              <li>5</li>
-            </Slide>
-          </Window>
+          <Slider data={findCity}></Slider>
         </Section>
         <Footer width={width}></Footer>
       </Wrap>
