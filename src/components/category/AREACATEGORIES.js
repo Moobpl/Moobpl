@@ -329,4 +329,5 @@ export const AREACATEGORIES = [
       { subCategoryId: 229, name: "제주시" },
     ]
   },
+  
 ]

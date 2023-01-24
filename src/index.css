@@ -21,7 +21,9 @@ body {
   position: relative;
   margin: 0 auto;
   background-color:#fbfbfc;
+  overflow: hidden;
 }
+
 code {
   /* font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace; */

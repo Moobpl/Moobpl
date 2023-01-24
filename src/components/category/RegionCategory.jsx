@@ -1,38 +1,49 @@
 import React, {useState, useRef} from 'react';
 import styled from "styled-components";
 
-const RegionCategory = ({id, title, subcategory}) => {
+const RegionCategory = ({id, title, subcategory, setAreaName, setShowRegBtn}) => {
   const [active, setActive] = useState("");
   const [height, setHeight] = useState("0px");
+
   const content = useRef(null);
   const list = useRef(null);
-  const toggle = () => {
-        setActive( active === "" ? "active" : "" );
-        setHeight( active === "active" ? "0px" : `${content.current.scrollHeight}px` );
-    };
-  return (
-    <AccItem className={`item${id} ${active}`}>
-        <RegionTab data-index={id} onClick={()=>toggle(id)} ref={list}>
-            <p>{id} {title}</p>
-        </RegionTab>
 
-        <SubRegTab
-              ref={content}
-              style={{height : `${height}`}}
-        > 
+  const toggle = () => {
+      setActive( active === "" ? "active" : "" );
+      setHeight( active === "active" ? "0px" : `${content.current.scrollHeight}px` );
+  };
+
+  const onClicksub = (name) => {
+    setShowRegBtn(true);
+    // setAreaName(name);
+    setAreaName(title.concat(" ", name))
+  }
+
+    return (
+      <>
+      <AccItem className={`item${id} ${active}`}>
+          <RegionTab data-index={id} onClick={()=>toggle(id)} ref={list}>
+              <p>{id} {title}</p>
+          </RegionTab>
+          <SubRegTab
+            ref={content}
+            style={{height : `${height}`}}
+          > 
             {subcategory.map((data)=>{
                 return(
-                  <div>
+                  <button
+                    onClick={()=> onClicksub(data.name)}
+                  >
                     {data.name}
-                  </div>
+                  </button>
                 );
               })
             }
-        </SubRegTab>
-    </AccItem>
+          </SubRegTab>
+      </AccItem>
+      </>
   );
 };
-
 
 
 const AccItem = styled.div`
@@ -41,7 +52,6 @@ const AccItem = styled.div`
   margin:0 auto;
   text-align:left; 
   .content{
-      
   }
   
 `;
@@ -57,24 +67,32 @@ const RegionTab = styled.button`
   border-radius: 14px;
   padding: 21px 0px 21px 13px;
   margin-bottom:23px;
+  cursor: pointer;
 `;
 
 const SubRegTab = styled.div`
   overflow:hidden;height:0;transition: height .3s ease;
-  
-      > div{
+      > button{
+        display: block;
+        width:100%;
+        text-align: justify;
+        border: none;
         padding:13px 12px;
         background-color:#faf3ef;
         border-radius: 14px;
         font-size:14px;
         color:#7e7e7e;
         margin-bottom:14px;
+        cursor: pointer;
       }
-      &.active{
-      background-color:#fff;
+      /* &:active{
+        background-color:#fff; 
+      } */
       .content{
-          height:auto;
+        height:auto;
       }
-  }
+      
+  
 `
+
 export default RegionCategory;

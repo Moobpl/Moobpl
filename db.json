@@ -1,0 +1,67 @@
+{
+  "plans": [
+    {
+      "id": 1,
+      "region": "지역명",
+      "date": "이사날짜",
+      "todos": [
+        {
+          "date": "2021.01.02",
+          "todo": [
+            {
+              "id": 1,
+              "title": "할일제목",
+              "body": "할일내용",
+              "category": "카테고리"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "areaName": "강남구",
+      "id": 2
+    },
+    {
+      "region": "강남구",
+      "date": "",
+      "checkList": [],
+      "id": 3
+    },
+    {
+      "region": "구로구",
+      "date": "",
+      "todos": [],
+      "checkList": [],
+      "id": 4
+    },
+    {
+      "region": "부산 강서구",
+      "date": "2023-02-13T15:00:00.000Z",
+      "todos": [],
+      "checkList": [],
+      "id": 5
+    },
+    {
+      "region": "대구 남구",
+      "date": "2023-02-08T15:00:00.000Z",
+      "todos": [],
+      "checkList": [],
+      "id": 6
+    },
+    {
+      "region": "서울 강남구",
+      "date": "2023-01-24T15:00:00.000Z",
+      "todos": [],
+      "checkList": [],
+      "id": 7
+    },
+    {
+      "region": "부산 강서구",
+      "date": "2023-02-21T15:00:00.000Z",
+      "todos": [],
+      "checkList": [],
+      "id": 8
+    }
+  ]
+}
