@@ -32,7 +32,6 @@ export const __postLogin = createAsyncThunk(
 export const __getUser = createAsyncThunk(
   "get/User",
   async (payload, thunkAPI) => {
-    console.log(payload)
     try {
       const data = await axios.get("http://localhost:8080/user/", {
         withCredentials: true,

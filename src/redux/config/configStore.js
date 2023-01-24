@@ -6,6 +6,7 @@ import { configureStore } from "@reduxjs/toolkit";
  */
 import user from "../modules/userSlice";
 import info from "../modules/infoSlice"
+import post from "../modules/postSlice"
 
 /**
  * 모듈(Slice)이 여러개인 경우
@@ -17,7 +18,8 @@ import info from "../modules/infoSlice"
 const store = configureStore({
   reducer: {
     info,
-    user
+    user,
+    post
   }
 });
 
