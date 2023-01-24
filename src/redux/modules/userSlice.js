@@ -6,7 +6,9 @@ export const __postUser = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log(payload)
     try {
-      const data = await axios.post("http://localhost:8080/user/signup", payload);
+      const data = await axios.post("https://moobplback.herokuapp.com/user/signup", payload, {
+        withCredentials: true,
+      });
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -19,7 +21,7 @@ export const __postLogin = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log(payload)
     try {
-      const data = await axios.post("http://localhost:8080/user/login", payload, {
+      const data = await axios.post("https://moobplback.herokuapp.com/user/login", payload, {
         withCredentials: true,
       });
       return thunkAPI.fulfillWithValue(data.data);
@@ -33,7 +35,7 @@ export const __getUser = createAsyncThunk(
   "get/User",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.get("http://localhost:8080/user/", {
+      const data = await axios.get("https://moobplback.herokuapp.com/user/", {
         withCredentials: true,
       });
       return thunkAPI.fulfillWithValue(data.data);
@@ -48,7 +50,7 @@ export const __postLogout = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log(payload)
     try {
-      const data = await axios.post("http://localhost:8080/user/logout", payload, {
+      const data = await axios.post("https://moobplback.herokuapp.com/user/logout", payload, {
         withCredentials: true,
       });
       return thunkAPI.fulfillWithValue(data.data);
@@ -63,7 +65,7 @@ export const __patchUser = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log(payload)
     try {
-      const data = await axios.patch("http://localhost:8080/user", payload, {
+      const data = await axios.patch("https://moobplback.herokuapp.com/user", payload, {
         withCredentials: true,
       });
       console.log(data.data)

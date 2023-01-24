@@ -1,4 +1,10 @@
-
+.rdrCalendarWrapper {
+  width: 100%;
+  background-color:transparent;
+}
+.rdrMonth {
+  padding:none;
+}
 .rdrMonthName {
   color: #1198A9;
 }

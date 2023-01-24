@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import styled from 'styled-components'
 import ButtonSubmit from './ButtonSubmit'
-import { __patchCheckList, __getPlan } from '../redux/modules/postSlice'
+import { __patchCheckList } from '../redux/modules/postSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 
@@ -12,12 +12,7 @@ const CheckList = () => {
     const [isOpen, setIsOpen] = useState(false)
     const [isChecked, setIsChecked] = useState(false) // 체크 여부
     const [checkedItems, setCheckedItems] = useState([])// 체크된 요소들
-    const name = '저장완료'
-
-    
-    useEffect(() => {
-        dispatch(__getPlan())
-    }, [])
+    const name = '저장완료';
 
     useEffect(()=>{
         if(plan){
