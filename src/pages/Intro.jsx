@@ -20,7 +20,6 @@ function Intro() {
     </LogoWrap>
   );
 }
-
 export default Intro;
 
 const LogoWrap = styled.div`

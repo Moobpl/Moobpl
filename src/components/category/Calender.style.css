@@ -1,0 +1,12 @@
+
+.rdrMonthName {
+  color: #1198A9;
+}
+button.rdrDay {
+  color:none;
+}
+button.rdrDay:focus {
+  background-color:#f9a76f;
+  border-radius: 20px;
+  box-sizing: border-box;
+}

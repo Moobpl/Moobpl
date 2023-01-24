@@ -5,6 +5,10 @@
   font-family: 'Noto Sans KR', sans-serif;
   list-style: none;
 }
+
+li {
+  list-style: none;
+}
 body {
   margin: 0;
   background-color:#e5e5e5;
@@ -21,8 +25,6 @@ body {
   background-color:#FBFBFC;
   overflow:hidden;
 }
-
-
 
 code {
   /* font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
