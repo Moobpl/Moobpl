@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import './App.css';
 import Routes from './routes/Routes';
-import Header from './components/Header';
-const App = () =>{
+import { useDispatch, useSelector } from 'react-redux';
+import { __getUser } from './redux/modules/userSlice';
+
+
+const App = () => {
+  const { me } = useSelector((state) => state.user)
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(__getUser())
+  },[])
+
   return (
     <>
-      <Header />
       <Routes />
     </>
   );
