@@ -29,9 +29,10 @@ const RegionCategory = ({id, title, subcategory, setAreaName, setShowRegBtn}) =>
             ref={content}
             style={{height : `${height}`}}
           > 
-            {subcategory.map((data)=>{
+            {subcategory.map((data, id)=>{
                 return(
                   <button
+                    key={id}
                     onClick={()=> onClicksub(data.name)}
                   >
                     {data.name}
@@ -85,9 +86,6 @@ const SubRegTab = styled.div`
         margin-bottom:14px;
         cursor: pointer;
       }
-      /* &:active{
-        background-color:#fff; 
-      } */
       .content{
         height:auto;
       }

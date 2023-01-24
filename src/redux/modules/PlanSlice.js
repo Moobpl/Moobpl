@@ -7,6 +7,7 @@ export const __postPlan = createAsyncThunk(
     console.log(payload)
     try {
       const data = await axios.post("http://localhost:3001/plans", payload);
+      // const data = await axios.post("https://moobplback.herokuapp.com/plan", payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);

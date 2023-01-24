@@ -3,13 +3,12 @@ import styled from "styled-components";
 import ButtonSubmit from "../components/ButtonSubmit";
 import RegionCategory from "../components/category/RegionCategory";
 import Calender from "../components/category/Calender";
-import MoobDetail from  "./MoobDetail";
 import { AREACATEGORIES } from '../components/category/AREACATEGORIES';
 
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { __postPlan } from "../redux/modules/PlanSlice";
-
+import { useEffect } from "react";
 
 const MoobAdd = () => {
   const name = "선택 완료"
@@ -23,9 +22,6 @@ const MoobAdd = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  console.log("선택지역", areaName);
-  
-  //지역 등록
   const planInfo = {
     region: areaName,
     date: date,
@@ -36,13 +32,11 @@ const MoobAdd = () => {
   const onSelectHandler = () => {
     setSelect(true);
     setShowRegBtn(false);
-    console.log("지역만 선택 버튼클릭");
   }
 
   const onTransmitHandler = () => {
     dispatch(__postPlan(planInfo));
-    navigate("/MoobDetail/:id");
-    console.log("지역&날짜 버튼클릭");
+    navigate("/MyPlan");
   }
 
   return (
@@ -60,7 +54,9 @@ const MoobAdd = () => {
           <>
               {AREACATEGORIES.map((item) => {
                 return (
-                    <RegionContainer>
+                    <RegionContainer
+                      key={item.id}
+                    >
                       <RegionCategory
                         key={item.id}
                         title={item.name}
@@ -69,7 +65,6 @@ const MoobAdd = () => {
                         setShowRegBtn={setShowRegBtn}
                       />
                     </RegionContainer>
-                  
                   );
                 })
               }
@@ -77,16 +72,6 @@ const MoobAdd = () => {
         )
       }
     </Wrap>
-    
-    {/* {show && <ButtonWrap
-                onClick={(select)=> onSelectHandler(select)}
-              >
-              <ButtonSubmit
-                buttonName={name}
-              ></ButtonSubmit>
-            </ButtonWrap> 
-    } */}
-
      {
       showRegBtn === true 
       ? (
@@ -109,7 +94,6 @@ const MoobAdd = () => {
           : null
         )
     } 
-    
     </>
   )
 };
