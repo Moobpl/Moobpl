@@ -7,6 +7,7 @@ function MoobDetail() {
       <WidgetCard />
     </div>
   );
+
 }
 
-export default MoobDetail;
+export default MoobDetail

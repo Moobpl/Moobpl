@@ -4,8 +4,12 @@ import { configureStore } from "@reduxjs/toolkit";
 /**
  * import 해온 것은 slice.reducer 입니다.
  */
-import post from "../modules/postSlice";
+
+import user from "../modules/userSlice";
+import info from "../modules/infoSlice"
+import post from "../modules/postSlice"
 import plans from "../modules/PlanSlice";
+
 
 /**
  * 모듈(Slice)이 여러개인 경우
@@ -16,7 +20,12 @@ import plans from "../modules/PlanSlice";
  */
 
 const store = configureStore({
-  reducer: { post: post, plans: plans }
+  reducer: {
+    info,
+    user,
+    post,
+    plans
+  }
 });
 
 export default store;
