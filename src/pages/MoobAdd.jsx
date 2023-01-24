@@ -36,7 +36,7 @@ const MoobAdd = () => {
 
   const onTransmitHandler = () => {
     dispatch(__postPlan(planInfo));
-    navigate("/MyPlan");
+    navigate("/myplan");
   }
 
   return (

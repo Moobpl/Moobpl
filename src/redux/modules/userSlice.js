@@ -6,7 +6,7 @@ export const __postUser = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log(payload)
     try {
-      const data = await axios.post("http://localhost:8080/user/signup", payload);
+      const data = await axios.post("https://moobplback.herokuapp.com/user/signup", payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -19,9 +19,7 @@ export const __postLogin = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log(payload)
     try {
-      const data = await axios.post("http://localhost:8080/user/login", payload, {
-        withCredentials: true,
-      });
+      const data = await axios.post("https://moobplback.herokuapp.com/user/login", payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -33,9 +31,7 @@ export const __getUser = createAsyncThunk(
   "get/User",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.get("http://localhost:8080/user/", {
-        withCredentials: true,
-      });
+      const data = await axios.get("https://moobplback.herokuapp.com/user");
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -48,7 +44,7 @@ export const __postLogout = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log(payload)
     try {
-      const data = await axios.post("http://localhost:8080/user/logout", payload, {
+      const data = await axios.post("api/user/logout", payload, {
         withCredentials: true,
       });
       return thunkAPI.fulfillWithValue(data.data);
@@ -63,7 +59,7 @@ export const __patchUser = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log(payload)
     try {
-      const data = await axios.patch("http://localhost:8080/user", payload, {
+      const data = await axios.patch("api/user", payload, {
         withCredentials: true,
       });
       console.log(data.data)

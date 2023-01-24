@@ -1,14 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
+axios.defaults.withCredentials = true;
 
 export const __getPlan = createAsyncThunk(
     "plan/getPlan",
     async (payload, thunkAPI) => {
         try {
-            const data = await axios.get("http://localhost:8080/plan", {
-                withCredentials: true,
-              });
+            const data = await axios.get("https://moobplback.herokuapp.com/plan");
             return thunkAPI.fulfillWithValue(data.data);
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response.data);
@@ -22,7 +20,7 @@ export const __postPlan = createAsyncThunk(
     async (payload, thunkAPI) => {
         console.log(payload)
         try {
-            const data = await axios.post("http://localhost:8080/plan", payload);
+            const data = await axios.post("https://moobplback.herokuapp.com/plan", payload);
             return thunkAPI.fulfillWithValue(data.data);
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response.data);
@@ -67,6 +65,7 @@ const postSlice = createSlice({
         },
         [__postPlan.fulfilled]: (state, action) => {
             state.checkList = action.payload;
+            state.postPlanSuccess = true;
         },
         [__postPlan.rejected]: (state, action) => {
             state.isLoading = false;
