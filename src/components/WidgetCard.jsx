@@ -1,16 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 
-const WidgetCard = () => {
+const WidgetCard = ({ data }) => {
+  console.log(data)
   return (
     <Wrap>
       <WidgetBox>
         <WidgetContainer>
           <Left>
-            하이  
+            {data.checkList?.length} / 29
           </Left>
           <Right>
-            헬로
+            {data.date}
           </Right>
         </WidgetContainer>
       </WidgetBox>
