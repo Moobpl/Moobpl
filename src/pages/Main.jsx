@@ -31,6 +31,7 @@ const Main = () => {
 
   shuffleArray(sliceArr)
   shuffleArray(sliceArr2)
+  
 
 
 

@@ -13,7 +13,7 @@ function MoobDetail() {
   const [myplan, setMyplan] = useState({})
 
   useEffect(() => {
-    dispatch(__getPlan())
+    // dispatch(__getPlan())
   }, []);
   
   useEffect(()=>{
@@ -25,17 +25,9 @@ function MoobDetail() {
     }
   },[plans]);
 
-  console.log(myplan)
-  // console.log(plans);
-
   return (
     <div>
       <WidgetCard data={myplan}/>
-      { myplan.todos?.length == 0 
-        ? 
-          "일정을 등록하세요" 
-        : (<butto></butto>) 
-      }
     </div>
   );
 

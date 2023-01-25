@@ -8,10 +8,9 @@ const WidgetCard = ({ data }) => {
       <WidgetBox>
         <WidgetContainer>
           <Left>
-            {data.checkList?.length} / 29
+            {data?.checkList?.length} / 29
           </Left>
           <Right>
-            {data.date}
           </Right>
         </WidgetContainer>
       </WidgetBox>
