@@ -65,6 +65,7 @@ const planSlice = createSlice({
     },
     [__getPlan.fulfilled]: (state, action) => {
       state.plans = action.payload;
+      state.isLoading = false;
     }, //payload === data.data 
        //액션객체 안에 payload값이 있다 
     [__getPlan.rejected]: (state, action) => {
