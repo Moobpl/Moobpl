@@ -105,6 +105,8 @@ const MoobAdd = () => {
   )
 };
 
+export default MoobAdd;
+
 const Wrap = styled.div`
   width:100%;
   height: 100%;
@@ -138,5 +140,3 @@ const ButtonWrap = styled.div`
   left: 0;
   bottom: 24px;
 `
-
-export default MoobAdd;
