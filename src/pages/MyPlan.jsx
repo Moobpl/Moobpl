@@ -7,7 +7,6 @@ import { useRef } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import ModalTodo from "../components/ModalTodo";
 
 const Myplan = () => {
   const headstate = true;
@@ -23,7 +22,7 @@ const Myplan = () => {
     dispatch(__getPlan())
   }, [])
 
-  const deleteHandler = (id) =>{
+  const deleteHandler = (id) => {
     dispatch(__deletePlan(id))
   }
 
@@ -37,18 +36,20 @@ const Myplan = () => {
             나의 이사일정.<br />
           </h1>
         </TextBox>
-        <span onClick={()=> setEdit(!edit)}>수정모드</span>
-        {plans?.map((item) => 
-           
-            <PlanCard key={item._id}>
-              <h4>{item.reigon}</h4>
-              <span>{item.date}</span>
-              {edit ? <button onClick={() =>deleteHandler(item._id)}>삭제하기</button> : 
+        <span onClick={() => setEdit(!edit)}>수정모드</span>
+        {plans?.map((item) =>
+
+          <PlanCard key={item._id}>
+            <h4>{item.reigon}</h4>
+            <span>{item.date}</span>
+            {edit ? <button onClick={() => deleteHandler(item._id)}>삭제하기</button> :
               <button onClick={() => navigate(`/moobdetail/${item._id}`)}>자세히보기</button>}
-            </PlanCard>
-          
+          </PlanCard>
+
         )}
-        <ModalTodo />
+        {
+          plans?.length === 0 ? "일정을 추가해보세요" : null
+        }
       </Wrap>
     </>
   )

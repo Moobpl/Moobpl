@@ -14,20 +14,30 @@ function AreaInfoDetail() {
   const findCity = citys.find((item) => {
     return item._id == id
   })
-  
+
   return (
     <>
       <Header headstate={headstate}></Header>
       <Wrap>
         <MainImg>
-          <img src={`${process.env.PUBLIC_URL}/${findCity.imgSrc}`} alt="" />
+          <img src={`${process.env.PUBLIC_URL}/${findCity.imgSrc[0]}`} alt="" />
         </MainImg>
         <Section>
           <h2>{findCity.disc}</h2>
           <h2>{findCity.name}</h2>
           <MainScript>{findCity.script}</MainScript>
-          <span>{findCity.name} 한눈에 보기</span>
+        </Section>
+        <SlideWrap>
+          <span>{findCity.name} 청년혜택 보기</span>
           <Slider data={findCity}></Slider>
+          <DeatailText href="https://www.youthcenter.go.kr/regionPlcyUnif/regionPlcyUnifList.do?bizId=&srchYgmnSpceId=&srchCtpvAreaCd=&srchWord=&srchRegion=003002001" target={"_blank"}>자세히 알아보기</DeatailText>
+        </SlideWrap>
+        <Section>
+          <span>계절별로 알아보는<br />{findCity.name} 날씨</span>
+          <ImgWrap>
+            <img src={`${process.env.PUBLIC_URL}/${findCity.imgSrc[1]}`} alt="" />
+          </ImgWrap>
+          <MainScript>{findCity.weather}</MainScript>
         </Section>
         <Footer width={width}></Footer>
       </Wrap>
@@ -43,23 +53,44 @@ const Wrap = styled.div`
   margin: 0 auto;
   position: relative;
   overflow-y: scroll;
-  display: flex;
-  flex-direction: column;
+  padding-top: 60px;
   &::-webkit-scrollbar {
   display: none; /* 크롬, 사파리, 오페라, 엣지 */
   }
+`
+
+const DeatailText = styled.a`
+  display: block;
+  text-align: right;
+  margin-right: 24px;
+  margin-top: -55px;
+  color: blue;
+  font-size: 12px;
+  text-decoration: underline;
+  cursor: pointer;
+  position: relative;
+  font-weight: 400;
+  z-index: 9;
 `
 
 const MainImg = styled.div`
   width: 100%;
   height: 200px;
   background-color: red;
-  padding-top: 60px;
   overflow: hidden;
 
   >img{
     width: 100%;
+    display: block;
     object-fit: fill;
+  }
+`
+
+const ImgWrap = styled.div`
+  >img{
+    width: 100%;
+    display: block;
+    margin-top: 10px;
   }
 `
 
@@ -75,9 +106,20 @@ const Section = styled.section`
     display: block;
     font-size: 14px;
     font-weight: 500;
+    line-height: 21px;
+    color: #282B49;
+  }
+`
+
+const SlideWrap = styled.div`
+  width: 100%;
+  >span{
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
     line-height: 24px;
     color: #282B49;
-    margin-top: 24px;
+    margin-left: 24px;
   }
 `
 

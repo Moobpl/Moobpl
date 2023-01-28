@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import WidgetCard from "../components/WidgetCard";
+import CheckList from "../components/CheckList";
 import { __getPlan } from "../redux/modules/PlanSlice";
 import { useParams } from "react-router-dom";
 
@@ -13,7 +14,7 @@ function MoobDetail() {
   const [myplan, setMyplan] = useState({})
 
   useEffect(() => {
-    // dispatch(__getPlan())
+    dispatch(__getPlan())
   }, []);
   
   useEffect(()=>{
@@ -28,6 +29,7 @@ function MoobDetail() {
   return (
     <div>
       <WidgetCard data={myplan}/>
+      <CheckList myplan={myplan}/>
     </div>
   );
 

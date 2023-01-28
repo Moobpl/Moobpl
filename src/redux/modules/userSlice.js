@@ -2,8 +2,10 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 axios.defaults.withCredentials = true;
 
+
+// 회원가입
 export const __postUser = createAsyncThunk(
-  "user/postUser",
+  "user/signUp",
   async (payload, thunkAPI) => {
     console.log(payload)
     try {
@@ -16,7 +18,7 @@ export const __postUser = createAsyncThunk(
 );
 
 export const __postLogin = createAsyncThunk(
-  "login/loginUser",
+  "user/login",
   async (payload, thunkAPI) => {
     console.log(payload)
     try {
@@ -29,7 +31,7 @@ export const __postLogin = createAsyncThunk(
 );
 
 export const __getUser = createAsyncThunk(
-  "get/User",
+  "user/getUserInfo",
   async (payload, thunkAPI) => {
     try {
       const data = await axios.get("https://moobplback.herokuapp.com/user");
@@ -41,7 +43,7 @@ export const __getUser = createAsyncThunk(
 );
 
 export const __postLogout = createAsyncThunk(
-  "logout/User",
+  "user/logout",
   async (payload, thunkAPI) => {
     console.log(payload)
     try {
@@ -56,7 +58,7 @@ export const __postLogout = createAsyncThunk(
 );
 
 export const __patchUser = createAsyncThunk(
-  "patch/User",
+  "user/patchInfo",
   async (payload, thunkAPI) => {
     console.log(payload)
     try {
@@ -78,8 +80,8 @@ const initialState = {
   isSignupError: false,
   isLoginSucess: false,
   isLoginError: false,
-  isUpdateSucess : false, // 프로필 업데이트 성공여부
-  isUpdateError : false, // 프로필 업데이트 에러
+  isUpdateSucess : false,
+  isUpdateError : false,
 };
 
 const userSlice = createSlice({
@@ -140,12 +142,13 @@ const userSlice = createSlice({
       state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
     },
     [__patchUser.fulfilled]: (state, action) => {
-      state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
+      state.isLoading = false;
       state.isUpdateSucess = true;
+      state.me.nickName = action.payload
     },
     [__patchUser.rejected]: (state, action) => {
-      state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
-      state.isUpdateError = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
+      state.isLoading = false;
+      state.isUpdateError = action.payload;
     },
   }
 });

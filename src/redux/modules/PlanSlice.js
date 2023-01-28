@@ -54,11 +54,11 @@ export const __deletePlan = createAsyncThunk(
 );
 
 export const __patchCheckList = createAsyncThunk(
-    "plan/postPlan",
+    "plan/patchCheckList",
     async (payload, thunkAPI) => {
         console.log(payload)
         try {
-            const data = await axios.patch(`http://localhost:8080/plan/${payload._id}/checklist`, payload);
+            const data = await axios.patch(`https://moobplback.herokuapp.com/plan/${payload._id}/checklist`, payload);
             return thunkAPI.fulfillWithValue(data.data);
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response.data);
@@ -68,7 +68,18 @@ export const __patchCheckList = createAsyncThunk(
 
 const initialState = {
     plans: [],
-    isPostplanSucess: false
+
+    isGetPlanLoading: false, // 계획 불러오기 로딩
+    isGetplanSucess: false, // 계획 불러오기 성공
+    isGetError: false, // 계획 불러오기 실패
+
+    isPostPlanLoading: false, // 계획 추가 로딩
+    isPostPlanSucess: false, // 계획 추가 성공
+    isPostPlanError: false, // 계획 추가 실패
+
+    isDeletePlanLoading: false, // 계획 삭제 로딩
+    isDeletePlanSucess: false, // 계획 삭제 성공
+    isDeletePlanError: false, // 계획 삭제 실패
 }
 
 const planSlice = createSlice({
@@ -77,43 +88,60 @@ const planSlice = createSlice({
     reducers: {
     },
     extraReducers: {
-        [__postPlan.pending]: (state) => {
-            state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
-            state.isPostplanSucess = false;
-        },
-        [__postPlan.fulfilled]: (state, action) => {
-            state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
-            state.isPostplanSucess = true;
-            state.plans.push(action.payload)
-            state.isSignupError = false; // Store에 있는 todos에 서버에서 가져온 todos를 넣습니다.
-        },
-        [__postPlan.rejected]: (state, action) => {
-            state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
-            state.isSignupError = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
-        },
+        // 계획 불러오기
         [__getPlan.pending]: (state) => {
-            state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
+            state.isGetPlanLoading = true;
         },
         [__getPlan.fulfilled]: (state, action) => {
             state.plans = action.payload;
-            state.isLoading = false;
-        }, //payload === data.data 
-        //액션객체 안에 payload값이 있다 
-        [__getPlan.rejected]: (state, action) => {
-            state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
-            state.isSignupError = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
+            state.isGetplanSucess = true;
+            state.isGetPlanLoading = false;
         },
+        [__getPlan.rejected]: (state, action) => {
+            state.isGetPlanLoading = false;
+            state.isGetError = action.payload;
+        },
+        
+        // 계획 등록
+        [__postPlan.pending]: (state) => {
+            state.isPostPlanLoading = true;
+            state.isPostplanSucess = false;
+        },
+        [__postPlan.fulfilled]: (state, action) => {
+            state.isPostPlanLoading = false;
+            state.isPostplanSucess = true;
+            state.plans.push(action.payload)
+        },
+        [__postPlan.rejected]: (state, action) => {
+            state.isPostPlanLoading = false;
+            state.isPostError = action.payload;
+        },
+
+        // 계획 삭제
         [__deletePlan.pending]: (state) => {
-            state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
+            state.isDeletePlanLoading = true;
         },
         [__deletePlan.fulfilled]: (state, action) => {
             state.plans = state.plans.filter((item) => item._id !== action.payload);
-            state.isLoading = false;
-        }, //payload === data.data 
-        //액션객체 안에 payload값이 있다 
+            state.isDeletePlanLoading = false;
+        },
         [__deletePlan.rejected]: (state, action) => {
-            state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
-            state.isSignupError = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
+            state.isDeletePlanLoading = false;
+            state.isDeletePlanError = action.payload;
+        },
+
+        // 체크리스트 수정
+        [__patchCheckList.pending]: (state) => {
+            state.isLoading = true;
+        },
+        [__patchCheckList.fulfilled]: (state, action) => {
+            const plan = state.plans.find((item) => item._id === action.payload._id);
+            plan.checkList = action.payload.checkList
+            state.isLoading = false;
+        },
+        [__patchCheckList.rejected]: (state, action) => {
+            state.isLoading = false;
+            state.isSignupError = action.payload;
         },
     },
 });
