@@ -60,7 +60,6 @@ const MoobAdd = () => {
           <>
               {AREACATEGORIES.map((item) => {
                 return (
-                    
                     <RegionContainer
                       key={item.id}
                     >

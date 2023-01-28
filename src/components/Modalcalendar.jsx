@@ -1,9 +1,19 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import styled from "styled-components";
-import CalendarModal from "./category/CalendarModal";
+import { useRef} from "react";
+import useOutSideClick from "./hooks/useOutSideClick";
 
-import { useEffect, useRef} from "react";
-import useOutSideClick from "./useOutSideClick";
+import { Calendar } from 'react-date-range';
+import ko from 'date-fns/locale/ko';
+import 'react-date-range/dist/styles.css'; 
+import 'react-date-range/dist/theme/default.css';
+import './category/Calender.style.css'
+
+import {__patchTodos} from "../redux/modules/PlanSlice";
+import { useDispatch, useSelector} from 'react-redux';
+import { useParams } from "react-router-dom";
+
+import dayjs from 'dayjs';
 
 const Modalcalendar = ({onClose }) => {
   const modalRef = useRef(null)
@@ -13,11 +23,46 @@ const Modalcalendar = ({onClose }) => {
 
  useOutSideClick(modalRef, handleClose);
  
+ const dispatch = useDispatch();
+  const { plan } = useSelector((state) => state.post);
+  // console.log("플랜", plan);
+  const { id } = useParams();
+  const [todoDate, setTodoDate] = useState("");
+
+  useEffect(()=>{
+    if(plan){
+      const findTodo= plan.find((item) => {
+         return item._id === id
+      })
+      setTodoDate(findTodo);
+    }
+  }, [plan]);
+
+  // console.log(todoDate);
+
+   const handleSelect = (todoDate) => {
+    
+    setTodoDate(todoDate);
+    // console.log("투두데이트",todoDate); 
+    dispatch(__patchTodos({
+      _id: id,
+      date: todoDate,
+      todo: [],
+    }));
+
+  }
+
   return (
     <Overlay>
       <ModalWrap ref={modalRef}>
         <Contents>
-          <CalendarModal></CalendarModal>
+          <Calendar className="calendar"
+            locale={ko}
+            months={4}
+            color={["#f9a76f"]}
+            todoDate={todoDate}
+            onChange={(todoDate) => handleSelect(dayjs(todoDate).format('YYYY-MM-DD'))}
+          />
         </Contents>
       </ModalWrap>
     </Overlay>

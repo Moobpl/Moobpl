@@ -6,20 +6,20 @@ import { __getPlan } from "../redux/modules/PlanSlice";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/Header";
+import TodoList from "../components/TodoList";
 
 function MoobDetail() {
   const headstate = true;
   const dispatch = useDispatch();
-  
   const { plans } = useSelector((state) => state.plans);
   const { id } = useParams();
-  const [myplan, setMyplan] = useState({})
 
+  const [myplan, setMyplan] = useState({})
   const [isOpen, setIsOpen] = useState(false);
 
-  const onClickButton = () => {
-    setIsOpen(true);
-  };
+  const [todos, setTodos] = useState([]);
+  const [dDay, setDday] = useState('');
+
   useEffect(() => {
     dispatch(__getPlan())
   }, []);
@@ -29,22 +29,18 @@ function MoobDetail() {
       const findPlan = plans.find((item) => {
          return item._id == id
       })
-      setMyplan(findPlan)
+      setMyplan(findPlan);
+      setTodos(findPlan?.todos);
     }
   },[plans]);
 
-  // console.log(myplan)
-  // // console.log(plans);
-
   return (
     <>
-      
       <Header headstate={headstate}></Header>
       
       <Wrap>
-        
         <WidgetCard data={myplan}/>
-        { myplan?.todos?.length == 0 
+        { myplan?.todos?.length === 0 
           ? 
             <Addinfotext>
               <p>
@@ -54,8 +50,12 @@ function MoobDetail() {
             </Addinfotext>
           : "" 
         }
-        
-        <AddBtn onClick={onClickButton}>+</AddBtn>
+        <TodoList 
+          key={todos?._id}  
+          todos={todos}>
+        </TodoList>
+
+        <AddBtn onClick={() => setIsOpen(true)}>+</AddBtn>
         {
           isOpen && (
             <Modalcalendar 
@@ -79,7 +79,7 @@ const Wrap = styled.div`
   overflow: scroll;
   position:relative;
   &::-webkit-scrollbar {
-  display: none; /* 크롬, 사파리, 오페라, 엣지 */
+  display: none;
   }
 `;
 const Addinfotext = styled.div`

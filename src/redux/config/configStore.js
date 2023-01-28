@@ -9,7 +9,6 @@ import user from "../modules/userSlice";
 import info from "../modules/infoSlice"
 import post from "../modules/postSlice"
 import plans from "../modules/PlanSlice";
-import todo from "../modules/todoSlice";
 
 
 /**
@@ -25,8 +24,7 @@ const store = configureStore({
     info,
     user,
     post,
-    plans,
-    todo
+    plans
   }
 });
 

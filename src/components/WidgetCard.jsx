@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 import dayjs from 'dayjs'; //날짜 포맷해주는 함수
 
-
 const WidgetCard = ({ data=[]}) => {
   const [dDay, setDday] = useState('');
 
