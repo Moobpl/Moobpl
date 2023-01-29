@@ -18,7 +18,7 @@ const CheckList = () => {
         if(plan){
             console.log(plan[0].checkList)
             let newArr = plan[0].checkList
-            console.log(newArr)
+            console.log("뉴어레이",newArr)
             setCheckedItems([...newArr])
         }    
     }, [plan])
