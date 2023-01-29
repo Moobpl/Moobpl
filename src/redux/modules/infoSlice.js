@@ -26,6 +26,23 @@ const initialState = {
                 "서울시 학자금 대출이자 지원",
                 "역세권 청년주택 공급",
             ],
+            street:[
+                {
+                    imgSrc:"images/city/seoul/hongdae-shopping-street.jpg",
+                    title:"홍대 쇼핑거리",
+                    address:"서울시 마포구"
+                },
+                {
+                    imgSrc:"images/city/seoul/Myeongdong-Seoul-shopping-district.jpg",
+                    title:"명동 거리",
+                    address:"서울시 중구"
+                },
+                {
+                    imgSrc:"images/city/seoul/gangnam.jpg",
+                    title:"강남역",
+                    address:"서울시 강남구"
+                }
+            ]
         }, {
             _id: 2,
             name: "인천광역시",

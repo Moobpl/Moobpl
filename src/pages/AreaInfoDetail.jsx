@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import StreetSlider from "../components/StreetSlider"
 import Slider from "../components/Slider"
 
 function AreaInfoDetail() {
@@ -27,11 +28,6 @@ function AreaInfoDetail() {
           <h2>{findCity.name}</h2>
           <MainScript>{findCity.script}</MainScript>
         </Section>
-        <SlideWrap>
-          <span>{findCity.name} 청년혜택 보기</span>
-          <Slider data={findCity}></Slider>
-          <DeatailText href="https://www.youthcenter.go.kr/regionPlcyUnif/regionPlcyUnifList.do?bizId=&srchYgmnSpceId=&srchCtpvAreaCd=&srchWord=&srchRegion=003002001" target={"_blank"}>자세히 알아보기</DeatailText>
-        </SlideWrap>
         <Section>
           <span>계절별로 알아보는<br />{findCity.name} 날씨</span>
           <ImgWrap>
@@ -39,6 +35,15 @@ function AreaInfoDetail() {
           </ImgWrap>
           <MainScript>{findCity.weather}</MainScript>
         </Section>
+        <SlideWrap>
+          <span>{findCity.name}의 대표 상권</span>
+          <StreetSlider data={findCity}></StreetSlider>
+        </SlideWrap>
+        <SlideWrap style={{marginTop:"-55px"}}>
+          <span>{findCity.name} 청년혜택 보기</span>
+          <Slider data={findCity}></Slider>
+          <DeatailText href="https://www.youthcenter.go.kr/regionPlcyUnif/regionPlcyUnifList.do?bizId=&srchYgmnSpceId=&srchCtpvAreaCd=&srchWord=&srchRegion=003002001" target={"_blank"}>자세히 알아보기</DeatailText>
+        </SlideWrap>
         <Footer width={width}></Footer>
       </Wrap>
     </>
@@ -54,6 +59,7 @@ const Wrap = styled.div`
   position: relative;
   overflow-y: scroll;
   padding-top: 60px;
+  box-sizing: border-box;
   &::-webkit-scrollbar {
   display: none; /* 크롬, 사파리, 오페라, 엣지 */
   }
