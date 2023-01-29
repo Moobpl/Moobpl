@@ -30,10 +30,12 @@ function MoobDetail() {
          return item._id == id
       })
       setMyplan(findPlan);
+      // console.log("왓이즈마이플랜",myplan._id);
       setTodos(findPlan?.todos);
     }
   },[plans]);
-
+  
+  
   return (
     <>
       <Header headstate={headstate}></Header>
@@ -52,7 +54,9 @@ function MoobDetail() {
         }
         <TodoList 
           key={todos?._id}  
-          todos={todos}>
+          todos={todos}
+          data={myplan}
+          >
         </TodoList>
 
         <AddBtn onClick={() => setIsOpen(true)}>+</AddBtn>

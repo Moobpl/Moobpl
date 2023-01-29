@@ -1,63 +1,97 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import dayjs from 'dayjs';
 import ModalTodo from "./ModalTodo";
+import { useSelector, useDispatch } from "react-redux";
+import { __deleteTodos, __deleteTodo } from "../redux/modules/PlanSlice";
 
-const TodoList = ({todos}) => {
-  console.log(todos);
 
+const TodoList = ({ todos, data }) => {
   const [modalTodoOpen, setModalTodoOpen] = useState(false);
-
+  const { plans } = useSelector((state) => state.plans);
   const [todoDate, setTodoDate] = useState([]);
 
-  const [modalId, setModalId] = useState('');
+  console.log(todos);
+  //투두스와 투두아이디
+  const [todosId, setTodosId] = useState('');
+  const [todoId, setTodoId] = useState('');
 
-  useEffect(()=>{
-    if(todos) {
-      todos.map((item) => todoDate.push((item.date)))
+  const [modalId, setModalId] = useState('');
+  const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    if (todos) {
+      //todos.map((item) => todoDate.push((item.date)));
+
     }
-  }, [todos]);
+  }, [todos]
+  );
+
+  const delId = {
+    planId: data?._id,
+    todosId: todosId,
+  }
 
   const dayset = new Date();
   const today = dayjs(dayset).format('YYYY-MM-DD').split('-').map(str => Number(str));
-  console.log("오늘날짜", today);
 
   const modalOpenHandler = (e) => {
-    
     setModalTodoOpen(true);
     setModalId(e.target.name);
   }
 
+  const deleteTodosHandler = (e) => {
+    dispatch(__deleteTodos({
+      planId: data?._id,
+      todosId: e.target.name
+    }))
+  }
+  const deleteHandler = (e) => {
+ 
+    dispatch(__deleteTodo({
+      planId: data?._id,
+      todosId: e.target.name,
+      _id: e.target.value
+    }));
+  }
 
   return (
     <>
+      {todos?.map((item) => (
+        <>
+          <AddTodoDate
+            key={item._id}
+            todo={item.todo}
+          >
+            / <span>{item?.date}</span>
+            <button name={item?._id} onClick={deleteTodosHandler}>날짜삭제</button>
+          </AddTodoDate>
+
+          {item.todo.map((list) => (
+            <ul key={list._id} >
+              <li>
+                {list.title} {list.body}
+                <button value={list?._id} name={item._id} onClick={deleteHandler}>삭제</button>
+              </li>
+
+            </ul>
+          ))}
+          <AddTodoBtn name={item._id} onClick={modalOpenHandler}>할일추가</AddTodoBtn>
+        </>
+      ))}
       {
-        todos?.map((item) => {
-          return(
-            <>
-                <AddTodoDate 
-                  key={item._id}
-                >
-                  / <span>{item?.date}</span>
-                </AddTodoDate>
-                <AddTodoBtn name={item._id} onClick={modalOpenHandler}>할일추가</AddTodoBtn>
-            </>
-          )
-        })
+        modalTodoOpen ?
+          <ModalTodo data={data} modalId={modalId}></ModalTodo>
+          : null
       }
-      {
-        modalTodoOpen ? 
-        <ModalTodo modalId={modalId}></ModalTodo>
-        : null
-      }
-      
     </>
   );
 };
 
 export default TodoList;
 
-const AddTodoDate = styled.h1 `
+const AddTodoDate = styled.h1`
   
   span { 
     color: #aaa;

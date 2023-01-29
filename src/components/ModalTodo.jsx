@@ -1,33 +1,49 @@
 import React from 'react'
+import { useEffect } from 'react';
 import { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { __patchTodo } from "../redux/modules/PlanSlice";
 
-const ModalTodo = ({modalTodoOpen, setModalTodoOpen, modalId}) => {
+const ModalTodo = ({modalTodoOpen, setModalTodoOpen, modalId, data}) => {
+  const dispatch = useDispatch();
+
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
-  console.log("모달아이디",modalId);
+  const [todosId, setTodosId] = useState("")
+  console.log("투두스아이디", todosId);
+
+  useEffect(()=>{
+    if(modalId){
+      console.log(modalId);
+      setTodosId(modalId);
+    }
+  }, [modalId]);
+  
+  //todos 배열안 요소인 _id 랑 modalId가 같으면 
+  //새로운 state로 담아준다.  
+  //그 새로운 state값이 todoInfo의 _id가 된다.
+  // console.log("투두스어딨니???",todos);
+  // console.log("모달아이디",modalId);
 
   const todoInfo = {
     //todos의 id를 찾아야 하니까
     //컴포넌트에서는 todos의 id를 찾아서 보내주고 
     //db에서는 todo의 아이디를 생성해준다 ...
-    _id: 0,
-
+    planId: data?._id,
+    _id: todosId,
     title: title,
     body: body,
     category: "카테고리"
   }
-  
-  const dispatch = useDispatch();
 
   const closeHandler = () =>{
     setModalTodoOpen(!modalTodoOpen)
   }
 
-  const onTransmitHandler =()=> {
+  const onTransmitHandler =(event)=> {
+    event.preventDefault();
     dispatch(__patchTodo(todoInfo));
   }
 
@@ -60,7 +76,7 @@ const ModalTodo = ({modalTodoOpen, setModalTodoOpen, modalId}) => {
               <Button onClick={closeHandler}>취소</Button>
               <Button type="submit">확인</Button>
             </ButtonWrap>
-          </Form>
+       </Form>
     </>
     )
   }                                   
