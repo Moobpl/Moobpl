@@ -38,11 +38,12 @@ function AreaInfoDetail() {
         <SlideWrap>
           <span>{findCity.name}의 대표 상권</span>
           <StreetSlider data={findCity}></StreetSlider>
+          <MainScript style={{width:"calc(100% - 48px)", margin:"0 auto", marginTop:"-55px"}}>{findCity.streetText}</MainScript>
         </SlideWrap>
-        <SlideWrap style={{marginTop:"-55px"}}>
+        <SlideWrap style={{marginTop:"24px"}}>
           <span>{findCity.name} 청년혜택 보기</span>
           <Slider data={findCity}></Slider>
-          <DeatailText href="https://www.youthcenter.go.kr/regionPlcyUnif/regionPlcyUnifList.do?bizId=&srchYgmnSpceId=&srchCtpvAreaCd=&srchWord=&srchRegion=003002001" target={"_blank"}>자세히 알아보기</DeatailText>
+          <DeatailText><a href="https://www.youthcenter.go.kr/regionPlcyUnif/regionPlcyUnifList.do?bizId=&srchYgmnSpceId=&srchCtpvAreaCd=&srchWord=&srchRegion=003002001" target={"_blank"}>자세히 알아보기</a></DeatailText>
         </SlideWrap>
         <Footer width={width}></Footer>
       </Wrap>
@@ -65,15 +66,13 @@ const Wrap = styled.div`
   }
 `
 
-const DeatailText = styled.a`
+const DeatailText = styled.div`
   display: block;
   text-align: right;
-  margin-right: 24px;
-  margin-top: -55px;
+  margin: -55px 24px 24px 0px;
   color: blue;
   font-size: 12px;
   text-decoration: underline;
-  cursor: pointer;
   position: relative;
   font-weight: 400;
   z-index: 9;

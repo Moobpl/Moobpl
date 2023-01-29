@@ -16,7 +16,7 @@ const initialState = {
             가을의 경우 늦더위와 북쪽의 한기의 남하 등으로 인하여 굉장히 짧으며 타지역에 비하여 10월, 11월 까지는 서울이 타 중부지역보다는 확연히 온도가 높다.
             겨울의 경우
             `,
-            imgSrc: ["images/city/seoul.jpg", "images/city/seoul/weather.jpg"],
+            imgSrc: ["images/city/seoul/seoul.jpg", "images/city/seoul/weather.jpg"],
             welfare: [
                 "서울시 학자금대출 신용회복(신용유의자 해제) 지원사업",
                 "서울시 청년월세지원 사업",
@@ -26,28 +26,58 @@ const initialState = {
                 "서울시 학자금 대출이자 지원",
                 "역세권 청년주택 공급",
             ],
-            street:[
+            street: [
                 {
-                    imgSrc:"images/city/seoul/hongdae-shopping-street.jpg",
-                    title:"홍대 쇼핑거리",
-                    address:"서울시 마포구"
+                    imgSrc: "images/city/seoul/hongdae-shopping-street.jpg",
+                    title: "홍대 쇼핑거리",
+                    address: "서울시 마포구"
                 },
                 {
-                    imgSrc:"images/city/seoul/Myeongdong-Seoul-shopping-district.jpg",
-                    title:"명동 거리",
-                    address:"서울시 중구"
+                    imgSrc: "images/city/seoul/Myeongdong-Seoul-shopping-district.jpg",
+                    title: "명동 거리",
+                    address: "서울시 중구"
                 },
                 {
-                    imgSrc:"images/city/seoul/gangnam.jpg",
-                    title:"강남역",
-                    address:"서울시 강남구"
+                    imgSrc: "images/city/seoul/gangnam.jpg",
+                    title: "강남역",
+                    address: "서울시 강남구"
+                },
+                {
+                    imgSrc: "images/city/seoul/yeongdeungpo.jpg",
+                    title: "영등포 타임스퀘어",
+                    address: "서울시 영등포구"
+                },
+                {
+                    imgSrc: "images/city/seoul/garosugil.jpg",
+                    title: "가로수길",
+                    address: "서울시 강남구"
+                },
+                {
+                    imgSrc: "images/city/seoul/dongdaemun.jpg",
+                    title: "동대문",
+                    address: "서울시 동대문구"
                 }
-            ]
-        }, {
+            ],
+            streetText: `서울은 대한민국의 수도 답게 굉장히 많은 곳에 상권이 분포 되어있다.
+            서울의 상권은 인지도가 높은 명동, 홍대 강남 영등포, 가로수길 등 다양하며 굉장히 많은 인파들이 오가는 곳입니다.`
+        },
+        {
             _id: 2,
             name: "인천광역시",
             disc: "인천의꿈, 대한민국의 미래도시",
-            imgSrc: "images/city/incheon.jpg",
+            script: `인천광역시는 지금 동북아시아의 중심도시로 세계를 향해 웅비하고 있다.
+            서울의 관문으로서 항만·상업도시를 이루어 온 원인천에다가 농·공업도시 부평을 아우르고,
+            이어 농·수산과 문화·관광의 보고(寶庫) 강화와 옹진 등을 합하면서 동북아시아의 허브(Hub) 공항을 더하여,
+            명실상부한 한반도의 거대한 관문이자 국제적 물류중심지, 산업·정보단지, 관광·휴양단지로 비약적인 성장을 기하고 있는 것이다.
+            지난 날의 인천(원인천)과는 완연히 다른 새로운 차원의 국제도시로 변화하고 있다.
+            `,
+            weather: `인천의 경우 서울과는 다르게 인천은
+            대륙성 기후에 속하면서도 해안에 위치하여 다른 내륙지방보다는 해양성 기후의 특성도 일부 가지고 있어서,
+            기온의 연교차가 적은 편이다.
+            인천은 봄인 2~4월 경에 풍속이 가장 강하며, 가을에는 풍속이 약하다.
+            4월부터 안개 발생일수가 증가하기 시작하여 여름인 5,6월에 가장 많으며  8월 부터 급격히 줄어든다. 
+            `,
+            imgSrc: ["images/city/incheon/incheon.jpg", "images/city/incheon/weather.jpg"],
             welfare: [
                 "기존주택 매입 임대",
                 "약정형(소규모)매입임대주택사업",
@@ -56,23 +86,82 @@ const initialState = {
                 "인천 드림 For 청년통장",
                 "인천형 청년 월세 한시 특별지원사업",
             ],
+            street: [
+                {
+                    imgSrc: "images/city/seoul/hongdae-shopping-street.jpg",
+                    title: "인천 차이나타운",
+                    address: "인천 중구"
+                },
+                {
+                    imgSrc: "images/city/seoul/Myeongdong-Seoul-shopping-district.jpg",
+                    title: "주안역 남부",
+                    address: "인천시 미추홀구"
+                },
+                {
+                    imgSrc: "images/city/seoul/gangnam.jpg",
+                    title: "구월동 로데오거리",
+                    address: "인천시 남동구"
+                },
+                {
+                    imgSrc: "images/city/seoul/yeongdeungpo.jpg",
+                    title: "부평 문화/테마의 거리",
+                    address: "인천시 부평구"
+                },
+            ],
+            streetText: `인천광역시의 특징은 번화가의 상당수가 역주변으로 해서 발달되었다는 것이 특징이며,
+            서울과는 다르게 많은 신도시건설로 인하여 신도시 주변의 상권이 발전 되었다는 점이다.`
         }, {
             _id: 3,
             name: "제주특별자치시",
-            disc: "제주도의 행정도시",
-            imgSrc: "images/city/jeju.jpg",
+            script: `인천광역시는 지금 동북아시아의 중심도시로 세계를 향해 웅비하고 있다.
+            서울의 관문으로서 항만·상업도시를 이루어 온 원인천에다가 농·공업도시 부평을 아우르고,
+            이어 농·수산과 문화·관광의 보고(寶庫) 강화와 옹진 등을 합하면서 동북아시아의 허브(Hub) 공항을 더하여,
+            명실상부한 한반도의 거대한 관문이자 국제적 물류중심지, 산업·정보단지, 관광·휴양단지로 비약적인 성장을 기하고 있는 것이다.
+            지난 날의 인천(원인천)과는 완연히 다른 새로운 차원의 국제도시로 변화하고 있다.
+            `,
+            weather: `인천의 경우 서울과는 다르게 인천은
+            대륙성 기후에 속하면서도 해안에 위치하여 다른 내륙지방보다는 해양성 기후의 특성도 일부 가지고 있어서,
+            기온의 연교차가 적은 편이다.
+            인천은 봄인 2~4월 경에 풍속이 가장 강하며, 가을에는 풍속이 약하다.
+            4월부터 안개 발생일수가 증가하기 시작하여 여름인 5,6월에 가장 많으며  8월 부터 급격히 줄어든다. 
+            `,
+            imgSrc: ["images/city/incheon/incheon.jpg", "images/city/incheon/weather.jpg"],
             welfare: [
                 "학자금 대출이자 지원사업",
                 "주택 연월세 자금 대출이자 지원",
                 "탐라영재관 운영",
                 "학자금 대출 신용회복 지원사업",
             ],
+            street: [
+                {
+                    imgSrc: "images/city/seoul/hongdae-shopping-street.jpg",
+                    title: "인천 차이나타운",
+                    address: "인천 중구"
+                },
+                {
+                    imgSrc: "images/city/seoul/Myeongdong-Seoul-shopping-district.jpg",
+                    title: "주안역 남부",
+                    address: "인천시 미추홀구"
+                },
+                {
+                    imgSrc: "images/city/seoul/gangnam.jpg",
+                    title: "구월동 로데오거리",
+                    address: "인천시 남동구"
+                },
+                {
+                    imgSrc: "images/city/seoul/yeongdeungpo.jpg",
+                    title: "부평 문화/테마의 거리",
+                    address: "인천시 부평구"
+                },
+            ],
+            streetText: `인천광역시의 특징은 번화가의 상당수가 역주변으로 해서 발달되었다는 것이 특징이며,
+            서울과는 다르게 많은 신도시건설로 인하여 신도시 주변의 상권이 발전 되었다는 점이다.`
         }, {
             _id: 4,
             name: "광주광역시",
             disc: "호남 최대도시",
             imgSrc: "images/city/gwangju.jpg",
-            welfare:[
+            welfare: [
                 "청년 주거급여 지원",
                 "(청년금융복지지원)광주청년 드림은행",
                 "청년저축계좌",
@@ -85,7 +174,7 @@ const initialState = {
             name: "세종특별자치시",
             disc: "행정도시",
             imgSrc: "images/city/sejong.jpg",
-            welfare:[
+            welfare: [
                 "세종청년적금",
                 "세종형 쉐어하우스 청년임대주택 보급",
                 "출산축하금 지원",
@@ -96,7 +185,7 @@ const initialState = {
             name: "수원특례시",
             disc: "경기도청 소재지, 경기도 최대도시",
             imgSrc: "images/city/suwon.jpg",
-            welfare:[
+            welfare: [
                 "경기도 청년면접수당",
                 "2022년 경기도 청년 기본소득(4분기)",
                 "청년 월세 지원",
@@ -108,7 +197,7 @@ const initialState = {
             name: "대전광역시",
             disc: "충청권 제1의 도시, 영·호남을 잇는 교통의 요지",
             imgSrc: "images/city/daejeon.jpg",
-            welfare:[
+            welfare: [
                 "대전 청년내일희망카드(청년취업희망카드)",
                 "대전청년하우스 조성",
             ]

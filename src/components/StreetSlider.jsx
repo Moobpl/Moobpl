@@ -13,9 +13,9 @@ const StreetSlider = ({ data }) => {
       style={{ paddingBottom: "70px", paddingLeft: "24px", marginTop: "10px" }}
     >
       {
-        data.street.map((item) => {
+        data.street.map((item, index) => {
           return (
-            <SlideStyle key={item}>
+            <SlideStyle key={index}>
               <ImgWrap>
                 <img src={`${process.env.PUBLIC_URL}/${item.imgSrc}`} alt="" />
               </ImgWrap>
@@ -30,21 +30,6 @@ const StreetSlider = ({ data }) => {
 };
 
 export default StreetSlider;
-
-const slideStyle = {
-  backgroundColor: "#fff",
-  fontSize: "14px",
-  fontWeight: "500",
-  lineHeight: "24px",
-  color: "#282B49",
-  wordBreak: "keep-all",
-  boxShadow: "10px 24px 54px rgba(0, 0, 0, 0.05)",
-  borderRadius: "16px",
-  padding: "15px",
-  boxSizing: "border-box",
-  cursor: "grab",
-  height: "78px"
-}
 
 const SlideStyle = styled(SwiperSlide)`
   >h5{
