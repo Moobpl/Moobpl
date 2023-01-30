@@ -3,7 +3,8 @@
   background-color:transparent;
 }
 .rdrMonth {
-  padding:none;
+  padding:0px;
+  width: inherit;
 }
 .rdrMonthName {
   color: #1198A9;

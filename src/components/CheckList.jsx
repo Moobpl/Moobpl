@@ -22,7 +22,6 @@ const CheckList = ({ myplan }) => {
         }
     }, [myplan])
 
-
     const ListData = [
         {
             title: "이사일 확정",

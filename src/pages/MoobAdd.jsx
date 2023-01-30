@@ -19,7 +19,7 @@ const MoobAdd = () => {
   const { isPostplanSucess } = useSelector((state) => state.plans)
   const [areaName, setAreaName] = useState("")
   const [date, setDate] = useState("")
-  
+  const headstate = true;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -43,7 +43,8 @@ const MoobAdd = () => {
 
   return (
     <>
-      <Header></Header>
+      <Header headstate={headstate}></Header>
+      <Toptext><p>이사, 어디로 가시나요?</p></Toptext>
       <Wrap>
         {
           select === true
@@ -101,6 +102,8 @@ const MoobAdd = () => {
   )
 };
 
+export default MoobAdd;
+
 const Wrap = styled.div`
   width:100%;
   height: 100%;
@@ -126,4 +129,13 @@ const ButtonWrap = styled.div`
   bottom: 24px;
 `
 
-export default MoobAdd;
+const Toptext = styled.div`
+    position: absolute;
+    top:20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    p{
+    color:#aaa;
+    }
+`
