@@ -81,7 +81,7 @@ const DeatailText = styled.div`
 const MainImg = styled.div`
   width: 100%;
   height: 200px;
-  background-color: red;
+  background-color: transparent;
   overflow: hidden;
 
   >img{
@@ -92,6 +92,7 @@ const MainImg = styled.div`
 `
 
 const ImgWrap = styled.div`
+background-color: transparent;
   >img{
     width: 100%;
     display: block;
