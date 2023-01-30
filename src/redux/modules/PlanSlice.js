@@ -137,7 +137,7 @@ const planSlice = createSlice({
     },
     [__postPlan.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.isSignupSucess = true;
+      state.plans.push(action.payload)
       state.isSignupError = false;
     },
     [__postPlan.rejected]: (state, action) => {
