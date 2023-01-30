@@ -1,29 +1,27 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import styled from 'styled-components'
 import ButtonSubmit from './ButtonSubmit'
-import { __patchCheckList } from '../redux/modules/postSlice'
+import { __patchCheckList } from '../redux/modules/PlanSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 
-const CheckList = () => {
+const CheckList = ({ myplan }) => {
     const dispatch = useDispatch();
-    const { plan } = useSelector((state) => state.post)
+    const { plan } = useSelector((state) => state.plans)
+    const [height, setHeight] = useState("0px");
     const [isOpen, setIsOpen] = useState(false)
     const [isChecked, setIsChecked] = useState(false) // 체크 여부
     const [checkedItems, setCheckedItems] = useState([])// 체크된 요소들
     const name = '저장완료';
+    const content = useRef();
+    console.log(checkedItems)
+    useEffect(() => {
+        if (myplan) {
+            setCheckedItems(checkedItems.concat(myplan.checkList))
+        }
+    }, [myplan])
 
-    useEffect(()=>{
-        if(plan){
-            console.log(plan[0].checkList)
-            let newArr = plan[0].checkList
-            console.log("뉴어레이",newArr)
-            setCheckedItems([...newArr])
-        }    
-    }, [plan])
-
-  
     const ListData = [
         {
             title: "이사일 확정",
@@ -99,11 +97,13 @@ const CheckList = () => {
     }
 
     const onSubmit = () => {
-        
+        let newArr = checkedItems.filter((item) => { return item !== undefined })
+        console.log(newArr)
         dispatch(__patchCheckList({
-            _id: plan[0]._id,
-            checkList: checkedItems,
+            _id: myplan._id,
+            checkList: newArr,
         }))
+        setCheckedItems([])
     }
 
     const openHandler = (e) => {
@@ -114,12 +114,12 @@ const CheckList = () => {
             {ListData.map((item) => (
                 <ListWrap>
                     <ListTitle><span onClick={openHandler}>{item.title}</span>
-                        <SubMenu>
+                        <SubMenu ref={content}>
                             {item.menu.map((child) => (
                                 <label key={child.id}>
                                     <input
                                         type="checkbox"
-                                        checked={checkedItems?.includes(child.name) ? true : false}
+                                        checked={checkedItems.includes(child.name) ? true : false}
                                         value={child.name}
                                         onChange={(e) => checkHandler(e)}
                                     />
@@ -160,12 +160,12 @@ const ListTitle = styled.li`
 `
 
 const SubMenu = styled.div`
-    display: none;
-    
+    max-height: 0;
+    overflow:hidden;
+    transition: max-height .3s ease;
     &.open{
-        display: block;
+        max-height: 500px;
     }
-
     > label {
         display: flex;
         padding: 20px 0px;

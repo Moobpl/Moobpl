@@ -1,12 +1,15 @@
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import HambergerList from './HambergerList'
 
 const Hamberger = ({ open, openHandler }) => {
   const navigate = useNavigate();
-  const { me, isLogoutSucess } = useSelector((state) => state.user)
+  const dispatch = useDispatch();
+  const { me } = useSelector((state) => state.user)
+  const { plans } = useSelector((state) => state.plans)
+
   
   return (
     <Wrap className={`${open}`}>
@@ -21,7 +24,7 @@ const Hamberger = ({ open, openHandler }) => {
             <Photo></Photo>
             <h4>{me?.nickName}</h4>
           </Profile>
-          <Myplan onClick={() => { navigate("/myplan") }}>내 계획 : 0</Myplan>
+          <Myplan onClick={() => { navigate("/myplan") }}>{`내 계획 : ${plans.length}`}</Myplan>
           <HambergerList margin={"60px"}></HambergerList>
         </Container>
       </section>

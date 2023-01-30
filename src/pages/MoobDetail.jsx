@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import WidgetCard from "../components/WidgetCard";
+import CheckList from "../components/CheckList";
 import Modalcalendar from "../components/Modalcalendar";
+
 import { __getPlan } from "../redux/modules/PlanSlice";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";

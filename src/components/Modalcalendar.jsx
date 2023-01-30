@@ -1,38 +1,38 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useRef} from "react";
+import { useRef } from "react";
 import useOutSideClick from "./hooks/useOutSideClick";
 
 import { Calendar } from 'react-date-range';
 import ko from 'date-fns/locale/ko';
-import 'react-date-range/dist/styles.css'; 
+import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import './category/Calender.style.css'
 
-import {__patchTodos} from "../redux/modules/PlanSlice";
-import { useDispatch, useSelector} from 'react-redux';
+import { __patchTodos } from "../redux/modules/PlanSlice";
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
 
 import dayjs from 'dayjs';
 
-const Modalcalendar = ({onClose }) => {
+const Modalcalendar = ({ onClose }) => {
   const modalRef = useRef(null)
   const handleClose = () => {
     onClose?.();
   };
 
- useOutSideClick(modalRef, handleClose);
- 
- const dispatch = useDispatch();
-  const { plan } = useSelector((state) => state.post);
+  useOutSideClick(modalRef, handleClose);
+
+  const dispatch = useDispatch();
+  const { plan } = useSelector((state) => state.plans);
   // console.log("플랜", plan);
   const { id } = useParams();
   const [todoDate, setTodoDate] = useState("");
 
-  useEffect(()=>{
-    if(plan){
-      const findTodo= plan.find((item) => {
-         return item._id === id
+  useEffect(() => {
+    if (plan) {
+      const findTodo = plan.find((item) => {
+        return item._id === id
       })
       setTodoDate(findTodo);
     }
@@ -40,8 +40,8 @@ const Modalcalendar = ({onClose }) => {
 
   // console.log(todoDate);
 
-   const handleSelect = (todoDate) => {
-    
+  const handleSelect = (todoDate) => {
+
     setTodoDate(todoDate);
     // console.log("투두데이트",todoDate); 
     dispatch(__patchTodos({
