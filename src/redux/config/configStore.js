@@ -22,7 +22,7 @@ const store = configureStore({
   reducer: {
     info,
     user,
-    plans,
+    plans
   }
 });
 
