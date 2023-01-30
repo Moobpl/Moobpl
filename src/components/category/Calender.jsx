@@ -12,7 +12,7 @@ const Calender = ({setDate, setshowDatBtn}) => {
   const [pickDate, setPickDate] = useState(new Date());
 
   const handleSelect = (pickDate) => {
-    console.log(pickDate); 
+    // console.log(pickDate); 
     setPickDate(pickDate);
     setDate(pickDate);
     setshowDatBtn(true);

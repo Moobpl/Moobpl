@@ -22,4 +22,5 @@ const Button = styled.button`
   font-size: 14px; 
   font-weight: 600;
   font-style: normal;
+  cursor: pointer;
 `

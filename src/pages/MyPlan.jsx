@@ -15,7 +15,7 @@ const Myplan = () => {
 
   useEffect(() => {
     dispatch(__getPlan())
-  }, [])
+  }, [plans])
   
   return (
     <>

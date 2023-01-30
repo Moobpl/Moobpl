@@ -81,13 +81,9 @@ const MoobAdd = () => {
      {
       showRegBtn === true 
       ? (
-        <ButtonWrap
-              onClick={(select)=> onSelectHandler(select)}
-              >
-              <ButtonSubmit
-                buttonName={name}
-              ></ButtonSubmit>
-            </ButtonWrap> 
+        <ButtonWrap onClick={(select)=> onSelectHandler(select)}>
+          <ButtonSubmit buttonName={name}></ButtonSubmit>
+        </ButtonWrap> 
         )
       : ( showDatBtn === true 
           ? <ButtonWrap
