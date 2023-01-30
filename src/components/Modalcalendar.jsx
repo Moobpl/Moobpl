@@ -22,7 +22,7 @@ const Modalcalendar = ({onClose }) => {
   useOutSideClick(modalRef, handleClose);
   
   const dispatch = useDispatch();
-  const { plan } = useSelector((state) => state.post);
+  const { plan } = useSelector((state) => state.plans);
   const { id } = useParams();
   const [todoDate, setTodoDate] = useState("");
   const [selectTodoDate, setSelectTodoDate] = useState(false);
