@@ -12,7 +12,7 @@ const MainCityCard = ({datas}) => {
                 <CardWrap key={index} onClick={()=>{navigate(`/areainfodetail/${data._id}`)}}>
                     <div>
                         <ImgWrap>
-                            <img src={`${process.env.PUBLIC_URL}/${data.imgSrc}`} alt="" />
+                            <img src={`${process.env.PUBLIC_URL}/${data.imgSrc[0]}`} alt="" />
                         </ImgWrap>
                         <h4>{data.name}</h4>
                         <p>{data.disc}</p>

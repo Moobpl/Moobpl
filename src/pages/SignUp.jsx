@@ -267,7 +267,7 @@ const ButtonWrap = styled.div`
     color: #666366;
 
     span{
-      font-size: 12px;
+      font-size: 11px;
       color:#1198A9;
     }
 

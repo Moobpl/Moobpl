@@ -7,7 +7,6 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import user from "../modules/userSlice";
 import info from "../modules/infoSlice"
-import post from "../modules/postSlice"
 import plans from "../modules/PlanSlice";
 
 

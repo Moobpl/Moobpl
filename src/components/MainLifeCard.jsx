@@ -44,7 +44,7 @@ const ImgWrap = styled.div`
     width: 60px;
     height: 60px;
     border-radius: 14px;
-    background-color: red;
+    background-color: transparent;
     display: flex;
     overflow: hidden;
     img {

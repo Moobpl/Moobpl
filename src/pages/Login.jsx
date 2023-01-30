@@ -18,7 +18,8 @@ function Login() {
     password: password,
   }
 
-  const onSubmit = () => {
+  const onSubmit = (e) => {
+    e.preventDefault();
     dispatch(__postLogin(userInfo))
   }
 
@@ -38,13 +39,15 @@ function Login() {
             <span>뭅플</span>입니다.
           </h1>
         </TextBox>
-        <InputEmail placeholder="Email" value={email} onChange={(e) => { setEmail(e.target.value) }}></InputEmail>
-        <InputPassword placeholder="password" type="password" value={password} onChange={(e) => { setPassword(e.target.value) }}></InputPassword>
+        <form>
+          <InputEmail placeholder="Email" value={email} onChange={(e) => { setEmail(e.target.value) }}></InputEmail>
+          <InputPassword placeholder="password" type="password" value={password} onChange={(e) => { setPassword(e.target.value) }}></InputPassword>
 
-        <ButtonWrap onClick={onSubmit}>
-          <ButtonSubmit buttonName={name}></ButtonSubmit>
-          <p>아직 회원이 아니신가요? <span onClick={() => { navigate("/signup") }}>회원가입</span></p>
-        </ButtonWrap>
+          <ButtonWrap onClick={onSubmit}>
+            <ButtonSubmit buttonName={name}></ButtonSubmit>
+            <p>아직 회원이 아니신가요? <span onClick={() => { navigate("/signup") }}>회원가입</span></p>
+          </ButtonWrap>
+        </form>
       </Wrap>
     </>
   );
@@ -90,6 +93,8 @@ const TextBox = styled.div`
 
   }
 `
+
+
 const InputEmail = styled.input`
   width: 100%;
   font-size: 14px;
