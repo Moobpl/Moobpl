@@ -175,15 +175,13 @@ const planSlice = createSlice({
     },
     [__patchTodos.fulfilled]: (state, action) => {
       const plan = state.plans.find((item) => item._id === action.payload._id);
-
       plan.todos = action.payload.todos;
-
       state.isLoading = false;
     },
     [__patchTodos.rejected]: (state, action) => {
     },
 
-    //todos삭제
+
     [__deleteTodos.pending]: (state) => {
       state.isDeleteTodoLoading = true;
     },
@@ -191,7 +189,6 @@ const planSlice = createSlice({
       console.log(action);
       const plan = state.plans.find((item) => item._id === action.payload._id);
       plan.todos = plan.todos.filter((todos) => todos._id !== action.payload.todosId);
-
       state.isDeleteTodosLoading = true;
     },
     [__deleteTodos.rejected]: (state, action) => {
@@ -218,6 +215,7 @@ const planSlice = createSlice({
     [__patchTodo.rejected]: (state, action) => {
     },
 
+    
     //todo삭제
     [__deleteTodo.pending]: (state) => {
       state.isDeleteTodoLoading = true;
@@ -249,7 +247,6 @@ const planSlice = createSlice({
     },
   },
 });
-
 
 export const { } = planSlice.actions;
 export default planSlice.reducer;

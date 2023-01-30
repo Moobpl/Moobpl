@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useRef } from "react";
@@ -12,7 +13,7 @@ import './category/Calender.style.css'
 import { __patchTodos } from "../redux/modules/PlanSlice";
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
-
+import ButtonSubmit from "./ButtonSubmit";
 import dayjs from 'dayjs';
 
 const Modalcalendar = ({ onClose }) => {
@@ -22,12 +23,14 @@ const Modalcalendar = ({ onClose }) => {
   };
 
   useOutSideClick(modalRef, handleClose);
-
+  
   const dispatch = useDispatch();
   const { plan } = useSelector((state) => state.plans);
-  // console.log("플랜", plan);
+
   const { id } = useParams();
   const [todoDate, setTodoDate] = useState("");
+  const [selectTodoDate, setSelectTodoDate] = useState(false);
+  const name = "선택완료"
 
   useEffect(() => {
     if (plan) {
@@ -39,17 +42,20 @@ const Modalcalendar = ({ onClose }) => {
   }, [plan]);
 
   // console.log(todoDate);
-
+  
   const handleSelect = (todoDate) => {
-
     setTodoDate(todoDate);
-    // console.log("투두데이트",todoDate); 
+    setSelectTodoDate(true);
+  }
+
+  const buttonHandler = (todoDate) => {
+    setTodoDate(todoDate);
     dispatch(__patchTodos({
       _id: id,
       date: todoDate,
       todo: [],
     }));
-
+    handleClose(onClose?.());
   }
 
   return (
@@ -63,6 +69,12 @@ const Modalcalendar = ({ onClose }) => {
             todoDate={todoDate}
             onChange={(todoDate) => handleSelect(dayjs(todoDate).format('YYYY-MM-DD'))}
           />
+          {selectTodoDate === true ? 
+            <ButtonWrap onClick={()=>buttonHandler(todoDate)}>
+              <ButtonSubmit buttonName={name}></ButtonSubmit>
+            </ButtonWrap>
+           : null
+          } 
         </Contents>
       </ModalWrap>
     </Overlay>
@@ -94,7 +106,7 @@ const ModalWrap = styled.div`
   bottom: 0px;  
   overflow: scroll;
   &::-webkit-scrollbar {
-  display: none; /* 크롬, 사파리, 오페라, 엣지 */
+  display: none;
   }
 `;
 
@@ -110,3 +122,13 @@ const Contents = styled.div`
     width: 300px;
   }
 `;
+
+const ButtonWrap = styled.div`
+  position: sticky;
+  width: 100%;
+  
+  box-sizing: border-box;
+  left: 0;
+  bottom: 24px; 
+  z-index: 9999;
+`
