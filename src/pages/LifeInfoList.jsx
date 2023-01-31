@@ -43,6 +43,8 @@ const Wrap = styled.div`
   margin: 0 auto;
   position: relative;
   overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
 
   &::-webkit-scrollbar {
   display: none; /* 크롬, 사파리, 오페라, 엣지 */

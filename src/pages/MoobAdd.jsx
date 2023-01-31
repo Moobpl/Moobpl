@@ -108,7 +108,7 @@ const Wrap = styled.div`
   width:100%;
   height: 100%;
   margin-top:15px;
-  padding:0 24px;
+  padding:60px 24px 0px 24px;
   box-sizing: border-box;
   overflow: scroll;
   position:relative;
@@ -136,6 +136,8 @@ const Toptext = styled.div`
     transform: translateX(-50%);
     z-index: 1000;
     p{
-    color:#aaa;
+      font-size: 14px;
+      font-weight: 300;
+      color:#aaa;
     }
 `

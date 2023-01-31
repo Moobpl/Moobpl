@@ -1,7 +1,6 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import WidgetCard from "../components/WidgetCard";
-import CheckList from "../components/CheckList";
 import Modalcalendar from "../components/Modalcalendar";
 
 import { __getPlan } from "../redux/modules/PlanSlice";
@@ -25,48 +24,48 @@ function MoobDetail() {
   useEffect(() => {
     dispatch(__getPlan())
   }, []);
-  
-  useEffect(()=>{
-    if(plans){
+
+  useEffect(() => {
+    if (plans) {
       const findPlan = plans.find((item) => {
-         return item._id == id
+        return item._id == id
       })
       setMyplan(findPlan);
       // console.log("왓이즈마이플랜",myplan._id);
       setTodos(findPlan?.todos);
     }
-  },[plans]);
-  
-  
+  }, [plans]);
+
+
   return (
     <>
       <Header headstate={headstate}></Header>
-      
+
       <Wrap>
-        <WidgetCard data={myplan}/>
-        { myplan?.todos?.length === 0 
-          ? 
-            <Addinfotext>
-              <p>
-                <img src="/images/add_icon.png" alt="" />
+        <WidgetCard data={myplan} />
+        {myplan?.todos?.length === 0
+          ?
+          <Addinfotext>
+            <p>
+              <img src="/images/add_icon.png" alt="" />
               일정을 등록하세요
-              </p>
-            </Addinfotext>
-          : "" 
+            </p>
+          </Addinfotext>
+          : ""
         }
-        <TodoList 
-          key={todos?._id}  
+        <TodoList
+          key={todos?._id}
           todos={todos}
           data={myplan}
-          >
+        >
         </TodoList>
 
-        <AddBtn onClick={() => setIsOpen(true)}>+</AddBtn>
+        <AddBtn onClick={() => setIsOpen(true)}><img src="/images/add.png" /></AddBtn>
         {
           isOpen && (
-            <Modalcalendar 
+            <Modalcalendar
               open={isOpen}
-              onClose={()=>{setIsOpen(false)}}
+              onClose={() => { setIsOpen(false) }}
             />
           )
         }
@@ -117,4 +116,7 @@ const AddBtn = styled.button`
   right:24px;
   bottom:24px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `

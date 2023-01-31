@@ -8,6 +8,7 @@ import Profile from "../pages/Profile";
 import MyPlan from "../pages/MyPlan";
 import MoobAdd from "../pages/MoobAdd";
 import MoobDetail from "../pages/MoobDetail";
+import CheckList from "../pages/CheckList";
 import AreaInfoList from "../pages/AreaInfoList";
 import AreaInfoDetail from "../pages/AreaInfoDetail";
 import LifeInfoList from "../pages/LifeInfoList";
@@ -32,6 +33,7 @@ const routes = () => {
       <Route path="/myplan" element={<MyPlan />}/>
       <Route path="/moobadd" element={<MoobAdd />}/>
       <Route path="/moobdetail/:id" element={<MoobDetail />}/>
+      <Route path="/moobdetail/:id/checklist" element={<CheckList />}/>
       <Route path="/areainfolist" element={<AreaInfoList />}/>
       <Route path="/areainfodetail/:id" element={<AreaInfoDetail />}/>
       <Route path="/lifeinfolist" element={<LifeInfoList />}/>

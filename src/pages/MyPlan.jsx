@@ -14,18 +14,21 @@ const Myplan = () => {
   const { plans } = useSelector((state) => state.plans)
   const { me } = useSelector((state) => state.user)
 
+  console.log(plans)
+
   const wrap = useRef()
   const navigate = useNavigate()
   const [edit, setEdit] = useState(false)
 
   useEffect(() => {
     dispatch(__getPlan())
-  }, [plans])
+  }, [])
   
 
   const deleteHandler = (id) => {
     dispatch(__deletePlan(id))
   }
+
   return (
     <>
       <Header headstate={headstate}></Header>
@@ -36,7 +39,11 @@ const Myplan = () => {
             나의 이사일정.<br />
           </h1>
         </TextBox>
-        <span onClick={() => setEdit(!edit)}>수정모드</span>
+        <Edit onClick={() => setEdit(!edit)}>
+          <span></span>
+          <span></span>
+          <span></span>
+        </Edit>
         {plans?.map((item) =>
 
           <PlanCard key={item._id}>
@@ -92,6 +99,29 @@ const TextBox = styled.div`
     /* or 154% */
     letter-spacing: 0.5px;
     color: #282B49;
+  }
+`
+
+const Edit = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+  gap: 6px;
+  margin-bottom: 12px;
+
+  &:hover > span{
+    background-color: rgb(249, 167, 111);
+  }
+  
+
+  span{
+    display: block;
+    width: 4px;
+    height: 4px;
+    background-color: #121212;
+    border-radius: 100%;
+
+    
   }
 `
 
