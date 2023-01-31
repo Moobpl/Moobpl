@@ -71,7 +71,7 @@ export const __patchTodo = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.patch(`https://moobplback.herokuapp.com/plan/${payload.planId}/todos/${payload._id}/todo`, payload);
-      console.log("데이터보기", data);
+      // console.log("데이터보기", data);
       return thunkAPI.fulfillWithValue(data.data);
       //백엔드에서 파라미터로 data를 넘겨준것 
     } catch (error) {
@@ -84,10 +84,10 @@ export const __patchTodo = createAsyncThunk(
 export const __deleteTodo = createAsyncThunk(
   "plan/todos/todo/deleteTodo",
   async (payload, thunkAPI) => {
-    console.log("payload알아보기", payload)
+    // console.log("payload알아보기", payload)
     try {
       const data = await axios.delete(`https://moobplback.herokuapp.com/plan/${payload.planId}/todos/${payload.todosId}/todo/${payload._id}`);
-      console.log("data알아보기", data.data);
+      // console.log("data알아보기", data.data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -221,7 +221,7 @@ const planSlice = createSlice({
       state.isDeleteTodoLoading = true;
     },
     [__deleteTodo.fulfilled]: (state, action) => {
-      console.log(action);
+      // console.log(action);
       const plan = state.plans.find((item) => item._id === action.payload._id);
       const todos = plan.todos.find((item) => item._id === action.payload.todosId);
       todos.todo = todos.todo.filter((todo) => todo._id !== action.payload.todoId);

@@ -4,11 +4,8 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { __patchTodo } from "../redux/modules/PlanSlice";
-import { useRef} from "react";
-import useOutSideClick from "./hooks/useOutSideClick";
 
-
-const ModalTodo = ({modalTodoOpen, setModalTodoOpen, modalId, data}) => {
+const ModalTodo = ({setModalTodoOpen, modalId, data}) => {
   
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
@@ -19,7 +16,6 @@ const ModalTodo = ({modalTodoOpen, setModalTodoOpen, modalId, data}) => {
 
   useEffect(()=>{
     if(modalId){
-      console.log(modalId);
       setTodosId(modalId);
     }
   }, [modalId]);

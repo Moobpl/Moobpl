@@ -7,6 +7,7 @@ const WidgetCard = ({ data=[]}) => {
   const [dDay, setDday] = useState('');
 
   const diffDay = () => {
+    
     const selectDay = String(data.date).split('-').map(str => Number(str));
     // console.log("설정날짜 찾기 자리값", selectDay);
 

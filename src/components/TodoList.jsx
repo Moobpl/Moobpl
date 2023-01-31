@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef} from "react";
 import styled from "styled-components";
 import dayjs from 'dayjs';
 import ModalTodo from "./ModalTodo";
@@ -8,21 +8,43 @@ import { createPath } from "react-router-dom";
 
 
 const TodoList = ({ todos, data }) => {
+
+  const spanRef = useRef([]);
+  console.log("레프",spanRef);
+  
+  // const [todoDate, setTodoDate] = useState();
+  const [dDay, setDday] = useState('');
+
+
+  // const diffDay = () => {
+
+  //     //투두데이트
+  //     const selectDay = String(spanRef.current).split('-').map(str => Number(str));
+  //     console.log("선택날짜", selectDay);
+  //     //투데이
+  //     const dayset = new Date();
+  //     const today = dayjs(dayset).format('YYYY-MM-DD').split('-').map(str => Number(str));
+  //     // console.log("투데이", today);
+  //     const todaySec = new Date(today).getTime();
+  //     const setdaySec = new Date(selectDay).getTime();
+  //     // console.log("투데이초", todaySec);
+  //     // console.log("선택날짜초", setdaySec);
+  //     setDday(Math.ceil(todaySec-setdaySec) / (1000*60*60*24));
+
+  // }
+
+  // useEffect(()=>{
+  //   diffDay();
+  // }, [data]);
+
+
+  //모달&편집
   const [modalTodoOpen, setModalTodoOpen] = useState(false);
-  //const { plans } = useSelector((state) => state.plans);
   const [modalId, setModalId] = useState('');
   const [editMode, setEditMode] = useState(false);
+  
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (todos) {
-      //todos.map((item) => todoDate.push((item.date)));
-    }
-  }, [todos]
-  );
-
-  // const dayset = new Date();
-  // const today = dayjs(dayset).format('YYYY-MM-DD').split('-').map(str => Number(str));
   const editModeHandler = (e) => {
     e.preventDefault();
     setEditMode(true);
@@ -52,6 +74,21 @@ const TodoList = ({ todos, data }) => {
     }));
   }
   
+  // const findRef = () => {
+  //   let todos = [];
+  //   for (let item of todos) {
+  //     const ref = spanRef.current[item.date];
+      
+  //     if (ref) {
+  //       setTodoDate(ref);
+  //     }
+  //   }
+  // }
+
+  // useEffect(()=>{
+  //   findRef();
+  // }, [todoDate]);
+  //  console.log("투두데이트",todoDate);
   
   return (
     <>
@@ -68,39 +105,42 @@ const TodoList = ({ todos, data }) => {
     </EditeBtnWrap>
       
       {todos?.map((item) => (
-        <>
-          <AddTodoDate
-            key={item._id}
-            todo={item.todo}
-          >
-            / <span>{item?.date}</span>
-            {
-              editMode ? <DeleteBtn name={item?._id} onClick={deleteTodosHandler}><span></span></DeleteBtn>
-              : null
-            }
-            
-          </AddTodoDate>
+          <TodoWrap>
+            <AddTodoDate 
+              key={item._id}
+              todo={item.todo}
+            >
+              <p >
+                {dDay}/ <span ref={(element) => spanRef.current[item.date] = element}>{item.date}</span>
+              </p>
+              {
+                editMode ? <DeleteBtn name={item?._id} onClick={deleteTodosHandler}><span></span></DeleteBtn>
+                : null
+              }
+            </AddTodoDate>
+            {item.todo.map((list) => (
+                <TodoBox key={list._id}>
+                  <div className="boxWrap">
+                    <div style={{backgroundColor: `${list.color}`}} >
+                      <img src={list.category} alt=""  /> 
+                    </div>
+                    <dl>
+                      <dt>{list.title}</dt>
+                      <dd>{list.body}</dd>
+                    </dl> 
+                  </div>
+                  {editMode ? <DeleteBtn value={list?._id} name={item._id} onClick={deleteHandler}><span></span></DeleteBtn> 
+                    : null
+                  }                
+                </TodoBox>
+              )
+            )}
+            {editMode ? null
+              : <AddTodoBtn name={item._id} onClick={modalOpenHandler}>할일추가</AddTodoBtn> }
+          </TodoWrap>
+        ))
+      }
 
-          {item.todo.map((list) => (
-              <TodoBox key={list._id}>
-                <div style={{backgroundColor: `${list.color}`}} >
-                  <img src={list.category} alt=""  /> 
-                </div>
-                <dl>
-                  <dt>{list.title}</dt>
-                  <dd>{list.body}</dd>
-                </dl> 
-                {editMode ? <DeleteBtn value={list?._id} name={item._id} onClick={deleteHandler}><span></span></DeleteBtn> 
-                  : null
-                }                
-              </TodoBox>
-            )
-          )}
-          {editMode ? null
-          : <AddTodoBtn name={item._id} onClick={modalOpenHandler}>할일추가</AddTodoBtn> }
-          
-        </>
-      ))}
       {
         modalTodoOpen ?
           <ModalTodo data={data} modalId={modalId} setModalTodoOpen={setModalTodoOpen}></ModalTodo>
@@ -113,7 +153,14 @@ const TodoList = ({ todos, data }) => {
 export default TodoList;
 
 const AddTodoDate = styled.h1`
-  
+  display: flex;
+  align-items: center;
+  gap:10px;
+  margin-bottom: 10px;
+  p{
+    color:#121212;
+    font-size:18px;
+  }
   span { 
     color: #aaa;
     font-weight: 500;
@@ -123,8 +170,62 @@ const AddTodoDate = styled.h1`
   }
 `
 
+const TodoWrap = styled.div`
+  margin-bottom: 15px;
+`
+
+const TodoBox = styled.div`
+  background-color:#fff;
+  border-radius: 14px;
+  padding: 5px;
+  box-shadow: 10px 24px 54px rgba(0, 0, 0, 0.04);
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  div.boxWrap {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+    
+   > div {
+      position: relative;
+      border-radius: 14px;
+      width:50px; 
+      height: 50px;
+      margin-right: 15px;
+      img{
+        display: block;
+        position: absolute;
+        top:50%;
+        left:50%;
+        width: 17px;
+        transform: translate(-50%, -50%);
+      }
+    }
+   > dl { 
+      width: calc(100% - 50px);
+      overflow: hidden;
+      dt {
+          font-size:16px;
+          font-weight:500;
+          white-space:nowrap;
+          overflow: hidden;
+          text-overflow:ellipsis;
+        }
+      dd {
+          font-size:14px;
+          font-weight: 400;
+          color:#121212;
+          white-space:nowrap;
+          overflow: hidden;
+          text-overflow:ellipsis;
+        }
+    }
+  }
+`
 const AddTodoBtn = styled.button`
-  box-sizing: border-box;
+box-sizing: border-box;
   width: 100%;
   height: 37px;
   left: 24px;
@@ -136,48 +237,6 @@ const AddTodoBtn = styled.button`
   margin-top:15px;
   cursor: pointer;
 `
-const TodoBox = styled.div`
-  background-color:#fff;
-  border-radius: 14px;
-  padding: 5px;
-  box-shadow: 10px 24px 54px rgba(0, 0, 0, 0.04);
-  margin-bottom: 10px;
-  display: flex;
-  > div {
-    position: relative;
-    border-radius: 14px;
-    width:50px; 
-    height: 50px;
-    margin-right: 15px;
-    img{
-      display: block;
-      position: absolute;
-      top:50%;
-      left:50%;
-      width: 17px;
-      transform: translate(-50%, -50%);
-    }
-  }
-
-  > dl { 
-    dt {
-        font-size:16px;
-        font-weight:500;
-        white-space:nowrap;
-        overflow: hidden;
-        text-overflow:ellipsis;
-       }
-    dd {
-        font-size:14px;
-        font-weight: 400;
-        color:#121212;
-        white-space:nowrap;
-        overflow: hidden;
-        text-overflow:ellipsis;
-      }
-  }
-`
-
 const EditeBtnWrap = styled.div`
   margin-top:10px;
   > button {
@@ -198,19 +257,19 @@ const EditFalsebtn = styled.button`
 
 const EditTruebtn = styled.button`
   display: flex;
-  gap: 5px;
+  gap: 6px;
   > span {
     display: block;
-    width: 7px;
-    height: 7px;
+    width: 4px;
+    height: 4px;
     border-radius: 100%;
     background-color:#000;
   }
 `
 
 const DeleteBtn = styled.button`
-  width: 25px; 
-  height: 25px;
+  width: 20px; 
+  height: 20px;
   border-radius: 100%;
   border:0;
   outline: 0;
@@ -219,14 +278,12 @@ const DeleteBtn = styled.button`
   cursor: pointer;
   background-color:#EB2632;
   position: relative;
-  display: flex;
-  margin-left: auto;
   > span {
     position: absolute;
     top:50%; left:50%;
     transform: translate(-50%, -50%);
     display: block;
-    width: 10px;
+    width: 8px;
     height: 2px;
     background-color:#fff;
   }
