@@ -1,34 +1,32 @@
-import React from 'react'
-import { useState, useRef } from 'react'
-import styled from 'styled-components'
-import ButtonSubmit from '../components/ButtonSubmit'
-import { __patchCheckList } from '../redux/modules/PlanSlice'
+// 훅
+import React, { useEffect, useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import { __getPlan } from '../redux/modules/PlanSlice'
+import { useParams, useNavigate } from 'react-router-dom'
+
+// 컴포넌트
+import styled from 'styled-components'
 import Header from '../components/Header'
+import ButtonSubmit from '../components/ButtonSubmit'
+
+// 리덕스
+import { __getPlan, __patchCheckList } from '../redux/modules/PlanSlice'
+
 
 const CheckList = () => {
     const dispatch = useDispatch();
     const { plans } = useSelector((state) => state.plans)
+    const { me } = useSelector((state) => state.user)
     const { id } = useParams()
     const navigate = useNavigate();
-
     const [isChecked, setIsChecked] = useState(false) // 체크 여부
     const [checkedItems, setCheckedItems] = useState([])// 체크된 요소들
-    const [open, setOpen] = useState(false)
     const name = '저장완료';
     const content = useRef();
-
-    
-    // 쿼리스트링에 맞는 체크리스트 값 가져오기
-    const findCheckList = plans.find((item) => item._id == id)
-
+    const findCheckList = plans.find((item) => item._id === id)
     //useEffect 목록
     useEffect(() => {
         dispatch(__getPlan())
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         if (findCheckList) {
@@ -37,35 +35,12 @@ const CheckList = () => {
         }
     }, [findCheckList])
 
-    //이벤트 함수
-    const checkHandler = (e) => {
-        setIsChecked(!isChecked)
-        checkedItemHandler(e.target.value, e.target.checked)
-    }
-
-    const checkedItemHandler = (id, isChecked) => {
-        if (isChecked) { // 체크 되었을때
-            checkedItems.push(id) // 체크시 삽입
-            setCheckedItems(checkedItems)
-        } else if (!isChecked && checkedItems.includes(id)) {
-            setCheckedItems(checkedItems.filter((item) => item !== id))
+    useEffect(()=>{
+        if(!me){
+            navigate('/login')
         }
-        return checkedItems;
-    }
-
-    const onSubmit = () => {
-        let newArr = checkedItems.filter((item) => { return item !== undefined })
-        console.log(newArr)
-        dispatch(__patchCheckList({
-            _id: findCheckList._id,
-            checkList: newArr,
-        }))
-        setCheckedItems([])
-    }
-
-    const openHandler = (e) => {
-        e.currentTarget.nextElementSibling.classList.toggle('open')
-    }
+    },[me, navigate])
+    // 쿼리스트링에 맞는 체크리스트 값 가져오기
 
     //보여질 데이터 목록
     const ListData = [
@@ -126,6 +101,36 @@ const CheckList = () => {
             ]
         }
     ]
+
+    //이벤트 함수
+    const checkHandler = (e) => {
+        setIsChecked(!isChecked)
+        checkedItemHandler(e.target.value, e.target.checked)
+    }
+
+    const checkedItemHandler = (id, isChecked) => {
+        if (isChecked) { // 체크 되었을때
+            checkedItems.push(id) // 체크시 삽입
+            setCheckedItems(checkedItems)
+        } else if (!isChecked && checkedItems.includes(id)) {
+            setCheckedItems(checkedItems.filter((item) => item !== id))
+        }
+        return checkedItems;
+    }
+
+    const onSubmit = () => {
+        let newArr = checkedItems.filter((item) => { return item !== undefined })
+        console.log(newArr)
+        dispatch(__patchCheckList({
+            _id: findCheckList._id,
+            checkList: newArr,
+        }))
+        navigate(-1)
+    }
+
+    const openHandler = (e) => {
+        e.currentTarget.nextElementSibling.classList.toggle('open')
+    }
     return (
         <>
             <Header />

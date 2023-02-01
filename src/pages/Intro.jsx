@@ -1,18 +1,22 @@
-import React, { useCallback } from "react";
-import styled from "styled-components";
+// 훅
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
-function Intro() {
+// 컴포넌트
+import styled from "styled-components";
+
+
+const Intro = () => {
   const navigate = useNavigate();
-  
-  useEffect(()=>{
-    setTimeout(()=>{ movePage() }, 2000);
-  }, []);
 
-  const movePage = () =>{
-    navigate("/login")
-  }
+  
+
+  useEffect(()=>{
+    const movePage = () =>{
+      navigate("/login")
+    }
+    setTimeout(()=>{ movePage() }, 2000);
+  }, [navigate]);
 
   return (
     <LogoWrap>

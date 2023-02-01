@@ -1,4 +1,9 @@
-import React, { useRef } from "react";
+// 훅
+import React, { useRef, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+// 컴포넌트
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import styled from "styled-components";
@@ -6,6 +11,15 @@ import styled from "styled-components";
 const Event = () => {
   const headstate = true;
   const wrap = useRef();
+  const navigate = useNavigate();
+  const { me } = useSelector((state) => state.user)
+
+  useEffect(() => {
+    if (!me) {
+      navigate('/login')
+    }
+  }, [me, navigate])
+
   return (
     <>
       <Header headstate={headstate}></Header>

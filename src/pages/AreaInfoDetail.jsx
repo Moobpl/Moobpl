@@ -1,25 +1,39 @@
+// 훅
 import React, { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+
+// 컴포넌트
 import styled from "styled-components";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import StreetSlider from "../components/StreetSlider"
 import Slider from "../components/Slider"
+import TopButton from "../components/TopButton";
 
 function AreaInfoDetail() {
   const headstate = true;
+  const navigate = useNavigate();
+  const wrap = useRef()
   const { citys } = useSelector((state) => state.info)
+  const { me } = useSelector((state) => state.user)
   const { id } = useParams()
+
   const width = 'calc(100% - 48px)'
   const findCity = citys.find((item) => {
-    return item._id == id
+    return item._id === Number(id)
   })
+
+  useEffect(() => {
+    if (!me) {
+      navigate('/login')
+    }
+  }, [me, navigate])
 
   return (
     <>
       <Header headstate={headstate}></Header>
-      <Wrap>
+      <Wrap ref={wrap}>
         <MainImg>
           <img src={`${process.env.PUBLIC_URL}/${findCity.imgSrc[0]}`} alt="" />
         </MainImg>
@@ -38,15 +52,16 @@ function AreaInfoDetail() {
         <SlideWrap>
           <span>{findCity.name}의 대표 상권</span>
           <StreetSlider data={findCity}></StreetSlider>
-          <MainScript style={{width:"calc(100% - 48px)", margin:"0 auto", marginTop:"-55px"}}>{findCity.streetText}</MainScript>
+          <MainScript style={{ width: "calc(100% - 48px)", margin: "0 auto", marginTop: "-55px" }}>{findCity.streetText}</MainScript>
         </SlideWrap>
-        <SlideWrap style={{marginTop:"24px"}}>
+        <SlideWrap style={{ marginTop: "24px" }}>
           <span>{findCity.name} 청년혜택 보기</span>
           <Slider data={findCity}></Slider>
-          <DeatailText><a href="https://www.youthcenter.go.kr/regionPlcyUnif/regionPlcyUnifList.do?bizId=&srchYgmnSpceId=&srchCtpvAreaCd=&srchWord=&srchRegion=003002001" target={"_blank"}>자세히 알아보기</a></DeatailText>
+          <DeatailText><a href="https://www.youthcenter.go.kr/regionPlcyUnif/regionPlcyUnifList.do?bizId=&srchYgmnSpceId=&srchCtpvAreaCd=&srchWord=&srchRegion=003002001" rel="noopener noreferrer" target={"_blank"}>자세히 알아보기</a></DeatailText>
         </SlideWrap>
         <Footer width={width}></Footer>
       </Wrap>
+      <TopButton wrap={wrap}></TopButton>
     </>
   );
 }
@@ -136,19 +151,4 @@ const MainScript = styled.p`
   line-height: 24px;
   text-align: justify;
   margin-top: 24px;
-`
-
-const Window = styled.div`
-  
-`
-
-const Slide = styled.ul`
-  display: flex;
-  flex: none;
-  gap: 10px;
-  li{
-    min-width: 200px;
-    height: 200px;
-    background-color: pink;
-  }
 `

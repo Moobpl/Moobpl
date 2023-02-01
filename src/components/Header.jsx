@@ -14,10 +14,6 @@ const Header = ({ headstate, page }) => {
   const openHandler = (text) => {
     setMenuOpen(text);
   }
-
-  useEffect(()=>{
-    dispatch(__getPlan())
-  }, [])
   
   return (
     <>

@@ -420,7 +420,7 @@ const initialState = {
             disc: "셀프 인테리어의 시작",
             script: `인테리어를 할때 가장 많이 변화를 일키는것이 바로 벽지이다.
             도배는 생각보다 쉽지는 않은데, 업체에 맞기기엔 비용이 부담스럽다면 하나하나 읽어보며 천천히 따라해보자!`,
-            imgSrc: "images/life/1.jpg",
+            imgSrc: "images/life/painting/cardimg.jpg",
             mainImgSrc: "images/life/painting/img.png",
             step:[
                 {

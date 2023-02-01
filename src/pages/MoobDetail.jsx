@@ -1,18 +1,25 @@
+// 훅
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import WidgetCard from "../components/WidgetCard";
-import Modalcalendar from "../components/Modalcalendar";
+import { useParams, Navigate, useNavigate } from "react-router-dom";
 
-import { __getPlan } from "../redux/modules/PlanSlice";
-import { useParams } from "react-router-dom";
+// 컴포넌트
 import styled from "styled-components";
 import Header from "../components/Header";
 import TodoList from "../components/TodoList";
+import WidgetCard from "../components/WidgetCard";
+import Modalcalendar from "../components/Modalcalendar";
+import Loading from "../components/Loading";
+
+// 리덕스
+import { __getPlan } from "../redux/modules/PlanSlice";
 
 function MoobDetail() {
   const headstate = true;
   const dispatch = useDispatch();
-  const { plans } = useSelector((state) => state.plans);
+  const navigate = useNavigate();
+  const { plans, isPlansLoading } = useSelector((state) => state.plans);
+  const { me } = useSelector((state) => state.user)
   const { id } = useParams();
 
   const [myplan, setMyplan] = useState({})
@@ -23,7 +30,13 @@ function MoobDetail() {
 
   useEffect(() => {
     dispatch(__getPlan())
-  }, []);
+  }, [dispatch]);
+
+  useEffect(()=>{
+    if(!me){
+      navigate('/login')
+    }
+  }, [me, navigate])
 
   useEffect(() => {
     if (plans) {
@@ -35,7 +48,6 @@ function MoobDetail() {
       setTodos(findPlan?.todos);
     }
   }, [plans]);
-
 
   return (
     <>
@@ -70,6 +82,7 @@ function MoobDetail() {
           )
         }
       </Wrap>
+      {isPlansLoading ? <Loading /> : null}
     </>
   );
 }

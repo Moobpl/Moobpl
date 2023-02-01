@@ -1,17 +1,29 @@
-import React, { useRef } from 'react'
+// 훅
+import React, { useRef, useEffect } from 'react'
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+// 컴포넌트
 import Header from '../components/Header';
 import MainLifeCard from '../components/MainLifeCard';
 import Footer from '../components/Footer';
 import TopButton from '../components/TopButton';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 const LifeInfoList = () => {
   const { life } = useSelector((state) => state.info)
-  console.log(life)
+  const { me } = useSelector((state) => state.user)
+  const navigate = useNavigate();
   const headstate = true;
   const wrap = useRef();
   const width = 'calc(100% - 48px)'
+
+  useEffect(() => {
+    if (!me) {
+      navigate('/login')
+    }
+  }, [me, navigate])
+
   return (
     <>
       <Header headstate={headstate}></Header>

@@ -1,11 +1,24 @@
-import React from "react";
+// 훅
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+// 컴포넌트
 import Header from "../components/Header";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+
 
 const Setting = () => {
   const headstate = true;
   const navigate = useNavigate();
+  const { me } = useSelector((state) => state.user)
+
+  useEffect(() => {
+    if (!me) {
+      navigate('/login')
+    }
+  }, [me, navigate])
+
   return (
     <>
       <Header headstate={headstate}></Header>
@@ -29,26 +42,22 @@ const Setting = () => {
             <dd>
               <ul>
                 <li>공지사항</li>
-                <li><img src={`${process.env.PUBLIC_URL}/images/backarrow.png`} alt="" onClick={()=>{navigate('./announcement')}}/></li>
+                <li><img src={`${process.env.PUBLIC_URL}/images/backarrow.png`} alt="" onClick={() => { navigate('./announcement') }} /></li>
               </ul>
               <ul>
                 <li>자주묻는 질문</li>
-                <li><img src={`${process.env.PUBLIC_URL}/images/backarrow.png`} alt="" onClick={()=>{alert('서비스 준비중 입니다.')}}/></li>
+                <li><img src={`${process.env.PUBLIC_URL}/images/backarrow.png`} alt="" onClick={() => { alert('서비스 준비중 입니다.') }} /></li>
               </ul>
             </dd>
             <dt style={{ marginTop: "24px" }}>서비스약관</dt>
             <dd>
               <ul>
                 <li>서비스 이용약관</li>
-                <li><img src={`${process.env.PUBLIC_URL}/images/backarrow.png`} alt="" onClick={()=>{navigate('./service')}}/></li>
+                <li><img src={`${process.env.PUBLIC_URL}/images/backarrow.png`} alt="" onClick={() => { navigate('./service') }} /></li>
               </ul>
               <ul>
                 <li>개인정보 처리방침</li>
-                <li><img src={`${process.env.PUBLIC_URL}/images/backarrow.png`} alt="" onClick={()=>{navigate('./privacy')}}/></li>
-              </ul>
-              <ul>
-                <li>오픈소스 라이선스</li>
-                <li><img src={`${process.env.PUBLIC_URL}/images/backarrow.png`} alt=""/></li>
+                <li><img src={`${process.env.PUBLIC_URL}/images/backarrow.png`} alt="" onClick={() => { navigate('./privacy') }} /></li>
               </ul>
             </dd>
           </dl>

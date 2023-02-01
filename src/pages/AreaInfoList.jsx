@@ -1,16 +1,30 @@
-import React, { useRef } from "react";
+// 훅
+import React, { useRef, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+// 컴포넌트
 import Header from "../components/Header";
 import styled from "styled-components";
 import MainCityCard from "../components/MainCityCard";
 import TopButton from "../components/TopButton";
 import Footer from "../components/Footer";
-import { useSelector } from "react-redux";
+
 
 function AreaInfoList() {
   const { citys } = useSelector((state) => state.info)
+  const { me } = useSelector((state) => state.user)
+  const navigate = useNavigate();
   const wrap = useRef();
   const headstate = true;
   const width = 'calc(100% - 48px)'
+
+  useEffect(() => {
+    if (!me) {
+      navigate('/login')
+    }
+  }, [me, navigate])
+
   return (
     <>
       <Header headstate={headstate}></Header>

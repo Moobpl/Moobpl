@@ -4,13 +4,18 @@ import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import HambergerList from './HambergerList'
 
+import { __getPlan } from '../redux/modules/PlanSlice'
+
 const Hamberger = ({ open, openHandler }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user)
   const { plans } = useSelector((state) => state.plans)
 
-  
+  useEffect(() => {
+    dispatch(__getPlan())
+  }, [dispatch])
+
   return (
     <Wrap className={`${open}`}>
       <header>
@@ -24,7 +29,7 @@ const Hamberger = ({ open, openHandler }) => {
             <Photo></Photo>
             <h4>{me?.nickName}</h4>
           </Profile>
-          <Myplan onClick={() => { navigate("/myplan") }}>{`내 계획 : ${plans.length}`}</Myplan>
+          <Myplan onClick={() => { navigate("/myplan") }}>{`내 계획 : ${plans?.length}`}</Myplan>
           <HambergerList margin={"60px"}></HambergerList>
         </Container>
       </section>

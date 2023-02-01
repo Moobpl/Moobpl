@@ -2,10 +2,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
 import 'swiper/css';
-import styled from 'styled-components';
 
 const Slider = ({data}) => {
-    console.log(data)
   return (
     <Swiper
       spaceBetween={10}
@@ -14,7 +12,7 @@ const Slider = ({data}) => {
     >
       {
         data.welfare.map((item)=> {
-          return <SwiperSlide key={item} style={slideStyle}><div style={divStyle}>{item}</div></SwiperSlide>
+          return <SwiperSlide key={item} style={SlideStyle}><div style={DivStyle}>{item}</div></SwiperSlide>
         })
       }
     </Swiper>
@@ -23,7 +21,7 @@ const Slider = ({data}) => {
 
 export default Slider;
 
-const slideStyle = {
+const SlideStyle = {
     backgroundColor: "#fff",
     fontSize: "14px",
     fontWeight: "500",
@@ -38,7 +36,7 @@ const slideStyle = {
     height:"78px"
 }
 
-const divStyle = {
+const DivStyle = {
     display:"-webkit-box",
     overflow:"hidden",
     textOverflow: "ellipsis",

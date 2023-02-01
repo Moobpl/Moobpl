@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import dayjs from 'dayjs';
 import ModalTodo from "./ModalTodo";
 import { useSelector, useDispatch } from "react-redux";
 import { __deleteTodos, __deleteTodo } from "../redux/modules/PlanSlice";
 import { createPath } from "react-router-dom";
-
+import { useRef } from "react";
+import DayCalc from "../components/DayCalc"
 
 const TodoList = ({ todos, data }) => {
   const [modalTodoOpen, setModalTodoOpen] = useState(false);
@@ -13,101 +13,107 @@ const TodoList = ({ todos, data }) => {
   const [modalId, setModalId] = useState('');
   const [editMode, setEditMode] = useState(false);
   const dispatch = useDispatch();
+  const date = useRef();
+  const [day, setDay] = useState([]);
+  const [dDay, setDday] = useState([]);
 
-  useEffect(() => {
-    if (todos) {
-      //todos.map((item) => todoDate.push((item.date)));
-    }
-  }, [todos]
-  );
+useEffect(() => {
+  if (todos) {
+  }
+}, [todos]
+);
 
-  // const dayset = new Date();
-  // const today = dayjs(dayset).format('YYYY-MM-DD').split('-').map(str => Number(str));
-  const editModeHandler = (e) => {
-    e.preventDefault();
-    setEditMode(true);
-  }
-  const editCancleHandler = () =>{
-    setEditMode(false);
-  }
+useEffect(() => {
+  setDay(date.current?.innerText)
+  console.log(date.current)
+}, [todos])
 
-  const modalOpenHandler = (e) => {
-    setModalTodoOpen(true);
-    setModalId(e.target.name);
-  }
+// const dayset = new Date();
+// const today = dayjs(dayset).format('YYYY-MM-DD').split('-').map(str => Number(str));
+const editModeHandler = (e) => {
+  e.preventDefault();
+  setEditMode(true);
+}
+const editCancleHandler = () => {
+  setEditMode(false);
+}
 
-  const deleteTodosHandler = (e) => {
-    dispatch(__deleteTodos({
-      planId: data?._id,
-      todosId: e.target.name
-    }))
-    setEditMode(false);
-  }
+const modalOpenHandler = (e) => {
+  setModalTodoOpen(true);
+  setModalId(e.target.name);
+}
 
-  const deleteHandler = (e) => {
-    dispatch(__deleteTodo({
-      planId: data?._id,
-      todosId: e.target.name,
-      _id: e.target.value
-    }));
-  }
-  
-  
-  return (
-    <>
+const deleteTodosHandler = (e) => {
+  dispatch(__deleteTodos({
+    planId: data?._id,
+    todosId: e.target.name
+  }))
+  setEditMode(false);
+}
+
+const deleteHandler = (e) => {
+  dispatch(__deleteTodo({
+    planId: data?._id,
+    todosId: e.target.name,
+    _id: e.target.value
+  }));
+}
+
+return (
+  <>
     <EditeBtnWrap>
       {
-        editMode ? <EditFalsebtn editMode={editMode} onClick={editCancleHandler}><span>완료</span></EditFalsebtn> 
-        : 
-        <EditTruebtn editMode={editMode} onClick={editModeHandler}>
-          <span></span>  
-          <span></span>  
-          <span></span>  
-        </EditTruebtn> 
+        editMode ? <EditFalsebtn editMode={editMode} onClick={editCancleHandler}><span>완료</span></EditFalsebtn>
+          :
+          <EditTruebtn editMode={editMode} onClick={editModeHandler}>
+            <span></span>
+            <span></span>
+            <span></span>
+          </EditTruebtn>
       }
     </EditeBtnWrap>
-      
-      {todos?.map((item) => (
-        <>
-          <AddTodoDate
-            key={item._id}
-            todo={item.todo}
-          >
-            / <span>{item?.date}</span>
-            {
-              editMode ? <DeleteBtn name={item?._id} onClick={deleteTodosHandler}><span></span></DeleteBtn>
+
+    {todos?.map((item, index) => (
+      <>
+        <AddTodoDate
+          key={item?._id}
+          todo={item?.todo}
+        >
+          <DayCalc date={item.date}/> / <span value={item?.date}>{item?.date}</span>
+          {
+            editMode ? <DeleteBtn name={item?._id} onClick={deleteTodosHandler}><span></span></DeleteBtn>
+              : null
+          }
+
+        </AddTodoDate>
+
+        {item.todo.map((list) => (
+          <TodoBox key={list._id}>
+            <div style={{ backgroundColor: `${list.color}` }} >
+              <img src={list.category} alt="" />
+            </div>
+            <dl>
+              <dt>{list.title}</dt>
+              <dd>{list.body}</dd>
+            </dl>
+            {editMode ? <DeleteBtn value={list?._id} name={item._id} onClick={deleteHandler}><span></span></DeleteBtn>
               : null
             }
-            
-          </AddTodoDate>
+          </TodoBox>
+        )
+        )}
+        {editMode ? null
+          : <AddTodoBtn name={item._id} onClick={modalOpenHandler}>할일추가</AddTodoBtn>}
 
-          {item.todo.map((list) => (
-              <TodoBox key={list._id}>
-                <div style={{backgroundColor: `${list.color}`}} >
-                  <img src={list.category} alt=""  /> 
-                </div>
-                <dl>
-                  <dt>{list.title}</dt>
-                  <dd>{list.body}</dd>
-                </dl> 
-                {editMode ? <DeleteBtn value={list?._id} name={item._id} onClick={deleteHandler}><span></span></DeleteBtn> 
-                  : null
-                }                
-              </TodoBox>
-            )
-          )}
-          {editMode ? null
-          : <AddTodoBtn name={item._id} onClick={modalOpenHandler}>할일추가</AddTodoBtn> }
-          
-        </>
-      ))}
-      {
-        modalTodoOpen ?
-          <ModalTodo data={data} modalId={modalId} setModalTodoOpen={setModalTodoOpen}></ModalTodo>
-          : null
-      }
-    </>
-  );
+      </>
+    ))}
+    {
+      modalTodoOpen ?
+        <ModalTodo data={data} modalId={modalId} setModalTodoOpen={setModalTodoOpen}></ModalTodo>
+        : null
+    }
+  </>
+);
 };
 
 export default TodoList;
