@@ -51,7 +51,7 @@ const Myplan = () => {
         </Edit>
         {plans?.map((item) =>
 
-          <PlanCard key={item._id}>
+          <PlanCard style={{backgroundImage:`url("${item.cityImg}")`}} key={item._id}>
             <h4>{item.reigon}</h4>
             <span>{item.date}</span>
             {edit ? <button onClick={() => deleteHandler(item._id)}>삭제하기</button> :
@@ -129,17 +129,35 @@ const Edit = styled.div`
 `
 
 const PlanCard = styled.div`
-  background-color: red;
+  background-size: cover;
+  background-position: center center;
   border-radius: 16px;
   padding: 23px 15px;
   margin-bottom: 24px;
-  >h4{
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 120px;
+  position: relative;
+  overflow: hidden;
+  ::before {
+    content: "";
+    opacity: 0.4;
+    background-color: #000;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top:0; left: 0;
+  }
+
+  > h4{
+    z-index: 10000;
     width: 10px;
     word-break: keep-all;
     font-weight: 500;
     font-size: 16px;
     line-height: 24px;
     color: #FFFFFF;
+    position: relative;
   }
 
   span{
@@ -148,6 +166,8 @@ const PlanCard = styled.div`
     font-size: 12px;
     color: #FFFFFF;
     margin-top: 6px;
+    z-index: 1000;
+    position: relative;
   }
 
   >button {
@@ -160,6 +180,8 @@ const PlanCard = styled.div`
     line-height: 18px;
     color: #FFFFFF;
     float: right;
+    z-index: 1000;
+    position: relative;
   }
 `
 

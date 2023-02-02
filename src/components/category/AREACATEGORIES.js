@@ -2,6 +2,7 @@ export const AREACATEGORIES = [
   {
     id: 1,
     name: "서울",
+    cityImg: "/images/region/seoul.jpg",
     subcategories: [
       { subCategoryId: 1, name: "강남구" },
       { subCategoryId: 2, name: "강동구" },
@@ -33,6 +34,7 @@ export const AREACATEGORIES = [
   {
     id: 2,
     name: "부산",
+    cityImg: "/images/region/busan.jpg",
     subcategories: [
       { subCategoryId: 26, name: "강서구" },
       { subCategoryId: 27, name: "금정구" },
@@ -55,6 +57,7 @@ export const AREACATEGORIES = [
   {
     id: 3,
     name: "대구",
+    cityImg: "/images/region/daegu.jpg",
     subcategories: [
       { subCategoryId: 42, name: "남구" },
       { subCategoryId: 43, name: "달서구" },
@@ -69,6 +72,7 @@ export const AREACATEGORIES = [
   {
     id: 4,
     name: "인천",
+    cityImg: "/images/region/incheon.jpg",
     subcategories: [
       { subCategoryId: 50, name: "계양구" },
       { subCategoryId: 51, name: "미추홀구" },
@@ -85,6 +89,7 @@ export const AREACATEGORIES = [
   {
     id: 5,
     name: "광주",
+    cityImg: "/images/region/gwangju.jpg",
     subcategories: [
       { subCategoryId: 60, name: "광산구" },
       { subCategoryId: 61, name: "남구" },
@@ -96,6 +101,7 @@ export const AREACATEGORIES = [
   {
     id: 6,
     name: "대전",
+    cityImg: "/images/region/daejeon.jpg",
     subcategories: [
       { subCategoryId: 65, name: "대덕구" },
       { subCategoryId: 66, name: "동구" },
@@ -107,6 +113,7 @@ export const AREACATEGORIES = [
   {
     id: 7,
     name: "울산",
+    cityImg: "/images/region/ulsan.jpg",
     subcategories: [
       { subCategoryId: 70, name: "남구" },
       { subCategoryId: 71, name: "동구" },
@@ -118,6 +125,7 @@ export const AREACATEGORIES = [
   {
     id: 8,
     name: "세종",
+    cityImg: "/images/region/sejong.jpg",
     subcategories: [
       { subCategoryId: 75, name: "" },
     ]
@@ -125,6 +133,7 @@ export const AREACATEGORIES = [
   {
     id: 9,
     name: "경기",
+    cityImg: "/images/region/gyeongki.png",
     subcategories: [
       { subCategoryId: 76, name: "고양시" },
       { subCategoryId: 77, name: "과천시" },
@@ -161,6 +170,7 @@ export const AREACATEGORIES = [
   {
     id: 10,
     name: "강원",
+    cityImg: "/images/region/gangwon.png",
     subcategories: [
       { subCategoryId: 106, name: "강릉시" },
       { subCategoryId: 107, name: "동해시" },
@@ -185,6 +195,7 @@ export const AREACATEGORIES = [
   {
     id: 11,
     name: "충북",
+    cityImg: "/images/region/chungbuk.jpg",
     subcategories: [
       { subCategoryId: 124, name: "제천시" },
       { subCategoryId: 125, name: "청주시" },
@@ -202,6 +213,7 @@ export const AREACATEGORIES = [
   {
     id: 12,
     name: "충남",
+    cityImg: "/images/region/chungnam.jpg",
     subcategories: [
       { subCategoryId: 135, name: "계룡시" },
       { subCategoryId: 136, name: "공주시" },
@@ -223,6 +235,7 @@ export const AREACATEGORIES = [
   {
     id: 13,
     name: "전북",
+    cityImg: "/images/region/jeonbuk.jpg",
     subcategories: [
       { subCategoryId: 150, name: "군산시" },
       { subCategoryId: 151, name: "김제시" },
@@ -243,6 +256,7 @@ export const AREACATEGORIES = [
   {
     id: 14,
     name: "전남",
+    cityImg: "/images/region/jeonnam.jpg",
     subcategories: [
       { subCategoryId: 164, name: "광양시" },
       { subCategoryId: 165, name: "나주시" },
@@ -271,6 +285,7 @@ export const AREACATEGORIES = [
   {
     id: 15,
     name: "경북",
+    cityImg: "/images/region/gyeongbuk.jpg",
     subcategories: [
       { subCategoryId: 187, name: "경산시" },
       { subCategoryId: 188, name: "경주시" },
@@ -300,6 +315,7 @@ export const AREACATEGORIES = [
   {
     id: 16,
     name: "경남",
+    cityImg: "/images/region/gyeongnam.jpg",
     subcategories: [
       { subCategoryId: 210, name: "거제시" },
       { subCategoryId: 211, name: "김해시" },
@@ -324,6 +340,7 @@ export const AREACATEGORIES = [
   {
     id: 17,
     name: "제주",
+    cityImg: "/images/region/jeju.jpg",
     subcategories: [
       { subCategoryId: 228, name: "서귀포시" },
       { subCategoryId: 229, name: "제주시" },
