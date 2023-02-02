@@ -1,22 +1,33 @@
-import React, { useRef } from 'react'
+// 훅
+import React, { useRef, useEffect} from 'react'
+import { useSelector } from 'react-redux';
+import { useParams, useNavigate } from 'react-router-dom';
+
+// 컴포넌트
 import Header from '../components/Header'
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import TopButton from '../components/TopButton';
 import Footer from '../components/Footer';
 
 const AnnouncementDetail = () => {
   const headstate = true;
-  const { post } = useSelector((state) => state.info)
-  console.log(post)
+  const wrap = useRef()
+  const width = 'calc(100% - 48px)'
   const { id } = useParams()
-
+  const navigate = useNavigate();
+  const { post } = useSelector((state) => state.info)
+  const { me } = useSelector((state) => state.user)
+  
   const findPost = post.find((item) => {
     return item._id == id
   })
-  const wrap = useRef()
-  const width = 'calc(100% - 48px)'
+
+  useEffect(()=>{
+    if(!me){
+      navigate('/login')
+    }
+  },[me, navigate])
+  
   return (
     <>
       <Header headstate={headstate}></Header>

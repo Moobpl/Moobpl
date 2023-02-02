@@ -5,7 +5,7 @@ import 'swiper/css';
 import styled from 'styled-components';
 
 const StreetSlider = ({ data }) => {
-  console.log(data)
+
   return (
     <Swiper
       spaceBetween={10}
@@ -19,8 +19,8 @@ const StreetSlider = ({ data }) => {
               <ImgWrap>
                 <img src={`${process.env.PUBLIC_URL}/${item.imgSrc}`} alt="" />
               </ImgWrap>
-              <h5 style={divStyle}>{item.title}</h5>
-              <span style={divStyle}>{item.address}</span>
+              <h5 style={DivStyle}>{item.title}</h5>
+              <span style={DivStyle}>{item.address}</span>
             </SlideStyle>
           )
         })
@@ -57,7 +57,7 @@ const ImgWrap = styled.div`
   }
 `
 
-const divStyle = {
+const DivStyle = {
   display: "-webkit-box",
   overflow: "hidden",
   textOverflow: "ellipsis",

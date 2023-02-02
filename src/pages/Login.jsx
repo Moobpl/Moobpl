@@ -1,17 +1,37 @@
+// 훅
 import React, { useEffect, useState } from "react";
-import ButtonSubmit from "../components/ButtonSubmit";
-import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { __postLogin } from "../redux/modules/userSlice";
+
+//컴포넌트
+import ButtonSubmit from "../components/ButtonSubmit";
+import Loading from "../components/Loading";
+import styled from "styled-components";
+
+//리덕스
+import { __postLogin, clean } from "../redux/modules/userSlice";
+
 
 function Login() {
   const name = "로그인"
   const navigate = useNavigate()
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("")
-  const dispatch = useDispatch();
-  const { isLoginError, me, isLoginSucess } = useSelector((state) => state.user)
+  const { isLoginError, isUserLoading, me } = useSelector((state) => state.user)
+
+  useEffect(() => {
+    if (me) {
+      navigate('/main')
+    }
+  }, [me])
+
+  useEffect(() => {
+    if (isLoginError) {
+      alert(isLoginError)
+      dispatch(clean())
+    }
+  }, [isLoginError, dispatch])
 
   const userInfo = {
     email: email,
@@ -23,11 +43,6 @@ function Login() {
     dispatch(__postLogin(userInfo))
   }
 
-  useEffect(() => {
-    if (isLoginSucess) {
-      navigate('/main')
-    }
-  }, [isLoginSucess])
 
   return (
     <>
@@ -39,16 +54,22 @@ function Login() {
             <span>뭅플</span>입니다.
           </h1>
         </TextBox>
-        <form>
+        <Form onSubmit={onSubmit}>
           <InputEmail placeholder="Email" value={email} onChange={(e) => { setEmail(e.target.value) }}></InputEmail>
           <InputPassword placeholder="password" type="password" value={password} onChange={(e) => { setPassword(e.target.value) }}></InputPassword>
 
-          <ButtonWrap onClick={onSubmit}>
-            <ButtonSubmit buttonName={name}></ButtonSubmit>
-            <p>아직 회원이 아니신가요? <span onClick={() => { navigate("/signup") }}>회원가입</span></p>
-          </ButtonWrap>
-        </form>
+          <Bottom>
+            <ButtonSubmit buttonName={name} onClick={onSubmit}></ButtonSubmit>
+            <BottomTextWrap>
+              <p>아직 회원이 아니신가요? <span onClick={(e) => {
+                e.preventDefault()
+                navigate("/signup")
+              }}>회원가입</span></p>
+            </BottomTextWrap>
+          </Bottom>
+        </Form>
       </Wrap>
+      {isUserLoading ? <Loading /> : null}
     </>
   );
 }
@@ -57,9 +78,14 @@ export default Login;
 
 const Wrap = styled.div`
   width: calc(100% - 48px);
-  min-height: 100vh;
+  height: 100vh;
   margin: 0 auto;
   position: relative;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+  display: none; /* 크롬, 사파리, 오페라, 엣지 */
+  }
 `
 
 
@@ -93,7 +119,12 @@ const TextBox = styled.div`
 
   }
 `
-
+const Form = styled.form`
+  min-height: calc(100vh - 197px);
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+`
 
 const InputEmail = styled.input`
   width: 100%;
@@ -129,11 +160,11 @@ const InputPassword = styled.input`
   }
 `
 
-const ButtonWrap = styled.div`
-  width: 100%;
-  position: absolute;
-  bottom: 52px;
+const Bottom = styled.div`
+  margin: auto 0px 50px 0px;
+`
 
+const BottomTextWrap = styled.div`
   p {
     font-size: 12px;
     font-weight: 500;
@@ -144,6 +175,7 @@ const ButtonWrap = styled.div`
     span{
       font-size: 12px;
       color:#1198A9;
+      cursor: pointer;
     }
 
   }

@@ -1,27 +1,48 @@
-import React from 'react'
-import { useState, useRef } from 'react'
-import styled from 'styled-components'
-import ButtonSubmit from './ButtonSubmit'
-import { __patchCheckList } from '../redux/modules/PlanSlice'
+// 훅
+import React, { useEffect, useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 
-const CheckList = ({ myplan }) => {
+// 컴포넌트
+import styled from 'styled-components'
+import Header from '../components/Header'
+import ButtonSubmit from '../components/ButtonSubmit'
+
+// 리덕스
+import { __getPlan, __patchCheckList } from '../redux/modules/PlanSlice'
+
+
+const CheckList = () => {
     const dispatch = useDispatch();
-    const { plan } = useSelector((state) => state.plans)
-    const [height, setHeight] = useState("0px");
-    const [isOpen, setIsOpen] = useState(false)
+    const { plans } = useSelector((state) => state.plans)
+    const { me } = useSelector((state) => state.user)
+    const { id } = useParams()
+    const navigate = useNavigate();
     const [isChecked, setIsChecked] = useState(false) // 체크 여부
     const [checkedItems, setCheckedItems] = useState([])// 체크된 요소들
     const name = '저장완료';
     const content = useRef();
-    console.log(checkedItems)
+    const findCheckList = plans.find((item) => item._id === id)
+    //useEffect 목록
     useEffect(() => {
-        if (myplan) {
-            setCheckedItems(checkedItems.concat(myplan.checkList))
-        }
-    }, [myplan])
+        dispatch(__getPlan())
+    }, [dispatch]);
 
+    useEffect(() => {
+        if (findCheckList) {
+            const newArr = findCheckList?.checkList
+            setCheckedItems([...newArr])
+        }
+    }, [findCheckList])
+
+    useEffect(()=>{
+        if(!me){
+            navigate('/login')
+        }
+    },[me, navigate])
+    // 쿼리스트링에 맞는 체크리스트 값 가져오기
+
+    //보여질 데이터 목록
     const ListData = [
         {
             title: "이사일 확정",
@@ -81,6 +102,7 @@ const CheckList = ({ myplan }) => {
         }
     ]
 
+    //이벤트 함수
     const checkHandler = (e) => {
         setIsChecked(!isChecked)
         checkedItemHandler(e.target.value, e.target.checked)
@@ -100,20 +122,32 @@ const CheckList = ({ myplan }) => {
         let newArr = checkedItems.filter((item) => { return item !== undefined })
         console.log(newArr)
         dispatch(__patchCheckList({
-            _id: myplan._id,
+            _id: findCheckList._id,
             checkList: newArr,
         }))
-        setCheckedItems([])
+        navigate(-1)
     }
 
     const openHandler = (e) => {
-        e.currentTarget.nextSibling.classList.toggle('open')
+        e.currentTarget.nextElementSibling.classList.toggle('open')
     }
     return (
-        <div>
-            {ListData.map((item) => (
-                <ListWrap>
-                    <ListTitle><span onClick={openHandler}>{item.title}</span>
+        <>
+            <Header />
+            <Wrap>
+                <TextBox>
+                    <span>체크리스트</span>
+                    <h1>
+                        하나씩,<br />
+                        천천히 준비해 보세요
+                    </h1>
+                </TextBox>
+                {ListData.map((item, index) => (
+                    <ListWrap key={index}>
+                        <ListTitle onClick={openHandler}>
+                            {item.title}
+                            <img src={`${process.env.PUBLIC_URL}/images/toggleArrow.png`} alt="" />
+                        </ListTitle>
                         <SubMenu ref={content}>
                             {item.menu.map((child) => (
                                 <label key={child.id}>
@@ -130,17 +164,54 @@ const CheckList = ({ myplan }) => {
                                 </label>
                             ))}
                         </SubMenu>
-                    </ListTitle>
-                </ListWrap>
-            ))}
-            <div onClick={onSubmit}>
-                <ButtonSubmit buttonName={name}></ButtonSubmit>
-            </div>
-        </div>
+                    </ListWrap>
+                ))}
+                <div onClick={onSubmit} style={{ marginTop: "auto", marginBottom: "24px" }}>
+                    <ButtonSubmit buttonName={name}></ButtonSubmit>
+                </div>
+            </Wrap>
+        </>
     )
 }
 
 export default CheckList
+
+const Wrap = styled.div`
+    width: calc(100% - 48px);
+    height: 100%;
+    box-sizing: border-box;
+    overflow: scroll;
+    position:relative;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+  &::-webkit-scrollbar {
+    display: none; /* 크롬, 사파리, 오페라, 엣지 */
+  }
+`;
+
+const TextBox = styled.div`
+  padding-top: 86px;
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom: 19px;
+  span{
+    font-size: 14px;
+    line-height: 25px;
+    letter-spacing: 0.5px;
+    color: #666666;
+  }
+  
+  h1{
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 40px;
+    /* or 154% */
+    letter-spacing: 0.5px;
+    color: #282B49;
+  }
+`
 
 const ListWrap = styled.ul`
     padding: 20px 0px;
@@ -149,14 +220,19 @@ const ListWrap = styled.ul`
     line-height: 24px;
     letter-spacing: -0.165px;
     color: #666666;
-    border-bottom: 0.5px solid #BCBCBC;;
+    border-bottom: 0.5px solid #BCBCBC;
 `
 
 const ListTitle = styled.li`
- > span{
     display: block;
     cursor: pointer;
- }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    img{
+        display: block;
+        width: 9px;
+    }
 `
 
 const SubMenu = styled.div`

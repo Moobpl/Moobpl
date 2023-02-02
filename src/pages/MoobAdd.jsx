@@ -1,14 +1,20 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+// 훅
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+// 컴포넌트
+import Header from "../components/Header";
 import ButtonSubmit from "../components/ButtonSubmit";
 import RegionCategory from "../components/category/RegionCategory";
 import Calender from "../components/category/Calender";
+import styled from "styled-components";
+
+// 데이터
 import { AREACATEGORIES } from '../components/category/AREACATEGORIES';
-import Header from "../components/Header";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+
+// 리덕스
 import { __postPlan } from "../redux/modules/PlanSlice";
-import { useEffect } from "react";
 
 const MoobAdd = () => {
   const name = "선택 완료"
@@ -16,12 +22,17 @@ const MoobAdd = () => {
   const [showRegBtn, setShowRegBtn] = useState(false);
   const [showDatBtn, setshowDatBtn] = useState(false);
   const { me } = useSelector((state) => state.user)
-  const { isPostplanSucess } = useSelector((state) => state.plans)
   const [areaName, setAreaName] = useState("")
   const [date, setDate] = useState("")
   const headstate = true;
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    if(!me){
+      navigate('/login')
+    }
+  }, [me, navigate])
 
   const planInfo = {
     id: me.email,
@@ -108,7 +119,7 @@ const Wrap = styled.div`
   width:100%;
   height: 100%;
   margin-top:15px;
-  padding:0 24px;
+  padding:60px 24px 0px 24px;
   box-sizing: border-box;
   overflow: scroll;
   position:relative;
@@ -136,6 +147,8 @@ const Toptext = styled.div`
     transform: translateX(-50%);
     z-index: 1000;
     p{
-    color:#aaa;
+      font-size: 14px;
+      font-weight: 400;
+      color:#121212;
     }
 `

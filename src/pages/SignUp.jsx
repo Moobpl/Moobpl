@@ -1,14 +1,22 @@
+//훅
 import React, { useEffect, useState, useCallback } from "react";
-import styled from "styled-components";
-import ButtonSubmit from "../components/ButtonSubmit";
-import Header from "../components/Header";
 import { useDispatch, useSelector } from "react-redux";
-import { __postUser } from "../redux/modules/userSlice";
 import { useNavigate } from "react-router-dom";
 
-function Signup() {
-  const { isSignupSucess, isSignupError } = useSelector((state) => state.user);
-  console.log(isSignupSucess)
+//컴포넌트
+import ButtonSubmit from "../components/ButtonSubmit";
+import Header from "../components/Header";
+import Loading from "../components/Loading";
+import styled from "styled-components";
+
+//리덕스
+import { __postUser, clean } from "../redux/modules/userSlice";
+
+
+
+const Signup = () => {
+  const { isSignupSucess, isSignupError, isUserLoading, me } = useSelector((state) => state.user);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const name = "회원가입";
@@ -108,15 +116,28 @@ function Signup() {
       "password": password,
     }
     dispatch(__postUser(userInfo))
-
-    if(isSignupSucess){
-      navigate("/login")
-    }
-
-    if(isSignupError) {
-      alert(isSignupError)
-    }
   }
+
+  useEffect(() => {
+    if (isSignupError) {
+      alert(isSignupError)
+      dispatch(clean())
+    }
+  }, [isSignupError, dispatch])
+
+  useEffect(()=>{
+    if(isSignupSucess){
+      alert("회원가입이 완료 되었습니다.")
+      dispatch(clean())
+      navigate('/login')
+    }
+  },[isSignupSucess, dispatch, navigate])
+
+  useEffect(()=>{
+    if(me){
+      navigate('main')
+    }
+  },[me, navigate])
 
   return (
     <div>
@@ -144,7 +165,9 @@ function Signup() {
           <ButtonSubmit buttonName={name}></ButtonSubmit>
         </ButtonWrap>
       </Wrap>
+      {isUserLoading ? <Loading /> : null}
     </div>
+
   );
 }
 

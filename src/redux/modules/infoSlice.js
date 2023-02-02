@@ -420,7 +420,7 @@ const initialState = {
             disc: "셀프 인테리어의 시작",
             script: `인테리어를 할때 가장 많이 변화를 일키는것이 바로 벽지이다.
             도배는 생각보다 쉽지는 않은데, 업체에 맞기기엔 비용이 부담스럽다면 하나하나 읽어보며 천천히 따라해보자!`,
-            imgSrc: "images/life/1.jpg",
+            imgSrc: "images/life/painting/cardimg.jpg",
             mainImgSrc: "images/life/painting/img.png",
             step:[
                 {
@@ -485,7 +485,7 @@ const initialState = {
         {
             _id: 2,
             name: "요리정보",
-            disc: "된장찌개 만들기",
+            disc: "자취러 된장찌개 만들기",
             script: `된장과 소금, 기타 부재료를 썰어 넣고 물만 붓고 끓여도 먹을만한 음식이 되는 된장찌개,
             하지만 맛있게 만들기가 까다로운 음식 중 하나, 자취생들이 쉬이 실패하는 요리 중 하나, 레시피를 보고 한번 따라 만들어보자.`,
             imgSrc: "images/life/cook/cardimg.jpg",

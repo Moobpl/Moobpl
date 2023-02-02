@@ -1,21 +1,30 @@
-import React from "react";
+// 훅
+import React, { useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+
+//컴포넌트
 import styled from "styled-components";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import TopButton from "../components/TopButton";
-import { useRef } from "react";
 
 const LifeInfoDetail = () => {
   const headstate = true;
   const width = 'calc(100% - 48px)'
   const wrap = useRef();
+  const navigate = useNavigate();
   const { id } = useParams();
   const { life } = useSelector((state) => state.info);
+  const { me } = useSelector((state) => state.user);
 
+  useEffect(() => {
+    if (!me) {
+      navigate('/login')
+    }
+  }, [me, navigate])
 
-  const findInfo = life.find((item) => item._id == id)
+  const findInfo = life.find((item) => item._id === Number(id))
 
   return (
     <>

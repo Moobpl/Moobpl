@@ -14,7 +14,7 @@ const App = () => {
 
   return (
     <>
-      <Routes />
+      <Routes user={me}/>
     </>
   );
 }

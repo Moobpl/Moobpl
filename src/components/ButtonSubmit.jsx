@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const ButtonSubmit = ({buttonName}) => {
   return (
-    <Button>{buttonName}</Button>
+    <Button type="submit">{buttonName}</Button>
   );
 };
 
