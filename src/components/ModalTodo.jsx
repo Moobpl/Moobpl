@@ -1,3 +1,4 @@
+import { upload } from '@testing-library/user-event/dist/upload';
 import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react'
@@ -41,8 +42,11 @@ const ModalTodo = ({setModalTodoOpen, modalId, data}) => {
     setModalTodoOpen(false);
   }
 
-  const onTransmitHandler =(event)=> {
+  const onTransmitHandler = (event)=> {
     event.preventDefault();
+    if (title === "" || body === "" || category ===""){
+     return alert("내용을 입력해주세요");
+    }
     dispatch(__patchTodo(todoInfo));
     setModalTodoOpen(false);
   }

@@ -5,21 +5,11 @@ import { useDispatch } from "react-redux";
 import { __deleteTodos, __deleteTodo } from "../redux/modules/PlanSlice";
 import Dday from "./Dday";
 
-const TodoList = ({ todos, data }) => {
+const TodoList = ({ todos, data, editMode, setEditMode }) => {
   const [modalTodoOpen, setModalTodoOpen] = useState(false);
   const [modalId, setModalId] = useState('');
-  const [editMode, setEditMode] = useState(false);
-  
-  const dispatch = useDispatch();
 
-  const editModeHandler = (e) => {
-    e.preventDefault();
-    setEditMode(true);
-  }
-  
-  const editCancleHandler = () =>{
-    setEditMode(false);
-  }
+  const dispatch = useDispatch();
 
   const modalOpenHandler = (e) => {
     setModalTodoOpen(true);
@@ -43,26 +33,14 @@ const TodoList = ({ todos, data }) => {
   }
   
   return (
-    <>
-    <EditBtnWrap>
-      {
-        editMode ? <EditFalsebtn editMode={editMode} onClick={editCancleHandler}><span>완료</span></EditFalsebtn> 
-        : 
-        <EditTruebtn editMode={editMode} onClick={editModeHandler}>
-          <span></span>  
-          <span></span>  
-          <span></span>  
-        </EditTruebtn> 
-      }
-    </EditBtnWrap>
-      
+    <>    
       {todos?.map((item) => (
-          <TodoWrap>
+          <TodoWrap
+            key={item._id}>
             <AddTodoDate 
-              key={item._id}
               todo={item.todo}
             >              
-              <Dday dday={item.date}></Dday> / <span>{item.date}</span>            
+              <Dday dday={item.date}></Dday> <TodoDay>{item.date}</TodoDay>            
               {
                 editMode ? <DeleteBtn name={item?._id} onClick={deleteTodosHandler}><span></span></DeleteBtn>
                 : null
@@ -102,23 +80,29 @@ const TodoList = ({ todos, data }) => {
 
 export default TodoList;
 
-
 const AddTodoDate = styled.h1`
   display: flex;
-  align-items: center;
+  align-items:center;
   gap:10px;
   margin-bottom: 10px;
+  line-height: 22px;
   p{
     color:#121212;
-    font-size:18px;
+    font-size:22px;
   }
-  span { 
+  > button{
+    margin-top:5px;
+  }
+`
+const TodoDay = styled.span`
+    display: inline-block;
     color: #aaa;
     font-weight: 500;
     font-size: 14px;
-    line-height: 21px;
     letter-spacing: 0.3px;
-  }
+    vertical-align:bottom;
+    margin-top:5px;
+  
 `
 const TodoWrap = styled.div`
   margin-bottom: 15px;
@@ -185,34 +169,6 @@ const AddTodoBtn = styled.button`
   color:#aaa;
   margin-top:15px;
   cursor: pointer;
-`
-const EditBtnWrap = styled.div`
-  margin-top:10px;
-  > button {
-    margin-left: auto;
-    border:0;
-    outline: 0;
-    appearance: none;
-    background-color: transparent;
-    cursor: pointer;
-  }
-`
-const EditFalsebtn = styled.button`
-  display: flex;
-  span {
-    color: #57b0fb;
-  }
-`
-const EditTruebtn = styled.button`
-  display: flex;
-  gap: 6px;
-  > span {
-    display: block;
-    width: 4px;
-    height: 4px;
-    border-radius: 100%;
-    background-color:#000;
-  }
 `
 const DeleteBtn = styled.button`
   width: 20px; 

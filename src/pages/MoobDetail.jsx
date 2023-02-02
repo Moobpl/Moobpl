@@ -24,9 +24,18 @@ function MoobDetail() {
 
   const [myplan, setMyplan] = useState({})
   const [isOpen, setIsOpen] = useState(false);
-
+  
   const [todos, setTodos] = useState([]);
-  const [dDay, setDday] = useState('');
+  const [editMode, setEditMode] = useState(false);
+  
+  const editModeHandler = (e) => {
+    e.preventDefault();
+    setEditMode(true);
+  }
+  
+  const editCancleHandler = () =>{
+    setEditMode(false);
+  }
 
   useEffect(() => {
     dispatch(__getPlan())
@@ -44,7 +53,6 @@ function MoobDetail() {
         return item._id == id
       })
       setMyplan(findPlan);
-      // console.log("왓이즈마이플랜",myplan._id);
       setTodos(findPlan?.todos);
     }
   }, [plans]);
@@ -61,14 +69,27 @@ function MoobDetail() {
             <p>
               <img src="/images/add_icon.png" alt="" />
               일정을 등록하세요
-            </p>
-          </Addinfotext>
-          : ""
+              </p>
+            </Addinfotext>
+          : 
+            <EditBtnWrap>
+              {
+                editMode ? 
+                <EditFalsebtn onClick={editCancleHandler}><span>완료</span></EditFalsebtn>
+                : 
+                <EditTruebtn onClick={editModeHandler}>
+                  <span></span>  
+                  <span></span>  
+                  <span></span>  
+                </EditTruebtn> 
+              }
+            </EditBtnWrap> 
         }
         <TodoList
           key={todos?._id}
           todos={todos}
           data={myplan}
+          editMode={editMode} setEditMode={setEditMode} 
         >
         </TodoList>
 
@@ -132,4 +153,32 @@ const AddBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+`
+const EditBtnWrap = styled.div`
+  margin-top:10px;
+  > button {
+    margin-left: auto;
+    border:0;
+    outline: 0;
+    appearance: none;
+    background-color: transparent;
+    cursor: pointer;
+  }
+`
+const EditFalsebtn = styled.button`
+  display: flex;
+  span {
+    color: #57b0fb;
+  }
+`
+const EditTruebtn = styled.button`
+  display: flex;
+  gap: 6px;
+  > span {
+    display: block;
+    width: 4px;
+    height: 4px;
+    border-radius: 100%;
+    background-color:#000;
+  }
 `
