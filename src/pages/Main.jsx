@@ -134,19 +134,12 @@ const TextBox = styled.div`
 const LifeWrap = styled.div`
     width: calc(100%);
     margin: 31px auto 0px auto;
-  /* margin-top: 31px; */
 `
 
 const LifeCardWrap = styled.div`
   margin-left: 24px;
   display: flex;
   gap: 16px;
-  overflow: scroll;
-  padding-bottom: 70px;
-
-  &::-webkit-scrollbar {
-  display: none; /* 크롬, 사파리, 오페라, 엣지 */
-  }
 `
 
 const Subtitle = styled.div`
@@ -176,6 +169,8 @@ const Subtitle = styled.div`
 const CityWrap = styled.div`
   width: ${wrapCalc};
   margin: -55px auto 40px auto;
+  position: relative;
+  z-index: 1;
   > div {
     display: flex;
     justify-content: space-between;

@@ -13,7 +13,7 @@ const MainSlider = ({ data }) => {
         <Swiper
             spaceBetween={10}
             slidesPerView={1.2}
-            style={{ paddingBottom: "70px", marginTop: "10px" }}
+            style={{ paddingBottom: "70px" }}
         >
             {
                 data.map((item, index) => {
@@ -40,47 +40,28 @@ export default MainSlider
 
 
 const CardWrap = styled(SwiperSlide)`
-    width: calc(50% - 7.5px);
-    background: #FFFFFF;
-    box-shadow: 10px 24px 54px rgba(0, 0, 0, 0.05);
-    border-radius: 16px;
-    padding:8px;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 10px 24px 54px rgba(0, 0, 0, 0.04);
+    border-radius: 14px;
+    padding: 10px;
     box-sizing: border-box;
     cursor: pointer;
-    &:hover{
-        box-shadow: 10px 24px 54px rgba(0, 0, 0, 0.10);
-    }
-    h4{
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 21px;
-        letter-spacing: 0.3px;
-        color: #7E7E7E;
-        margin-top: 6px;
-    }
-
-    p{
-        width: 100%;
-        font-weight: 400;
-        font-size: 12px;
-        line-height: 18px;
-        color: #ACACAC;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .container{
+    .container {
         display: flex;
+        gap:16px;
+        align-items: center;
     }
 `
 
 const ImgWrap = styled.div`
     width: 60px;
-    border-radius: 16px;
+    height: 60px;
+    border-radius: 14px;
+    background-color: transparent;
+    display: flex;
     overflow: hidden;
-    img{
-        display: block;
+    img {
         width: 100%;
     }
 `
