@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import ModalTodo from "./ModalTodo";
 import { useSelector, useDispatch } from "react-redux";
 import { __deleteTodos, __deleteTodo } from "../redux/modules/PlanSlice";
-import { createPath } from "react-router-dom";
-import { useRef } from "react";
-import DayCalc from "../components/DayCalc"
 
 const TodoList = ({ todos, data }) => {
   const [modalTodoOpen, setModalTodoOpen] = useState(false);
@@ -79,7 +76,7 @@ return (
           key={item?._id}
           todo={item?.todo}
         >
-          <DayCalc date={item.date}/> / <span value={item?.date}>{item?.date}</span>
+          / <span value={item?.date}>{item?.date}</span>
           {
             editMode ? <DeleteBtn name={item?._id} onClick={deleteTodosHandler}><span></span></DeleteBtn>
               : null
