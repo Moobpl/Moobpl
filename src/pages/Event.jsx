@@ -27,7 +27,7 @@ const Event = () => {
         <TextBox>
           <span>뭅플</span>
           <h1>
-            이벤트.
+            이벤트
           </h1>
         </TextBox>
         <Footer></Footer>
