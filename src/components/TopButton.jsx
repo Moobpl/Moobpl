@@ -44,6 +44,7 @@ const ButtonWrap = styled.div`
     bottom: 24px;
     right: 24px;
     z-index: 9998;
+    cursor: pointer;
     div {
         width: 50px;
         height: 50px;

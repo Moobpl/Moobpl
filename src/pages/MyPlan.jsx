@@ -39,7 +39,7 @@ const Myplan = () => {
       <Header headstate={headstate}></Header>
       <Wrap ref={wrap}>
         <TextBox>
-          <span>{me.nickName}님 환영합니다.</span>
+          <span>{me?.nickName}님 환영합니다.</span>
           <h1>
             나의 이사일정.<br />
           </h1>
@@ -150,7 +150,7 @@ const PlanCard = styled.div`
   }
 
   > h4{
-    z-index: 10000;
+    z-index: 997;
     width: 10px;
     word-break: keep-all;
     font-weight: 500;
@@ -166,7 +166,7 @@ const PlanCard = styled.div`
     font-size: 12px;
     color: #FFFFFF;
     margin-top: 6px;
-    z-index: 1000;
+    z-index: 997;
     position: relative;
   }
 
@@ -180,8 +180,9 @@ const PlanCard = styled.div`
     line-height: 18px;
     color: #FFFFFF;
     float: right;
-    z-index: 1000;
+    z-index: 997;
     position: relative;
+    cursor: pointer;
   }
 `
 

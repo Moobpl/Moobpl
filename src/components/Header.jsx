@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Hamberger from "../components/Hamberger";
 import { __getPlan } from "../redux/modules/PlanSlice";
 import { useEffect } from "react";
@@ -14,6 +14,12 @@ const Header = ({ headstate, page }) => {
   const openHandler = (text) => {
     setMenuOpen(text);
   }
+
+  const location = useLocation();
+
+  useEffect(() => {
+    console.log(location.pathname)
+  }, [])
   
   return (
     <>
@@ -21,7 +27,7 @@ const Header = ({ headstate, page }) => {
         <Container>
           {
             page ?
-              "로고" : <img src={`${process.env.PUBLIC_URL}/images/backarrow.png`} alt="" onClick={() => { navigate(-1) }} />
+              "로고" : <img src={`${process.env.PUBLIC_URL}/images/backarrow.png`} alt="" onClick={() => { location.pathname === "/myplan" ? navigate("/main") : navigate(-1) }} />
           }
           {headstate ?
             <Menu onClick={() => { openHandler("open") }}>

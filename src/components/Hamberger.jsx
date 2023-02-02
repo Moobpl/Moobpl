@@ -123,4 +123,5 @@ const Myplan = styled.div`
   padding: 12px 0px;
   text-align: center;
   margin-top: 28px;
+  cursor: pointer;
 `

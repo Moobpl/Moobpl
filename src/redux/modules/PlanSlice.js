@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+axios.defaults.baseURL = process.env.REACT_APP_BASEURL;
 axios.defaults.withCredentials = true;
 
 export const __postPlan = createAsyncThunk(
@@ -8,7 +9,7 @@ export const __postPlan = createAsyncThunk(
     console.log(payload)
     try {
       // const data = await axios.post("http://localhost:3001/plans", payload);
-      const data = await axios.post("https://moobplback.herokuapp.com/plan", payload);
+      const data = await axios.post("/plan", payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -21,7 +22,7 @@ export const __getPlan = createAsyncThunk(
   async (payload, thunkAPI) => {
     //dispatch(함수명(payload))
     try {
-      const data = await axios.get("https://moobplback.herokuapp.com/plan", {
+      const data = await axios.get("/plan", {
         withCredentials: true,
       });
       //백엔드 응답(res)값이 data안으로 들어옴
@@ -44,7 +45,7 @@ export const __patchTodos = createAsyncThunk(
   async (payload, thunkAPI) => {
     // console.log(payload)
     try {
-      const data = await axios.patch(`https://moobplback.herokuapp.com/plan/${payload._id}/todos`, payload);
+      const data = await axios.patch(`/plan/${payload._id}/todos`, payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -57,7 +58,7 @@ export const __deleteTodos = createAsyncThunk(
   "plan/todos/deletTods",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.delete(`https://moobplback.herokuapp.com/plan/${payload.planId}/todos/${payload.todosId}`, payload);
+      const data = await axios.delete(`/plan/${payload.planId}/todos/${payload.todosId}`, payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -70,7 +71,7 @@ export const __patchTodo = createAsyncThunk(
   "plan/todos/todo/patchTodo",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.patch(`https://moobplback.herokuapp.com/plan/${payload.planId}/todos/${payload._id}/todo`, payload);
+      const data = await axios.patch(`/plan/${payload.planId}/todos/${payload._id}/todo`, payload);
       // console.log("데이터보기", data);
       return thunkAPI.fulfillWithValue(data.data);
       //백엔드에서 파라미터로 data를 넘겨준것 
@@ -86,7 +87,7 @@ export const __deleteTodo = createAsyncThunk(
   async (payload, thunkAPI) => {
     // console.log("payload알아보기", payload)
     try {
-      const data = await axios.delete(`https://moobplback.herokuapp.com/plan/${payload.planId}/todos/${payload.todosId}/todo/${payload._id}`);
+      const data = await axios.delete(`/plan/${payload.planId}/todos/${payload.todosId}/todo/${payload._id}`);
       // console.log("data알아보기", data.data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
@@ -101,7 +102,7 @@ export const __deletePlan = createAsyncThunk(
     console.log(payload)
     try {
       // const data = await axios.post("http://localhost:3001/plans", payload);
-      await axios.delete(`https://moobplback.herokuapp.com/plan/${payload}`);
+      await axios.delete(`/plan/${payload}`);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -114,7 +115,7 @@ export const __patchCheckList = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log(payload)
     try {
-      const data = await axios.patch(`https://moobplback.herokuapp.com/plan/${payload._id}/checklist`, payload);
+      const data = await axios.patch(`/plan/${payload._id}/checklist`, payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
