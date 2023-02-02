@@ -21,7 +21,6 @@ const Myplan = () => {
   useEffect(() => {
     dispatch(__getPlan())
   }, [plans])
-  
 
   const deleteHandler = (id) => {
     dispatch(__deletePlan(id))

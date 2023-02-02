@@ -58,9 +58,9 @@ const ImgWrap = styled.div`
 `
 
 const divStyle = {
-  display: "-webkit-box",
+  display: "-Webkit-box",
   overflow: "hidden",
   textOverflow: "ellipsis",
-  webkitLineClamp: "2",
-  webkitBoxOrient: "vertical"
+  WebkitLineClamp: "2",
+  WebkitBoxOrient: "vertical"
 }
