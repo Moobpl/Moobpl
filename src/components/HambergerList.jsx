@@ -1,8 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Navigate } from 'react-router-dom'
 import { __postLogout } from '../redux/modules/userSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 const HambergerList = ({ margin }) => {
     const navigate = useNavigate();
@@ -10,26 +11,28 @@ const HambergerList = ({ margin }) => {
 
     const logoutHandler = () => {
         dispatch(__postLogout())
+        navigate("/login");
     }
+
     return (
         <Wrap margin={"60px"}>
-            <li onClick={()=>{navigate("/areainfolist")}}>
+            <li onClick={() => { navigate("/areainfolist") }}>
                 <div><img src={`${process.env.PUBLIC_URL}/images/hamberger/1x/Asset 1.png`} alt="" /></div>
                 <span>도시정보</span>
             </li>
-            <li onClick={()=>{navigate("/lifeinfolist")}}>
+            <li onClick={() => { navigate("/lifeinfolist") }}>
                 <div><img src={`${process.env.PUBLIC_URL}/images/hamberger/1x/Asset 2.png`} alt="" /></div>
                 <span>생활정보</span>
             </li>
-            <li onClick={()=>{navigate("/event")}}>
+            <li onClick={() => { navigate("/event") }}>
                 <div><img src={`${process.env.PUBLIC_URL}/images/hamberger/1x/Asset 3.png`} alt="" /></div>
                 <span>이벤트</span>
             </li>
-            <li onClick={()=>{navigate("/setting")}}>
+            <li onClick={() => { navigate("/setting") }}>
                 <div><img src={`${process.env.PUBLIC_URL}/images/hamberger/1x/Asset 4.png`} alt="" /></div>
                 <span>설정</span>
             </li>
-            <li onClick={()=>{navigate("/profile")}}>
+            <li onClick={() => { navigate("/profile") }}>
                 <div><img src={`${process.env.PUBLIC_URL}/images/hamberger/1x/Asset 5.png`} alt="" /></div>
                 <span>프로필 수정</span>
             </li>

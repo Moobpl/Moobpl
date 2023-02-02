@@ -1,22 +1,24 @@
-import React from "react";
+// 훅
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { __getPlan, __deletePlan } from "../redux/modules/PlanSlice";
-import Header from "../components/Header";
-import { useEffect } from "react";
-import { useRef } from "react";
-import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+
+// 컴포넌트
+import Header from "../components/Header";
+import Loading from "../components/Loading";
+import styled from "styled-components";
+
+// 리덕스
+import { __getPlan, __deletePlan } from "../redux/modules/PlanSlice";
 
 const Myplan = () => {
   const headstate = true;
   const dispatch = useDispatch();
-  const { plans } = useSelector((state) => state.plans)
+  const [edit, setEdit] = useState(false)
+  const { plans, isPlansLoading } = useSelector((state) => state.plans)
   const { me } = useSelector((state) => state.user)
-
   const wrap = useRef()
   const navigate = useNavigate()
-  const [edit, setEdit] = useState(false)
 
   useEffect(() => {
     dispatch(__getPlan())
@@ -25,6 +27,7 @@ const Myplan = () => {
   const deleteHandler = (id) => {
     dispatch(__deletePlan(id))
   }
+
   return (
     <>
       <Header headstate={headstate}></Header>
@@ -35,7 +38,11 @@ const Myplan = () => {
             나의 이사일정.<br />
           </h1>
         </TextBox>
-        <span onClick={() => setEdit(!edit)}>수정모드</span>
+        <Edit onClick={() => setEdit(!edit)}>
+          <span></span>
+          <span></span>
+          <span></span>
+        </Edit>
         {plans?.map((item) =>
 
           <PlanCard style={{backgroundImage:`url("${item.cityImg}")`}} key={item._id}>
@@ -47,9 +54,14 @@ const Myplan = () => {
 
         )}
         {
-          plans?.length === 0 ? "일정을 추가해보세요" : null
+          plans?.length === 0 ?
+            <InfoText>
+              일정을 추가해보세요
+            </InfoText>
+            : null
         }
       </Wrap>
+      {isPlansLoading ? <Loading /> : null}
     </>
   )
 }
@@ -91,6 +103,22 @@ const TextBox = styled.div`
     /* or 154% */
     letter-spacing: 0.5px;
     color: #282B49;
+  }
+`
+
+const Edit = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+  gap: 6px;
+  margin-bottom: 12px;
+
+  span{
+    display: block;
+    width: 4px;
+    height: 4px;
+    background-color: #121212;
+    border-radius: 100%;
   }
 `
 
@@ -149,4 +177,17 @@ const PlanCard = styled.div`
     z-index: 1000;
     position: relative;
   }
+`
+
+const InfoText = styled.div`
+  display: block;
+  position: absolute;
+  width: 100%;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: 300;
+  font-size: 18px;
+  text-align: center;
+  color: #ACACAC;
 `

@@ -1,25 +1,66 @@
-import React, { useEffect, useState } from "react";
+// 훅
+import React, { useEffect, useState, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate, useNavigate } from "react-router-dom";
+
+// 컴포넌트
 import Header from "../components/Header";
 import ButtonSubmit from "../components/ButtonSubmit";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { __patchUser } from "../redux/modules/userSlice";
+import Loading from "../components/Loading";
+
+// 리덕스
+import { __patchUser, clean } from "../redux/modules/userSlice";
 
 function Profile() {
   const headstate = true
   const name = "수정완료"
-  const { me } = useSelector((state) => state.user)
-  const [nickname, setNickname] = useState(me.nickName)
+  const { me, isUserLoading, isUpdateSucess } = useSelector((state) => state.user)
+  const [nickName, setNickName] = useState(me.nickName)
+  const [nameMessage, setNameMessage] = useState('')
+  const [isName, setIsName] = useState(false)
   const dispatch = useDispatch();
-  useEffect(() => {
-    setNickname(me.nickName)
-  }, [me])
+  const navigate = useNavigate();
+
+  const onChangeName = useCallback((e) => {
+    setNickName(e.target.value)
+    if (e.target.value.length < 2 || e.target.value.length > 5) {
+      setNameMessage('2글자 이상 5글자 미만으로 입력해주세요.')
+      setIsName(false)
+    } else {
+      setNameMessage('올바른 이름 형식입니다 :)')
+      setIsName(true)
+    }
+  }, [])
 
   const onEditHandler = (e) => {
     e.preventDefault()
-    dispatch(__patchUser({nickname}))
-    window.location.reload()
+    if (nickName.trim() === "" || isName === false) {
+      setNameMessage('2글자 이상 5글자 미만으로 입력해주세요.')
+      return false
+    }
+    dispatch(__patchUser({ nickName }))
   }
+
+  useEffect(() => {
+    setNickName(me.nickName)
+  }, [me])
+
+  useEffect(() => {
+    if (isUpdateSucess) {
+      alert("회원정보가 변경되었습니다.")
+      dispatch(clean())
+      navigate("/main")
+    }
+  }, [isUpdateSucess])
+
+  useEffect(() => {
+    if (!me) {
+      navigate('/login')
+    }
+  }, [me, navigate])
+
+ 
 
   return (
     <>
@@ -31,15 +72,23 @@ function Profile() {
             프로필 수정
           </h1>
         </TextBox>
-        <Form>
-          <ImgWrap></ImgWrap>
+        <Form onSubmit={onEditHandler}>
+          <ImgWrap>
+            <img src={`${process.env.PUBLIC_URL}/images/userbagic.png`} alt="" />
+            <label htmlFor="file">
+              <img src={`${process.env.PUBLIC_URL}/images/Asset 3.png`} alt="" />
+            </label>
+            <File type="file" name="file" id="file" action='http:' method='post' enctype="multipart/form-data" />
+          </ImgWrap>
           <span>{me.email}</span>
-          <input type="text" value={nickname} onChange={(e) => { setNickname(e.target.value) }} />
+          <input type="text" value={nickName || ""} onChange={onChangeName} />
+          {nickName?.length > 0 ? <Message className={`message ${isName ? 'success' : 'error'}`}>{nameMessage}</Message> : <Message className={`message error`}>{nameMessage}</Message>}
           <ButtonWrap onClick={onEditHandler}>
             <ButtonSubmit buttonName={name}></ButtonSubmit>
           </ButtonWrap>
         </Form>
       </Wrap>
+      {isUserLoading ? <Loading /> : null}
     </>
   );
 }
@@ -89,6 +138,7 @@ const Form = styled.form`
     text-align: center;
     color: #666;
     font-weight: 700;
+    margin-top: 20px;
   }
 
   > input {
@@ -100,16 +150,57 @@ const Form = styled.form`
     font-size: 14px;
     padding: 15px 0px;
     text-align: center;
+    margin-top: 36px;
   }
+`
+
+const File = styled.input`
+  display:none;
 `
 
 const ImgWrap = styled.div`
   width: 120px;
   height: 120px;
+  margin: 0 auto;
+  position: relative;
+  >img{
+    display: block;
+    width: 100%;
+  }
+
+  >label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 31px;
+    height: 31px;
+    background-color: #f9a76f;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    border-radius: 100%;
+    cursor: pointer;
+  }
 `
 
 const ButtonWrap = styled.div`
   width: 100%;
   position: absolute;
   bottom: 24px;
+`
+
+const Message = styled.span`
+  display: block;
+  font-weight: 500;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -1px;
+  margin-top: 5px;
+  &.success {
+    color: #5cb85d;
+  }
+  &.error {
+    color: #ff2727;
+  }
 `

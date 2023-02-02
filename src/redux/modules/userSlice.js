@@ -7,7 +7,6 @@ axios.defaults.withCredentials = true;
 export const __postUser = createAsyncThunk(
   "user/signUp",
   async (payload, thunkAPI) => {
-    console.log(payload)
     try {
       const data = await axios.post("https://moobplback.herokuapp.com/user/signup", payload);
       return thunkAPI.fulfillWithValue(data.data);
@@ -17,12 +16,28 @@ export const __postUser = createAsyncThunk(
   }
 );
 
+// 로그인
 export const __postLogin = createAsyncThunk(
   "user/login",
   async (payload, thunkAPI) => {
-    console.log(payload)
     try {
       const data = await axios.post("https://moobplback.herokuapp.com/user/login", payload);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      console.log(error)
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+// 로그아웃
+export const __postLogout = createAsyncThunk(
+  "user/logout",
+  async (payload, thunkAPI) => {
+    try {
+      const data = await axios.post("https://moobplback.herokuapp.com/user/logout", payload, {
+        withCredentials: true,
+      });
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -30,6 +45,23 @@ export const __postLogin = createAsyncThunk(
   }
 );
 
+// 프로필수정
+export const __patchUser = createAsyncThunk(
+  "user/patchInfo",
+  async (payload, thunkAPI) => {
+    try {
+      const data = await axios.patch("https://moobplback.herokuapp.com/user", payload, {
+        withCredentials: true,
+      });
+      console.log(data.data)
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+// 회원정보 불러오기
 export const __getUser = createAsyncThunk(
   "user/getUserInfo",
   async (payload, thunkAPI) => {
@@ -42,116 +74,124 @@ export const __getUser = createAsyncThunk(
   }
 );
 
-export const __postLogout = createAsyncThunk(
-  "user/logout",
-  async (payload, thunkAPI) => {
-    console.log(payload)
-    try {
-      const data = await axios.post("api/user/logout", payload, {
-        withCredentials: true,
-      });
-      return thunkAPI.fulfillWithValue(data.data);
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
-    }
-  }
-);
-
-export const __patchUser = createAsyncThunk(
-  "user/patchInfo",
-  async (payload, thunkAPI) => {
-    console.log(payload)
-    try {
-      const data = await axios.patch("api/user", payload, {
-        withCredentials: true,
-      });
-      console.log(data.data)
-      return thunkAPI.fulfillWithValue(data.data);
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
-    }
-  }
-);
-
 const initialState = {
   me: [],
-  isLoading: false,
+
+  isUserLoading: false,
+  // 회원가입 상태
   isSignupSucess: false,
   isSignupError: false,
+  // 로그인 상태
   isLoginSucess: false,
   isLoginError: false,
-  isUpdateSucess : false,
-  isUpdateError : false,
+  // 로그아웃 상태
+  isLogoutSucess: false,
+  isLogoutError: false,
+  // 회정정보 상태
+  isGetuserSucess: false,
+  isGetuserError: false,
+  // 정보수정 상태
+  isUpdateSucess: false,
+  isUpdateError: false,
 };
 
 const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    clean: state => {
+      state.isSignupSucess = false;
+      state.isSignupError = false;
+      // 로그인 상태
+      state.isLoginSucess = false;
+      state.isLoginError = false;
+      // 로그아웃 상태
+      state.isLogoutSucess = false;
+      state.isLogoutError = false;
+      // 회정정보 상태
+      state.isGetuserSucess = false;
+      state.isGetuserError = false;
+      // 정보수정 상태
+      state.isUpdateSucess = false;
+      state.isUpdateError = false;
+    },
+  },
   extraReducers: {
+    // 회원가입 리듀서
     [__postUser.pending]: (state) => {
-      state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
+      state.isUserLoading = true;
     },
     [__postUser.fulfilled]: (state, action) => {
-      state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
+      state.isUserLoading = false;
       state.isSignupSucess = true;
-      state.isSignupError = false; // Store에 있는 todos에 서버에서 가져온 todos를 넣습니다.
+      state.isSignupError = false;
     },
     [__postUser.rejected]: (state, action) => {
-      state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
-      state.isSignupError = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
+      state.isUserLoading = false;
+      state.isSignupError = action.payload;
     },
+    // 로그인 리듀서
     [__postLogin.pending]: (state) => {
-      state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
-      state.isLogoutSucess = false;
+      state.isUserLoading = true;
+      state.isLoginSucess = false;
     },
     [__postLogin.fulfilled]: (state, action) => {
-      state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
+      state.isUserLoading = false;
       state.isLoginSucess = true;
-      state.me = action.payload; // Store에 있는 todos에 서버에서 가져온 todos를 넣습니다.
+      state.isLoginError = false;
+      state.me = action.payload;
     },
     [__postLogin.rejected]: (state, action) => {
-      state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
-      state.loginError = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
+      state.isUserLoading = false;
+      state.isLoginError = action.payload;
     },
+
+    // 로그아웃 리듀서
     [__postLogout.pending]: (state) => {
-      state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
+      state.isUserLoading = true;
     },
     [__postLogout.fulfilled]: (state, action) => {
-      state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
+      state.isUserLoading = false;
       state.isLogoutSucess = true;
-      state.me = []; // Store에 있는 todos에 서버에서 가져온 todos를 넣습니다.
+      state.isLogoutError = false;
+      state.me = null;
     },
     [__postLogout.rejected]: (state, action) => {
-      state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
-      state.logoutErr = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
+      state.isUserLoading = false;
+      state.logoutErr = action.payload;
     },
-    [__getUser.pending]: (state) => {
-      state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
-    },
-    [__getUser.fulfilled]: (state, action) => {
-      state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
-      state.isLogoutSucess = true;
-      state.me = action.payload; // Store에 있는 todos에 서버에서 가져온 todos를 넣습니다.
-    },
-    [__getUser.rejected]: (state, action) => {
-      state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
-      state.logoutErr = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
-    },
+
+    // 유저 정보수정 리듀서
     [__patchUser.pending]: (state) => {
-      state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
+      state.isUserLoading = true;
     },
     [__patchUser.fulfilled]: (state, action) => {
-      state.isLoading = false;
+      state.isUserLoading = false;
       state.isUpdateSucess = true;
-      state.me.nickName = action.payload
+      state.isUpdateError = true;
+      state.me.nickName = action.payload.nickName
     },
     [__patchUser.rejected]: (state, action) => {
-      state.isLoading = false;
+      state.isUserLoading = false;
       state.isUpdateError = action.payload;
+    },
+
+    // 유저정보가져오기 리듀서
+    [__getUser.pending]: (state) => {
+      state.isUserLoading = true;
+    },
+    [__getUser.fulfilled]: (state, action) => {
+      state.isUserLoading = false;
+      state.isGetuserSucess = true;
+      state.isGetuserError = false;
+      state.me = action.payload;
+    },
+    [__getUser.rejected]: (state, action) => {
+      state.isUserLoading = false;
+      state.isGetuserError = action.payload;
     },
   }
 });
 
-export const { } = userSlice.actions;
+export const { clean } = userSlice.actions;
 export default userSlice.reducer;

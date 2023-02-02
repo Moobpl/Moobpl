@@ -5,7 +5,7 @@ import 'swiper/css';
 import styled from 'styled-components';
 
 const StreetSlider = ({ data }) => {
-  console.log(data)
+
   return (
     <Swiper
       spaceBetween={10}

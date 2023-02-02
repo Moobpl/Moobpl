@@ -1,19 +1,25 @@
-import React, {useState, useEffect} from "react";
+// 훅
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import WidgetCard from "../components/WidgetCard";
-import CheckList from "../components/CheckList";
-import Modalcalendar from "../components/Modalcalendar";
+import { useParams, Navigate, useNavigate } from "react-router-dom";
 
-import { __getPlan } from "../redux/modules/PlanSlice";
-import { useParams } from "react-router-dom";
+// 컴포넌트
 import styled from "styled-components";
 import Header from "../components/Header";
 import TodoList from "../components/TodoList";
+import WidgetCard from "../components/WidgetCard";
+import Modalcalendar from "../components/Modalcalendar";
+import Loading from "../components/Loading";
+
+// 리덕스
+import { __getPlan } from "../redux/modules/PlanSlice";
 
 function MoobDetail() {
   const headstate = true;
   const dispatch = useDispatch();
-  const { plans } = useSelector((state) => state.plans);
+  const navigate = useNavigate();
+  const { plans, isPlansLoading } = useSelector((state) => state.plans);
+  const { me } = useSelector((state) => state.user)
   const { id } = useParams();
 
   const [myplan, setMyplan] = useState({})
@@ -33,30 +39,35 @@ function MoobDetail() {
 
   useEffect(() => {
     dispatch(__getPlan())
-  }, []);
-  
+  }, [dispatch]);
+
   useEffect(()=>{
-    if(plans){
+    if(!me){
+      navigate('/login')
+    }
+  }, [me, navigate])
+
+  useEffect(() => {
+    if (plans) {
       const findPlan = plans.find((item) => {
-         return item._id == id
+        return item._id == id
       })
       setMyplan(findPlan);
       setTodos(findPlan?.todos);
     }
-  },[plans]);
-  
-  
+  }, [plans]);
+
   return (
     <>
       <Header headstate={headstate}></Header>
-      
+
       <Wrap>
-        <WidgetCard data={myplan}/>
-        { myplan?.todos?.length === 0 
-          ? 
-            <Addinfotext>
-              <p>
-                <img src="/images/add_icon.png" alt="" />
+        <WidgetCard data={myplan} />
+        {myplan?.todos?.length === 0
+          ?
+          <Addinfotext>
+            <p>
+              <img src="/images/add_icon.png" alt="" />
               일정을 등록하세요
               </p>
             </Addinfotext>
@@ -74,24 +85,25 @@ function MoobDetail() {
               }
             </EditBtnWrap> 
         }
-        <TodoList 
-          key={todos?._id}  
+        <TodoList
+          key={todos?._id}
           todos={todos}
           data={myplan}
           editMode={editMode} setEditMode={setEditMode} 
         >
         </TodoList>
 
-        <AddBtn onClick={() => setIsOpen(true)}>+</AddBtn>
+        <AddBtn onClick={() => setIsOpen(true)}><img src="/images/add.png" /></AddBtn>
         {
           isOpen && (
-            <Modalcalendar 
+            <Modalcalendar
               open={isOpen}
-              onClose={()=>{setIsOpen(false)}}
+              onClose={() => { setIsOpen(false) }}
             />
           )
         }
       </Wrap>
+      {isPlansLoading ? <Loading /> : null}
     </>
   );
 }
@@ -138,6 +150,9 @@ const AddBtn = styled.button`
   right:24px;
   bottom:24px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 const EditBtnWrap = styled.div`
   margin-top:10px;

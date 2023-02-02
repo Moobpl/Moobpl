@@ -1,4 +1,9 @@
-import React, { useEffect, useRef } from "react";
+//훅
+import React, { useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom"
+import { useSelector } from "react-redux";
+
+//컴포넌트
 import Header from "../components/Header";
 import MainCard from "../components/MainCard";
 import MainLifeCard from "../components/MainLifeCard";
@@ -6,32 +11,41 @@ import MainCityCard from "../components/MainCityCard";
 import TopButton from "../components/TopButton";
 import Footer from "../components/Footer";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux";
-import { __getUser } from "../redux/modules/userSlice";
+import Loading from "../components/Loading"
+
+
 
 const Main = () => {
   const { citys, life } = useSelector((state) => state.info)
+  const { isUserLoading, me } = useSelector((state) => state.user)
+  const navigate = useNavigate();
 
-  const dispatch = useDispatch()
+  useEffect(()=>{
+    if(!me){
+      navigate('/login')
+    }
+  }, [me])
+
   const headstate = true;
   const page = "main"
-  const navigate = useNavigate();
   const wrap = useRef();
   const newArr = [...citys]
   const newArr2 = [...life]
   const width = 'calc(100% - 48px)'
   const sliceArr = newArr.slice(0, 6)
   const sliceArr2 = newArr2.slice(0, 4)
-
+  
   const shuffleArray = (arr) => {
     arr.sort(() => Math.random() - 0.5);
     console.log('실행중')
   }
 
-  shuffleArray(sliceArr)
-  shuffleArray(sliceArr2)
-  
+  useEffect(() => {
+    shuffleArray(sliceArr)
+    shuffleArray(sliceArr2)
+  }, [])
+
+
 
 
 
@@ -69,6 +83,7 @@ const Main = () => {
         </Section>
       </Wrap>
       <TopButton wrap={wrap}></TopButton>
+      {isUserLoading ? <Loading /> : null}
     </>
   );
 }
