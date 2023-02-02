@@ -90,7 +90,8 @@ const Overlay = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3.5px);
   z-index: 9999;
 `;
 

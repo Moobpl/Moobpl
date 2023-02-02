@@ -1,16 +1,27 @@
-import React from 'react'
-import Header from '../components/Header'
-import styled from 'styled-components';
+// 훅
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+
+// 컴포넌트
+import Header from '../components/Header'
+import styled from 'styled-components';
 import Footer from '../components/Footer';
+
 
 const Announcement = () => {
   const headstate = true;
   const { post } = useSelector((state) => state.info)
+  const { me } = useSelector((state) => state.user)
   const newArr = [...post]
   newArr.reverse().map((item) => item)
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    if(!me){
+      navigate('/login')
+    }
+  },[me, navigate])
 
   return (
     <>

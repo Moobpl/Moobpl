@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import dayjs from 'dayjs'; //날짜 포맷해주는 함수
+import { useNavigate } from "react-router-dom";
 
-const WidgetCard = ({ data=[]}) => {
+const WidgetCard = ({ data = [] }) => {
   const [dDay, setDday] = useState('');
-
+  const naviate = useNavigate();
   const diffDay = () => {
     
     const selectDay = String(data.date).split('-').map(str => Number(str));
@@ -15,14 +16,14 @@ const WidgetCard = ({ data=[]}) => {
     const today = dayjs(dayset).format('YYYY-MM-DD').split('-').map(str => Number(str));
     // console.log("오늘날짜", today);
 
-    const todaySec =  new Date(today).getTime();
+    const todaySec = new Date(today).getTime();
     const setdaySec = new Date(selectDay).getTime();
 
     // console.log(Math.sign(Math.ceil(setdaySec-todaySec) / (1000*60*60*24)));
-    setDday(Math.ceil(todaySec-setdaySec) / (1000*60*60*24));
+    setDday(Math.ceil(todaySec - setdaySec) / (1000 * 60 * 60 * 24));
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     diffDay();
   }, [data])
 
@@ -32,27 +33,27 @@ const WidgetCard = ({ data=[]}) => {
         <WidgetContainer>
           <Left>
             <p>체크리스트</p>
-            <p>
+            <p onClick={() => naviate(`./checklist`)}>
               {data?.checkList?.length} / 29
             </p>
           </Left>
           <Right>
             {
-              dDay < 0 
-               ?<>
+              dDay < 0
+                ? <>
                   <p>이삿날 </p>
                   <p>D{dDay}</p>
-                 </>
-               : 
-                 <>
+                </>
+                :
+                <>
                   <p>이삿날 </p>
                   <p>D+{dDay}</p>
-                 </>
+                </>
             }
           </Right>
         </WidgetContainer>
       </WidgetBox>
-    
+
     </>
   );
 };
@@ -70,6 +71,7 @@ const WidgetBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
   position: relative;
   overflow: hidden;
   ::after {
