@@ -61,6 +61,6 @@ const DivStyle = {
   display: "-webkit-box",
   overflow: "hidden",
   textOverflow: "ellipsis",
-  webkitLineClamp: "2",
-  webkitBoxOrient: "vertical"
+  WebkitLineClamp: "2",
+  WebkitBoxOrient: "vertical"
 }

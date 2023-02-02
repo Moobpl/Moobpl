@@ -1,5 +1,5 @@
 // 훅
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -17,7 +17,11 @@ function Login() {
   const navigate = useNavigate()
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
+  const [emailMessage, setEmailMessage] = useState('')
+  const [isEmail, setIsEmail] = useState(false)
   const [password, setPassword] = useState("")
+  const [passwordMessage, setPasswordMessage] = useState('')
+  const [isPassword, setIsPassword] = useState(false)
   const { isLoginError, isUserLoading, me } = useSelector((state) => state.user)
 
   useEffect(() => {
@@ -33,16 +37,39 @@ function Login() {
     }
   }, [isLoginError, dispatch])
 
+  const onChangeEmail = useCallback((e) => {
+    const emailRegex =
+      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/
+    const emailCurrent = e.target.value
+    setEmail(e.target.value)
+
+    if (!emailRegex.test(emailCurrent)) {
+      setEmailMessage('올바른 형식이 아닙니다.')
+      setIsEmail(false)
+    } else {
+      setEmailMessage('올바른 이메일 형식입니다.)')
+      setIsEmail(true)
+    }
+  }, [email])
+
   const userInfo = {
     email: email,
     password: password,
   }
-
   const onSubmit = (e) => {
     e.preventDefault();
+
+    if (email.trim() === "" || isEmail === false) {
+      setEmailMessage("이메일를 올바르게 입력하세요.")
+      return false;
+    } else if (password.trim() === "") {
+      setPasswordMessage('비밀번호를 입력하세요.')
+      return false;
+    }
+    
+
     dispatch(__postLogin(userInfo))
   }
-
 
   return (
     <>
@@ -55,9 +82,10 @@ function Login() {
           </h1>
         </TextBox>
         <Form onSubmit={onSubmit}>
-          <InputEmail placeholder="Email" value={email} onChange={(e) => { setEmail(e.target.value) }}></InputEmail>
+          <InputEmail placeholder="Email" value={email} onChange={onChangeEmail}></InputEmail>
+          {email.length > 0 ? <Message className={`message ${isEmail ? 'success' : 'error'}`}>{emailMessage}</Message> : <Message className={`message error`}>{emailMessage}</Message>}
           <InputPassword placeholder="password" type="password" value={password} onChange={(e) => { setPassword(e.target.value) }}></InputPassword>
-
+          {password.length > 0 ? null : <Message className={`message error`}>{passwordMessage}</Message>}
           <Bottom>
             <ButtonSubmit buttonName={name} onClick={onSubmit}></ButtonSubmit>
             <BottomTextWrap>
@@ -178,5 +206,21 @@ const BottomTextWrap = styled.div`
       cursor: pointer;
     }
 
+  }
+`
+
+const Message = styled.span`
+  display: block;
+  font-weight: 500;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -1px;
+  margin-top: 5px;
+  &.success {
+    color: #5cb85d;
+  }
+  &.error {
+    color: #ff2727;
   }
 `

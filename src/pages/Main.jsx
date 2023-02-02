@@ -12,7 +12,7 @@ import TopButton from "../components/TopButton";
 import Footer from "../components/Footer";
 import styled from "styled-components";
 import Loading from "../components/Loading"
-
+import MainSlider from "../components/MainSlider";
 
 
 const Main = () => {
@@ -68,7 +68,7 @@ const Main = () => {
               <span onClick={() => { navigate("/lifeinfolist") }}>더 보기</span>
             </Subtitle>
             <LifeCardWrap>
-              <MainLifeCard datas={sliceArr2}></MainLifeCard>
+              <MainSlider data={sliceArr2}></MainSlider>
             </LifeCardWrap>
           </LifeWrap>
 
@@ -146,10 +146,6 @@ const LifeCardWrap = styled.div`
 
   &::-webkit-scrollbar {
   display: none; /* 크롬, 사파리, 오페라, 엣지 */
-  }
-
-  >div{
-    min-width: 218px;
   }
 `
 
