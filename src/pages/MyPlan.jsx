@@ -22,7 +22,13 @@ const Myplan = () => {
 
   useEffect(() => {
     dispatch(__getPlan())
-  }, [plans])
+  }, [dispatch])
+
+  useEffect(()=>{
+    if(!me){
+      navigate('/login')
+    }
+  }, [me, navigate])
 
   const deleteHandler = (id) => {
     dispatch(__deletePlan(id))
@@ -107,7 +113,7 @@ const TextBox = styled.div`
 `
 
 const Edit = styled.div`
-  display: flex;
+  display: inline-flex;
   justify-content: flex-end;
   cursor: pointer;
   gap: 6px;

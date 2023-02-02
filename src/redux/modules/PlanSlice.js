@@ -211,11 +211,11 @@ const planSlice = createSlice({
           plan.todos.sort((a, b) => a.date < b.date ? -1 : a.date > b.date ? 1 : 0)
         }
       })
-  },
-  [__getPlan.rejected]: (state, action) => {
-    state.isPlansLoading = false;
-    state.isGetPlanError = action.payload;
-  },
+    },
+    [__getPlan.rejected]: (state, action) => {
+      state.isPlansLoading = false;
+      state.isGetPlanError = action.payload;
+    },
 
   //todos 추가
   [__patchTodos.pending]: (state) => {
