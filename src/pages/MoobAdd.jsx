@@ -24,6 +24,7 @@ const MoobAdd = () => {
   const { me } = useSelector((state) => state.user)
   const [areaName, setAreaName] = useState("")
   const [date, setDate] = useState("")
+  const [cityImg, setCityImg] = useState("")
   const headstate = true;
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -42,13 +43,23 @@ const MoobAdd = () => {
     checkList: [],
   }
 
+
   const onSelectHandler = () => {
     setSelect(true);
     setShowRegBtn(false);
   }
 
   const onTransmitHandler = () => {
-    dispatch(__postPlan(planInfo));
+    dispatch(__postPlan(
+      {
+        id: me.email,
+        region: areaName,
+        date: date,
+        cityImg: cityImg,
+        todos: [],
+        checkList: [],
+      }
+    ));
     navigate('/myplan')
   }
 
@@ -74,10 +85,13 @@ const MoobAdd = () => {
                     >
                       <RegionCategory
                         key={item.id}
+                        _id={item.id}
                         title={item.name}
                         subcategory={item.subcategories}
+                        cityImg={item.cityImg}
                         setAreaName={setAreaName}
                         setShowRegBtn={setShowRegBtn}
+                        setCityImg={setCityImg}
                       />
                     </RegionContainer>
                   );

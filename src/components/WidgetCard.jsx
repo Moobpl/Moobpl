@@ -4,21 +4,19 @@ import styled from "styled-components";
 import dayjs from 'dayjs'; //날짜 포맷해주는 함수
 import { useNavigate } from "react-router-dom";
 
+
 const WidgetCard = ({ data = [] }) => {
   const [dDay, setDday] = useState('');
   const naviate = useNavigate();
+
   const diffDay = () => {
     const selectDay = String(data.date).split('-').map(str => Number(str));
-    // console.log("설정날짜 찾기 자리값", selectDay);
 
     const dayset = new Date();
     const today = dayjs(dayset).format('YYYY-MM-DD').split('-').map(str => Number(str));
-    // console.log("오늘날짜", today);
 
     const todaySec = new Date(today).getTime();
     const setdaySec = new Date(selectDay).getTime();
-
-    // console.log(Math.sign(Math.ceil(setdaySec-todaySec) / (1000*60*60*24)));
     setDday(Math.ceil(todaySec - setdaySec) / (1000 * 60 * 60 * 24));
   }
 
@@ -28,7 +26,7 @@ const WidgetCard = ({ data = [] }) => {
 
   return (
     <>
-      <WidgetBox>
+      <WidgetBox style={{backgroundImage:`url("${data.cityImg}")`}}>
         <WidgetContainer>
           <Left>
             <p>체크리스트</p>
@@ -65,18 +63,28 @@ const WidgetBox = styled.div`
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
-  background-blend-mode:multiply;
   padding:15px;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
-  filter: drop-shadow(10px 24px 54px rgba(0, 0, 0, 0.18));
+
+  position: relative;
+  overflow: hidden;
+  ::after {
+    content: "";
+    opacity: 0.4;
+    background-color: #000;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
 `
 const WidgetContainer = styled.div`
   width: 100%;
   height: auto;
   display: flex;
+  z-index: 1000;
 `
 const Left = styled.div`
   width: 50%;

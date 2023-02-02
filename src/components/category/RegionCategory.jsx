@@ -1,7 +1,7 @@
 import React, {useState, useRef} from 'react';
 import styled from "styled-components";
 
-const RegionCategory = ({id, title, subcategory, setAreaName, setShowRegBtn}) => {
+const RegionCategory = ({id, title, cityImg, setCityImg, subcategory, setAreaName, setShowRegBtn}) => {
   const [active, setActive] = useState("");
   const [height, setHeight] = useState("0px");
 
@@ -9,21 +9,20 @@ const RegionCategory = ({id, title, subcategory, setAreaName, setShowRegBtn}) =>
   const list = useRef(null);
 
   const toggle = () => {
-      setActive( active === "" ? "active" : "" );
-      setHeight( active === "active" ? "0px" : `${content.current.scrollHeight}px` );
+    setActive( active === "" ? "active" : "" );
+    setHeight( active === "active" ? "0px" : `${content.current.scrollHeight}px` );
   };
-
+  
   const onClicksub = (name) => {
     setShowRegBtn(true);
-    // setAreaName(name);
-    setAreaName(title.concat(" ", name))
+    setAreaName(title.concat(" ", name));
+    setCityImg(cityImg);
   }
-
     return (
       <>
       <AccItem className={`item${id} ${active}`}>
-          <RegionTab data-index={id} onClick={()=>toggle(id)} ref={list}>
-              <p>{id} {title}</p>
+          <RegionTab data-index={id} onClick={()=>toggle(id)} ref={list} >
+              <p>{title}</p>
           </RegionTab>
           <SubRegTab
             ref={content}

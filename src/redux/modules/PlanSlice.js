@@ -71,7 +71,7 @@ export const __patchTodo = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.patch(`https://moobplback.herokuapp.com/plan/${payload.planId}/todos/${payload._id}/todo`, payload);
-      console.log("데이터보기", data);
+      // console.log("데이터보기", data);
       return thunkAPI.fulfillWithValue(data.data);
       //백엔드에서 파라미터로 data를 넘겨준것 
     } catch (error) {
@@ -84,10 +84,10 @@ export const __patchTodo = createAsyncThunk(
 export const __deleteTodo = createAsyncThunk(
   "plan/todos/todo/deleteTodo",
   async (payload, thunkAPI) => {
-    console.log("payload알아보기", payload)
+    // console.log("payload알아보기", payload)
     try {
       const data = await axios.delete(`https://moobplback.herokuapp.com/plan/${payload.planId}/todos/${payload.todosId}/todo/${payload._id}`);
-      console.log("data알아보기", data.data);
+      // console.log("data알아보기", data.data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -206,106 +206,104 @@ const planSlice = createSlice({
       state.isGetPlanError = false;
       state.plans = action.payload;
 
-      if (state.plan){
-        state.plans.forEach((plan) => {
-          if(plan.todos.length > 0) {
-            plan.todos.sort((a, b) => a.date < b.date ? -1 : a.date > b.date ? 1 : 0)
-          }
-        })
-      }
+      state.plans.forEach((plan) => {
+        if (plan.todos.length > 0) {
+          plan.todos.sort((a, b) => a.date < b.date ? -1 : a.date > b.date ? 1 : 0)
+        }
+      })
     },
     [__getPlan.rejected]: (state, action) => {
       state.isPlansLoading = false;
       state.isGetPlanError = action.payload;
     },
 
-    //todos 추가
-    [__patchTodos.pending]: (state) => {
-      state.isPlansLoading = true;
-    },
-    [__patchTodos.fulfilled]: (state, action) => {
-      state.isPlansLoading = false;
-      state.isPostTodosSucess = true;
-      state.isPostTodosError = false;
-      const plan = state.plans.find((item) => item._id === action.payload._id);
-      const arr = action.payload.todos
-      arr.sort((a, b) => {
-        return a.date < b.date ? -1 : a.date > b.date ? 1 : 0
-      })
-
-      plan.todos = arr
-    },
-    [__patchTodos.rejected]: (state, action) => {
-      state.isPlansLoading = false;
-      state.isPostTodosError = action.payload;
-    },
-
-    //todos 삭제
-    [__deleteTodos.pending]: (state) => {
-      state.isPlansLoading = true;
-    },
-    [__deleteTodos.fulfilled]: (state, action) => {
-      state.isPlansLoading = false;
-      state.isDeleteTodoSucess = true;
-      state.isDeleteTodoError = false;
-      const plan = state.plans.find((item) => item._id === action.payload._id);
-      plan.todos = plan.todos.filter((todos) => todos._id !== action.payload.todosId);
-    },
-    [__deleteTodos.rejected]: (state, action) => {
-      state.isPlansLoading = false;
-      state.isDeleteTodoError = action.payload;
-    },
-
-
-    //todo 추가
-    [__patchTodo.pending]: (state) => {
-      state.isPlansLoading = true;
-    },
-    [__patchTodo.fulfilled]: (state, action) => {
-      state.isPlansLoading = false;
-      state.isPostTodoSucess = true;
-      state.isPostTodoError = false;
-      const plan = state.plans.find((item) => item._id === action.payload._id);
-      plan.todos = action.payload.todos;
-    },
-    [__patchTodo.rejected]: (state, action) => {
-      state.isPlansLoading = false;
-      state.isPostTodoError = action.payload;
-    },
-
-    //todo 삭제
-    [__deleteTodo.pending]: (state) => {
-      state.isPlansLoading = true;
-    },
-    [__deleteTodo.fulfilled]: (state, action) => {
-      state.isPlansLoading = false;
-      state.isDeleteTodoSucess = true;
-      state.isDeleteTodoError = false;
-      const plan = state.plans.find((item) => item._id === action.payload._id);
-      const todos = plan.todos.find((item) => item._id === action.payload.todosId);
-      todos.todo = todos.todo.filter((todo) => todo._id !== action.payload.todoId);
-    },
-    [__deleteTodo.rejected]: (state, action) => {
-      state.isPlansLoading = false;
-      state.isDeleteTodoError = action.payload;
-    },
-
-    //체크리스트 수정
-    [__patchCheckList.pending]: (state) => {
-      state.isPlansLoading = true;
-    },
-    [__patchCheckList.fulfilled]: (state, action) => {
-      state.isPlansLoading = false;
-      state.isPatchCheckSucess = true;
-      state.isPatchCheckError = false;
-      const plan = state.plans.find((item) => item._id === action.payload._id);
-      plan.checkList = action.payload.checkList
-    },
-    [__patchCheckList.rejected]: (state, action) => {
-      state.isPlansLoading = false;
-      state.isPatchCheckError = action.payload;
-    },
+  //todos 추가
+  [__patchTodos.pending]: (state) => {
+    state.isPlansLoading = true;
   },
+  [__patchTodos.fulfilled]: (state, action) => {
+    state.isPlansLoading = false;
+    state.isPostTodosSucess = true;
+    state.isPostTodosError = false;
+    const plan = state.plans.find((item) => item._id === action.payload._id);
+    const arr = action.payload.todos
+    arr.sort((a, b) => {
+      return a.date < b.date ? -1 : a.date > b.date ? 1 : 0
+    })
+
+    plan.todos = arr
+  },
+  [__patchTodos.rejected]: (state, action) => {
+    state.isPlansLoading = false;
+    state.isPostTodosError = action.payload;
+  },
+
+  //todos 삭제
+  [__deleteTodos.pending]: (state) => {
+    state.isPlansLoading = true;
+  },
+  [__deleteTodos.fulfilled]: (state, action) => {
+    state.isPlansLoading = false;
+    state.isDeleteTodoSucess = true;
+    state.isDeleteTodoError = false;
+    const plan = state.plans.find((item) => item._id === action.payload._id);
+    plan.todos = plan.todos.filter((todos) => todos._id !== action.payload.todosId);
+  },
+  [__deleteTodos.rejected]: (state, action) => {
+    state.isPlansLoading = false;
+    state.isDeleteTodoError = action.payload;
+  },
+
+
+  //todo 추가
+  [__patchTodo.pending]: (state) => {
+    state.isPlansLoading = true;
+  },
+  [__patchTodo.fulfilled]: (state, action) => {
+    state.isPlansLoading = false;
+    state.isPostTodoSucess = true;
+    state.isPostTodoError = false;
+    const plan = state.plans.find((item) => item._id === action.payload._id);
+    plan.todos = action.payload.todos;
+  },
+  [__patchTodo.rejected]: (state, action) => {
+    state.isPlansLoading = false;
+    state.isPostTodoError = action.payload;
+  },
+
+  //todo 삭제
+  [__deleteTodo.pending]: (state) => {
+    state.isPlansLoading = true;
+  },
+  [__deleteTodo.fulfilled]: (state, action) => {
+    state.isPlansLoading = false;
+    state.isDeleteTodoSucess = true;
+    state.isDeleteTodoError = false;
+    const plan = state.plans.find((item) => item._id === action.payload._id);
+    const todos = plan.todos.find((item) => item._id === action.payload.todosId);
+    todos.todo = todos.todo.filter((todo) => todo._id !== action.payload.todoId);
+  },
+  [__deleteTodo.rejected]: (state, action) => {
+    state.isPlansLoading = false;
+    state.isDeleteTodoError = action.payload;
+  },
+
+  //체크리스트 수정
+  [__patchCheckList.pending]: (state) => {
+    state.isPlansLoading = true;
+  },
+  [__patchCheckList.fulfilled]: (state, action) => {
+    state.isPlansLoading = false;
+    state.isPatchCheckSucess = true;
+    state.isPatchCheckError = false;
+    const plan = state.plans.find((item) => item._id === action.payload._id);
+    plan.checkList = action.payload.checkList
+  },
+  [__patchCheckList.rejected]: (state, action) => {
+    state.isPlansLoading = false;
+    state.isPatchCheckError = action.payload;
+  },
+},
 });
 
 export const { } = planSlice.actions;

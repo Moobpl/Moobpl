@@ -19,8 +19,8 @@ const StreetSlider = ({ data }) => {
               <ImgWrap>
                 <img src={`${process.env.PUBLIC_URL}/${item.imgSrc}`} alt="" />
               </ImgWrap>
-              <h5 style={DivStyle}>{item.title}</h5>
-              <span style={DivStyle}>{item.address}</span>
+              <h5 style={divStyle}>{item.title}</h5>
+              <span style={divStyle}>{item.address}</span>
             </SlideStyle>
           )
         })
@@ -57,10 +57,10 @@ const ImgWrap = styled.div`
   }
 `
 
-const DivStyle = {
-  display: "-webkit-box",
+const divStyle = {
+  display: "-Webkit-box",
   overflow: "hidden",
   textOverflow: "ellipsis",
-  webkitLineClamp: "2",
-  webkitBoxOrient: "vertical"
+  WebkitLineClamp: "2",
+  WebkitBoxOrient: "vertical"
 }

@@ -1,14 +1,12 @@
+import { upload } from '@testing-library/user-event/dist/upload';
 import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { __patchTodo } from "../redux/modules/PlanSlice";
-import { useRef} from "react";
-import useOutSideClick from "./hooks/useOutSideClick";
 
-
-const ModalTodo = ({modalTodoOpen, setModalTodoOpen, modalId, data}) => {
+const ModalTodo = ({setModalTodoOpen, modalId, data}) => {
   
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
@@ -19,7 +17,6 @@ const ModalTodo = ({modalTodoOpen, setModalTodoOpen, modalId, data}) => {
 
   useEffect(()=>{
     if(modalId){
-      console.log(modalId);
       setTodosId(modalId);
     }
   }, [modalId]);
@@ -45,8 +42,11 @@ const ModalTodo = ({modalTodoOpen, setModalTodoOpen, modalId, data}) => {
     setModalTodoOpen(false);
   }
 
-  const onTransmitHandler =(event)=> {
+  const onTransmitHandler = (event)=> {
     event.preventDefault();
+    if (title === "" || body === "" || category ===""){
+     return alert("내용을 입력해주세요");
+    }
     dispatch(__patchTodo(todoInfo));
     setModalTodoOpen(false);
   }

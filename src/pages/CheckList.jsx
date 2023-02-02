@@ -47,16 +47,16 @@ const CheckList = () => {
         {
             title: "이사일 확정",
             menu: [
-                { id: 1, name: "이사업체 선정후 계약" },
-                { id: 2, name: "이사할 집 점검(누수, 냉난방, 창문 등)" },
-                { id: 3, name: "사용하지 않는 물품 정리" },
+                { id: 1, name: "이사업체 선정후 계약"},
+                { id: 2, name: "이사할 집 점검(누수, 냉난방, 창문 등)"},
+                { id: 3, name: "사용하지 않는 물품 정리"},
 
             ]
         },
         {
             title: "이사 1주전",
             menu: [
-                { id: 4, name: "자녀 전한수속" },
+                { id: 4, name: "자녀 전학수속"},
                 { id: 5, name: "가전/가구 폐기물 스티커 구입" },
                 { id: 6, name: "전화, 은행, 인터넷, 신용카드, 우편물 등 이전신청" },
                 { id: 7, name: "수도료, 전기료, 공과금 및 아파트 관리비 납부, 확인" },
@@ -159,7 +159,6 @@ const CheckList = () => {
                                     />
                                     <div>
                                         <h4>{child.name}</h4>
-                                        <p>{child.name}</p>
                                     </div>
                                 </label>
                             ))}
@@ -254,7 +253,7 @@ const SubMenu = styled.div`
             margin-left: 22px;
 
             > h4{
-                font-weight: 400;
+                font-weight: 300;
                 font-size: 13px;
                 line-height: 18px;
                 letter-spacing: -0.165px;
