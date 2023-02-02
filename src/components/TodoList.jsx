@@ -1,44 +1,11 @@
-import React, { useState, useEffect, useRef} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import dayjs from 'dayjs';
 import ModalTodo from "./ModalTodo";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { __deleteTodos, __deleteTodo } from "../redux/modules/PlanSlice";
-import { createPath } from "react-router-dom";
-
+import Dday from "./Dday";
 
 const TodoList = ({ todos, data }) => {
-
-  const spanRef = useRef([]);
-  console.log("레프",spanRef);
-  
-  // const [todoDate, setTodoDate] = useState();
-  const [dDay, setDday] = useState('');
-
-
-  // const diffDay = () => {
-
-  //     //투두데이트
-  //     const selectDay = String(spanRef.current).split('-').map(str => Number(str));
-  //     console.log("선택날짜", selectDay);
-  //     //투데이
-  //     const dayset = new Date();
-  //     const today = dayjs(dayset).format('YYYY-MM-DD').split('-').map(str => Number(str));
-  //     // console.log("투데이", today);
-  //     const todaySec = new Date(today).getTime();
-  //     const setdaySec = new Date(selectDay).getTime();
-  //     // console.log("투데이초", todaySec);
-  //     // console.log("선택날짜초", setdaySec);
-  //     setDday(Math.ceil(todaySec-setdaySec) / (1000*60*60*24));
-
-  // }
-
-  // useEffect(()=>{
-  //   diffDay();
-  // }, [data]);
-
-
-  //모달&편집
   const [modalTodoOpen, setModalTodoOpen] = useState(false);
   const [modalId, setModalId] = useState('');
   const [editMode, setEditMode] = useState(false);
@@ -49,6 +16,7 @@ const TodoList = ({ todos, data }) => {
     e.preventDefault();
     setEditMode(true);
   }
+  
   const editCancleHandler = () =>{
     setEditMode(false);
   }
@@ -74,25 +42,9 @@ const TodoList = ({ todos, data }) => {
     }));
   }
   
-  // const findRef = () => {
-  //   let todos = [];
-  //   for (let item of todos) {
-  //     const ref = spanRef.current[item.date];
-      
-  //     if (ref) {
-  //       setTodoDate(ref);
-  //     }
-  //   }
-  // }
-
-  // useEffect(()=>{
-  //   findRef();
-  // }, [todoDate]);
-  //  console.log("투두데이트",todoDate);
-  
   return (
     <>
-    <EditeBtnWrap>
+    <EditBtnWrap>
       {
         editMode ? <EditFalsebtn editMode={editMode} onClick={editCancleHandler}><span>완료</span></EditFalsebtn> 
         : 
@@ -102,17 +54,15 @@ const TodoList = ({ todos, data }) => {
           <span></span>  
         </EditTruebtn> 
       }
-    </EditeBtnWrap>
+    </EditBtnWrap>
       
       {todos?.map((item) => (
           <TodoWrap>
             <AddTodoDate 
               key={item._id}
               todo={item.todo}
-            >
-              <p >
-                {dDay}/ <span ref={(element) => spanRef.current[item.date] = element}>{item.date}</span>
-              </p>
+            >              
+              <Dday dday={item.date}></Dday> / <span>{item.date}</span>            
               {
                 editMode ? <DeleteBtn name={item?._id} onClick={deleteTodosHandler}><span></span></DeleteBtn>
                 : null
@@ -152,6 +102,7 @@ const TodoList = ({ todos, data }) => {
 
 export default TodoList;
 
+
 const AddTodoDate = styled.h1`
   display: flex;
   align-items: center;
@@ -169,11 +120,9 @@ const AddTodoDate = styled.h1`
     letter-spacing: 0.3px;
   }
 `
-
 const TodoWrap = styled.div`
   margin-bottom: 15px;
 `
-
 const TodoBox = styled.div`
   background-color:#fff;
   border-radius: 14px;
@@ -225,7 +174,7 @@ const TodoBox = styled.div`
   }
 `
 const AddTodoBtn = styled.button`
-box-sizing: border-box;
+  box-sizing: border-box;
   width: 100%;
   height: 37px;
   left: 24px;
@@ -237,7 +186,7 @@ box-sizing: border-box;
   margin-top:15px;
   cursor: pointer;
 `
-const EditeBtnWrap = styled.div`
+const EditBtnWrap = styled.div`
   margin-top:10px;
   > button {
     margin-left: auto;
@@ -254,7 +203,6 @@ const EditFalsebtn = styled.button`
     color: #57b0fb;
   }
 `
-
 const EditTruebtn = styled.button`
   display: flex;
   gap: 6px;
@@ -266,7 +214,6 @@ const EditTruebtn = styled.button`
     background-color:#000;
   }
 `
-
 const DeleteBtn = styled.button`
   width: 20px; 
   height: 20px;

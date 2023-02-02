@@ -28,7 +28,7 @@ const WidgetCard = ({ data=[]}) => {
 
   return (
     <>
-      <WidgetBox>
+      <WidgetBox style={{backgroundImage:`url("${data.cityImg}")`}}>
         <WidgetContainer>
           <Left>
             <p>체크리스트</p>
@@ -65,17 +65,27 @@ const WidgetBox = styled.div`
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
-  background-blend-mode:multiply;
   padding:15px;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  overflow: hidden;
+  ::after {
+    content: "";
+    opacity: 0.4;
+    background-color: #000;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
 `
 const WidgetContainer = styled.div`
   width: 100%;
   height: auto;
   display: flex;
+  z-index: 1000;
 `
 const Left = styled.div`
   width: 50%;
