@@ -2,13 +2,9 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate, useLocation } from "react-router-dom";
 import Hamberger from "../components/Hamberger";
-import { __getPlan } from "../redux/modules/PlanSlice";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 
 const Header = ({ headstate, page }) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [menuOpen, setMenuOpen] = useState("close");
 
   const openHandler = (text) => {
@@ -16,10 +12,6 @@ const Header = ({ headstate, page }) => {
   }
 
   const location = useLocation();
-
-  useEffect(() => {
-    console.log(location.pathname)
-  }, [])
 
   return (
     <>

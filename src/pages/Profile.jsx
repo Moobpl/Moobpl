@@ -1,7 +1,7 @@
 // 훅
 import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // 컴포넌트
 import Header from "../components/Header";
@@ -51,9 +51,9 @@ function Profile() {
     dispatch(__patchUser({ nickName, profile }))
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     setProfile(me?.profile)
-  },[me])
+  }, [me])
 
   useEffect(() => {
     setNickName(me?.nickName)
@@ -65,7 +65,7 @@ function Profile() {
       dispatch(clean())
       navigate("/main")
     }
-  }, [isUpdateSucess])
+  }, [dispatch, navigate, isUpdateSucess])
 
   const modalOpen = () => {
     setModal(!modal)
@@ -83,7 +83,7 @@ function Profile() {
         </TextBox>
         <Form onSubmit={onEditHandler}>
           <ImgWrap>
-            <img src={profile == undefined ? `${process.env.PUBLIC_URL}/images/profile/unknown.png` : profile} alt="" />
+            <img src={profile ? profile : `${process.env.PUBLIC_URL}/images/profile/unknown.png`} alt="" />
             <div onClick={modalOpen}>
               <img src={`${process.env.PUBLIC_URL}/images/Asset 3.png`} alt="" />
             </div>

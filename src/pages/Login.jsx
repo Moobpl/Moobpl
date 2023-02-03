@@ -21,14 +21,13 @@ function Login() {
   const [isEmail, setIsEmail] = useState(false)
   const [password, setPassword] = useState("")
   const [passwordMessage, setPasswordMessage] = useState('')
-  const [isPassword, setIsPassword] = useState(false)
   const { isLoginError, isUserLoading, me } = useSelector((state) => state.user)
 
   useEffect(() => {
     if (me) {
       navigate('/main')
     }
-  }, [me])
+  }, [me, navigate])
 
   useEffect(() => {
     if (isLoginError) {
@@ -50,7 +49,7 @@ function Login() {
       setEmailMessage('올바른 이메일 형식입니다.)')
       setIsEmail(true)
     }
-  }, [email])
+  }, [])
 
   const userInfo = {
     email: email,
@@ -84,7 +83,7 @@ function Login() {
         <Form onSubmit={onSubmit}>
           <InputEmail placeholder="Email" value={email} onChange={onChangeEmail}></InputEmail>
           {email.length > 0 ? <Message className={`message ${isEmail ? 'success' : 'error'}`}>{emailMessage}</Message> : <Message className={`message error`}>{emailMessage}</Message>}
-          <InputPassword placeholder="password" type="password" value={password} onChange={(e) => { setPassword(e.target.value) }}></InputPassword>
+          <InputPassword autoComplete="on" placeholder="password" type="password" value={password} onChange={(e) => { setPassword(e.target.value) }} autocomplete="on"></InputPassword>
           {password.length > 0 ? null : <Message className={`message error`}>{passwordMessage}</Message>}
           <Bottom>
             <ButtonSubmit buttonName={name} onClick={onSubmit}></ButtonSubmit>

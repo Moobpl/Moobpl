@@ -19,9 +19,9 @@ const ProfileModal = ({ setProfile, setModal, modal }) => {
     return (
         <Wrap onClick={() => setModal(!modal)}>
             <ul>
-                {profileList.map((item) => {
+                {profileList.map((item, index) => {
                     return (
-                        <li onClick={onClickHandler}><img src={`${process.env.PUBLIC_URL}/images/profile/${item}`} alt="" /></li>
+                        <li key={index} onClick={onClickHandler}><img src={`${process.env.PUBLIC_URL}/images/profile/${item}`} alt="" /></li>
                     )
                 })}
             </ul>
@@ -33,7 +33,7 @@ export default ProfileModal
 
 const Wrap = styled.div`
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     /* background-color: red; */
     background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(3.5px);
@@ -48,6 +48,7 @@ const Wrap = styled.div`
         display: flex;
         padding: 20px;
         li{
+            width: 50%;
             img{
                 display: block;
                 width: 100%;

@@ -40,13 +40,13 @@ const LifeInfoDetail = () => {
             <p>{findInfo.script}</p>
           </TextBox>
           <StepTitle>차근차근 따라해보세요!</StepTitle>
-          {findInfo.step.map((item) => {
+          {findInfo.step.map((item, index) => {
             return (
-              <>
+              <div key={index}>
                 {item.imgSrc ? <img src={`${process.env.PUBLIC_URL}/${item.imgSrc}`} alt="" /> : null}
                 <h5>{item.title}</h5>
                 <p>{item.body}</p>
-              </>
+              </div>
             )
           })}
         </Section>
@@ -119,7 +119,8 @@ const Section = styled.section`
   width: calc(100% - 48px);
   margin: 0 auto;
 
-  >img{
+  div{
+    >img{
     width: 100%;
   }
 
@@ -136,4 +137,6 @@ const Section = styled.section`
     line-height: 24px;
     margin-bottom: 24px;
   }
+  }
+ 
 `

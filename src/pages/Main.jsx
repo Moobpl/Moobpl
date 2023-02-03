@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 //컴포넌트
 import Header from "../components/Header";
 import MainCard from "../components/MainCard";
-import MainLifeCard from "../components/MainLifeCard";
 import MainCityCard from "../components/MainCityCard";
 import TopButton from "../components/TopButton";
 import Footer from "../components/Footer";
@@ -24,7 +23,7 @@ const Main = () => {
     if (!me) {
       navigate('/login')
     }
-  }, [me])
+  }, [me, navigate])
 
   const headstate = true;
   const page = "main"
@@ -37,7 +36,6 @@ const Main = () => {
 
   const shuffleArray = (arr) => {
     arr.sort(() => Math.random() - 0.5);
-    console.log('실행중')
   }
 
   shuffleArray(sliceArr)
