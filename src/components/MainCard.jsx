@@ -59,6 +59,7 @@ const CardWrap = styled.div`
                 border-radius: 100px;
                 padding: 5px 24px;
                 margin-top: 11px;
+                cursor: pointer;
             }
         }
     }

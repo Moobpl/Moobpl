@@ -32,6 +32,7 @@ const StreetSlider = ({ data }) => {
 export default StreetSlider;
 
 const SlideStyle = styled(SwiperSlide)`
+  cursor: grab;
   >h5{
     font-size: 14px;
     font-weight: 400;

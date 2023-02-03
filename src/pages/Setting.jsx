@@ -33,31 +33,31 @@ const Setting = () => {
           <dl>
             <dt>사이트 정보</dt>
             <dd>
-              <ul>
+              <ul style={{cursor:"default"}}>
                 <li>버전정보</li>
                 <li>1.0</li>
               </ul>
             </dd>
             <dt style={{ marginTop: "24px" }}>고객센터</dt>
             <dd>
-              <ul>
+              <ul onClick={() => { navigate('./announcement') }}>
                 <li>공지사항</li>
-                <li><img src={`${process.env.PUBLIC_URL}/images/backarrow.png`} alt="" onClick={() => { navigate('./announcement') }} /></li>
+                <li><img src={`${process.env.PUBLIC_URL}/images/backarrow.png`} alt="" /></li>
               </ul>
-              <ul>
+              <ul onClick={() => { alert('서비스 준비중 입니다.') }} >
                 <li>자주묻는 질문</li>
-                <li><img src={`${process.env.PUBLIC_URL}/images/backarrow.png`} alt="" onClick={() => { alert('서비스 준비중 입니다.') }} /></li>
+                <li><img src={`${process.env.PUBLIC_URL}/images/backarrow.png`} alt="" /></li>
               </ul>
             </dd>
             <dt style={{ marginTop: "24px" }}>서비스약관</dt>
             <dd>
-              <ul>
+              <ul onClick={() => { navigate('./service') }}>
                 <li>서비스 이용약관</li>
-                <li><img src={`${process.env.PUBLIC_URL}/images/backarrow.png`} alt="" onClick={() => { navigate('./service') }} /></li>
+                <li><img src={`${process.env.PUBLIC_URL}/images/backarrow.png`} alt="" /></li>
               </ul>
-              <ul>
+              <ul onClick={() => { navigate('./privacy') }}>
                 <li>개인정보 처리방침</li>
-                <li><img src={`${process.env.PUBLIC_URL}/images/backarrow.png`} alt="" onClick={() => { navigate('./privacy') }} /></li>
+                <li><img src={`${process.env.PUBLIC_URL}/images/backarrow.png`} alt="" /></li>
               </ul>
             </dd>
           </dl>
@@ -108,6 +108,9 @@ const TextBox = styled.div`
 
 const Section = styled.section`
   margin-top: 40px;
+  ul{
+    cursor: pointer;
+  }
 
   dl{
     dt{

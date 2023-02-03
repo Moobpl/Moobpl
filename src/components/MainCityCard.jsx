@@ -4,8 +4,7 @@ import styled from 'styled-components'
 
 const MainCityCard = ({datas}) => {
     const navigate = useNavigate()
-    const arr = datas
-    console.log(arr)
+
     return (
         <Wrap>
             {datas.map((data, index) =>

@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+axios.defaults.baseURL = process.env.REACT_APP_BASEURL;
 axios.defaults.withCredentials = true;
 
 export const __postPlan = createAsyncThunk(
@@ -7,8 +8,7 @@ export const __postPlan = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log(payload)
     try {
-      // const data = await axios.post("http://localhost:3001/plans", payload);
-      const data = await axios.post("https://moobplback.herokuapp.com/plan", payload);
+      const data = await axios.post("/plan", payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -21,17 +21,8 @@ export const __getPlan = createAsyncThunk(
   async (payload, thunkAPI) => {
     //dispatch(함수명(payload))
     try {
-      const data = await axios.get("https://moobplback.herokuapp.com/plan", {
-        withCredentials: true,
-      });
-      //백엔드 응답(res)값이 data안으로 들어옴
+      const data = await axios.get("/plan");
       return thunkAPI.fulfillWithValue(data.data);
-
-      // const 함수명 = await axios.get("https://moobplback.herokuapp.com/plan", {
-      //     withCredentials: true,
-      //   });
-      //   //백엔드 응답(res)값이 data안으로 들어옴
-      // return thunkAPI.fulfillWithValue(함수명.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
@@ -44,7 +35,7 @@ export const __patchTodos = createAsyncThunk(
   async (payload, thunkAPI) => {
     // console.log(payload)
     try {
-      const data = await axios.patch(`https://moobplback.herokuapp.com/plan/${payload._id}/todos`, payload);
+      const data = await axios.patch(`/plan/${payload._id}/todos`, payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -57,7 +48,7 @@ export const __deleteTodos = createAsyncThunk(
   "plan/todos/deletTods",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.delete(`https://moobplback.herokuapp.com/plan/${payload.planId}/todos/${payload.todosId}`, payload);
+      const data = await axios.delete(`/plan/${payload.planId}/todos/${payload.todosId}`, payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -70,10 +61,10 @@ export const __patchTodo = createAsyncThunk(
   "plan/todos/todo/patchTodo",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.patch(`https://moobplback.herokuapp.com/plan/${payload.planId}/todos/${payload._id}/todo`, payload);
-      // console.log("데이터보기", data);
+      const data = await axios.patch(`/plan/${payload.planId}/todos/${payload._id}/todo`, payload);
+
       return thunkAPI.fulfillWithValue(data.data);
-      //백엔드에서 파라미터로 data를 넘겨준것 
+
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
@@ -84,10 +75,10 @@ export const __patchTodo = createAsyncThunk(
 export const __deleteTodo = createAsyncThunk(
   "plan/todos/todo/deleteTodo",
   async (payload, thunkAPI) => {
-    // console.log("payload알아보기", payload)
+
     try {
-      const data = await axios.delete(`https://moobplback.herokuapp.com/plan/${payload.planId}/todos/${payload.todosId}/todo/${payload._id}`);
-      // console.log("data알아보기", data.data);
+      const data = await axios.delete(`/plan/${payload.planId}/todos/${payload.todosId}/todo/${payload._id}`);
+
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -98,10 +89,9 @@ export const __deleteTodo = createAsyncThunk(
 export const __deletePlan = createAsyncThunk(
   "plan/deleteplan",
   async (payload, thunkAPI) => {
-    console.log(payload)
+
     try {
-      // const data = await axios.post("http://localhost:3001/plans", payload);
-      await axios.delete(`https://moobplback.herokuapp.com/plan/${payload}`);
+      await axios.delete(`/plan/${payload}`);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -112,9 +102,9 @@ export const __deletePlan = createAsyncThunk(
 export const __patchCheckList = createAsyncThunk(
   "plan/patchCheckList",
   async (payload, thunkAPI) => {
-    console.log(payload)
+
     try {
-      const data = await axios.patch(`https://moobplback.herokuapp.com/plan/${payload._id}/checklist`, payload);
+      const data = await axios.patch(`/plan/${payload._id}/checklist`, payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -164,6 +154,22 @@ const planSlice = createSlice({
   name: "plans", //모듈 이름
   initialState,
   reducers: {
+    clean: state => {
+      state.isSignupSucess = false;
+      state.isSignupError = false;
+      // 로그인 상태
+      state.isLoginSucess = false;
+      state.isLoginError = false;
+      // 로그아웃 상태
+      state.isLogoutSucess = false;
+      state.isLogoutError = false;
+      // 회정정보 상태
+      state.isGetuserSucess = false;
+      state.isGetuserError = false;
+      // 정보수정 상태
+      state.isUpdateSucess = false;
+      state.isUpdateError = false;
+    },
   },
   extraReducers: {
     // 계획 등록
@@ -206,105 +212,107 @@ const planSlice = createSlice({
       state.isGetPlanError = false;
       state.plans = action.payload;
 
-      state.plans.forEach((plan) => {
-        if (plan.todos.length > 0) {
-          plan.todos.sort((a, b) => a.date < b.date ? -1 : a.date > b.date ? 1 : 0)
-        }
-      })
+      if (state.plans?.length > 0) {
+        state.plans.forEach((plan) => {
+          if (plan.todos.length > 0) {
+            plan.todos.sort((a, b) => a.date < b.date ? -1 : a.date > b.date ? 1 : 0)
+          }
+        })
+      }
     },
     [__getPlan.rejected]: (state, action) => {
       state.isPlansLoading = false;
       state.isGetPlanError = action.payload;
     },
 
-  //todos 추가
-  [__patchTodos.pending]: (state) => {
-    state.isPlansLoading = true;
-  },
-  [__patchTodos.fulfilled]: (state, action) => {
-    state.isPlansLoading = false;
-    state.isPostTodosSucess = true;
-    state.isPostTodosError = false;
-    const plan = state.plans.find((item) => item._id === action.payload._id);
-    const arr = action.payload.todos
-    arr.sort((a, b) => {
-      return a.date < b.date ? -1 : a.date > b.date ? 1 : 0
-    })
+    //todos 추가
+    [__patchTodos.pending]: (state) => {
+      state.isPlansLoading = true;
+    },
+    [__patchTodos.fulfilled]: (state, action) => {
+      state.isPlansLoading = false;
+      state.isPostTodosSucess = true;
+      state.isPostTodosError = false;
+      const plan = state.plans.find((item) => item._id === action.payload._id);
+      const arr = action.payload.todos
+      arr.sort((a, b) => {
+        return a.date < b.date ? -1 : a.date > b.date ? 1 : 0
+      })
 
-    plan.todos = arr
-  },
-  [__patchTodos.rejected]: (state, action) => {
-    state.isPlansLoading = false;
-    state.isPostTodosError = action.payload;
-  },
+      plan.todos = arr
+    },
+    [__patchTodos.rejected]: (state, action) => {
+      state.isPlansLoading = false;
+      state.isPostTodosError = action.payload;
+    },
 
-  //todos 삭제
-  [__deleteTodos.pending]: (state) => {
-    state.isPlansLoading = true;
-  },
-  [__deleteTodos.fulfilled]: (state, action) => {
-    state.isPlansLoading = false;
-    state.isDeleteTodoSucess = true;
-    state.isDeleteTodoError = false;
-    const plan = state.plans.find((item) => item._id === action.payload._id);
-    plan.todos = plan.todos.filter((todos) => todos._id !== action.payload.todosId);
-  },
-  [__deleteTodos.rejected]: (state, action) => {
-    state.isPlansLoading = false;
-    state.isDeleteTodoError = action.payload;
-  },
+    //todos 삭제
+    [__deleteTodos.pending]: (state) => {
+      state.isPlansLoading = true;
+    },
+    [__deleteTodos.fulfilled]: (state, action) => {
+      state.isPlansLoading = false;
+      state.isDeleteTodoSucess = true;
+      state.isDeleteTodoError = false;
+      const plan = state.plans.find((item) => item._id === action.payload._id);
+      plan.todos = plan.todos.filter((todos) => todos._id !== action.payload.todosId);
+    },
+    [__deleteTodos.rejected]: (state, action) => {
+      state.isPlansLoading = false;
+      state.isDeleteTodoError = action.payload;
+    },
 
 
-  //todo 추가
-  [__patchTodo.pending]: (state) => {
-    state.isPlansLoading = true;
-  },
-  [__patchTodo.fulfilled]: (state, action) => {
-    state.isPlansLoading = false;
-    state.isPostTodoSucess = true;
-    state.isPostTodoError = false;
-    const plan = state.plans.find((item) => item._id === action.payload._id);
-    plan.todos = action.payload.todos;
-  },
-  [__patchTodo.rejected]: (state, action) => {
-    state.isPlansLoading = false;
-    state.isPostTodoError = action.payload;
-  },
+    //todo 추가
+    [__patchTodo.pending]: (state) => {
+      state.isPlansLoading = true;
+    },
+    [__patchTodo.fulfilled]: (state, action) => {
+      state.isPlansLoading = false;
+      state.isPostTodoSucess = true;
+      state.isPostTodoError = false;
+      const plan = state.plans.find((item) => item._id === action.payload._id);
+      plan.todos = action.payload.todos;
+    },
+    [__patchTodo.rejected]: (state, action) => {
+      state.isPlansLoading = false;
+      state.isPostTodoError = action.payload;
+    },
 
-  //todo 삭제
-  [__deleteTodo.pending]: (state) => {
-    state.isPlansLoading = true;
-  },
-  [__deleteTodo.fulfilled]: (state, action) => {
-    state.isPlansLoading = false;
-    state.isDeleteTodoSucess = true;
-    state.isDeleteTodoError = false;
-    const plan = state.plans.find((item) => item._id === action.payload._id);
-    const todos = plan.todos.find((item) => item._id === action.payload.todosId);
-    todos.todo = todos.todo.filter((todo) => todo._id !== action.payload.todoId);
-  },
-  [__deleteTodo.rejected]: (state, action) => {
-    state.isPlansLoading = false;
-    state.isDeleteTodoError = action.payload;
-  },
+    //todo 삭제
+    [__deleteTodo.pending]: (state) => {
+      state.isPlansLoading = true;
+    },
+    [__deleteTodo.fulfilled]: (state, action) => {
+      state.isPlansLoading = false;
+      state.isDeleteTodoSucess = true;
+      state.isDeleteTodoError = false;
+      const plan = state.plans.find((item) => item._id === action.payload._id);
+      const todos = plan.todos.find((item) => item._id === action.payload.todosId);
+      todos.todo = todos.todo.filter((todo) => todo._id !== action.payload.todoId);
+    },
+    [__deleteTodo.rejected]: (state, action) => {
+      state.isPlansLoading = false;
+      state.isDeleteTodoError = action.payload;
+    },
 
-  //체크리스트 수정
-  [__patchCheckList.pending]: (state) => {
-    state.isPlansLoading = true;
+    //체크리스트 수정
+    [__patchCheckList.pending]: (state) => {
+      state.isPlansLoading = true;
+    },
+    [__patchCheckList.fulfilled]: (state, action) => {
+      state.isPlansLoading = false;
+      state.isPatchCheckSucess = true;
+      state.isPatchCheckError = false;
+      const plan = state.plans.find((item) => item._id === action.payload._id);
+      plan.checkList = action.payload.checkList
+    },
+    [__patchCheckList.rejected]: (state, action) => {
+      state.isPlansLoading = false;
+      state.isPatchCheckError = action.payload;
+    },
   },
-  [__patchCheckList.fulfilled]: (state, action) => {
-    state.isPlansLoading = false;
-    state.isPatchCheckSucess = true;
-    state.isPatchCheckError = false;
-    const plan = state.plans.find((item) => item._id === action.payload._id);
-    plan.checkList = action.payload.checkList
-  },
-  [__patchCheckList.rejected]: (state, action) => {
-    state.isPlansLoading = false;
-    state.isPatchCheckError = action.payload;
-  },
-},
 });
 
-export const { } = planSlice.actions;
+export const { clean } = planSlice.actions;
 export default planSlice.reducer;
