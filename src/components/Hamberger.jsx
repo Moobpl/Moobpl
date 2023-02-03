@@ -26,7 +26,7 @@ const Hamberger = ({ open, openHandler }) => {
       <section>
         <Container>
           <Profile>
-            <Photo></Photo>
+            <Photo><img src={ me?.profile === undefined ? `${process.env.PUBLIC_URL}/images/unknown.png` : me.profile } alt="" /></Photo>
             <h4>{me?.nickName}</h4>
           </Profile>
           <Myplan onClick={() => { navigate("/myplan") }}>{`내 계획 : ${plans?.length}`}</Myplan>
@@ -75,6 +75,7 @@ const Wrap = styled.div`
           width: 14px;
           height: 14px;
           float: right;
+          cursor: pointer;
         }
       }
     }
@@ -108,6 +109,11 @@ const Photo = styled.div`
   height: 60px;
   background-color: #666666;
   border-radius: 100%;
+  overflow: hidden;
+  >img{
+    display: block;
+    width: 100%;
+  }
 `
 
 const Myplan = styled.div`

@@ -168,6 +168,7 @@ const userSlice = createSlice({
       state.isUpdateSucess = true;
       state.isUpdateError = true;
       state.me.nickName = action.payload.nickName
+      state.me.profile = action.payload.profile
     },
     [__patchUser.rejected]: (state, action) => {
       state.isUserLoading = false;

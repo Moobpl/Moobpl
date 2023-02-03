@@ -20,8 +20,8 @@ const Main = () => {
   const { isUserLoading, me } = useSelector((state) => state.user)
   const navigate = useNavigate();
 
-  useEffect(()=>{
-    if(!me){
+  useEffect(() => {
+    if (!me) {
       navigate('/login')
     }
   }, [me])
@@ -34,20 +34,14 @@ const Main = () => {
   const width = 'calc(100% - 48px)'
   const sliceArr = newArr.slice(0, 6)
   const sliceArr2 = newArr2.slice(0, 4)
-  
+
   const shuffleArray = (arr) => {
     arr.sort(() => Math.random() - 0.5);
     console.log('실행중')
   }
 
-  useEffect(() => {
-    shuffleArray(sliceArr)
-    shuffleArray(sliceArr2)
-  }, [])
-
-
-
-
+  shuffleArray(sliceArr)
+  shuffleArray(sliceArr2)
 
   return (
     <>

@@ -20,14 +20,14 @@ const Header = ({ headstate, page }) => {
   useEffect(() => {
     console.log(location.pathname)
   }, [])
-  
+
   return (
     <>
       <HeaderWrap>
         <Container>
           {
             page ?
-              "로고" : <img src={`${process.env.PUBLIC_URL}/images/backarrow.png`} alt="" onClick={() => { location.pathname === "/myplan" ? navigate("/main") : navigate(-1) }} />
+              <Logo src={`${process.env.PUBLIC_URL}/images/logo.png`} alt="" /> : <img src={`${process.env.PUBLIC_URL}/images/backarrow.png`} alt="" onClick={() => { location.pathname === "/myplan" ? navigate("/main") : navigate(-1) }} />
           }
           {headstate ?
             <Menu onClick={() => { openHandler("open") }}>
@@ -66,6 +66,11 @@ const Container = styled.div`
   img{
     cursor: pointer;
   }
+`
+
+const Logo = styled.img`
+  display: block;
+  width: 75px;
 `
 
 const Menu = styled.div`

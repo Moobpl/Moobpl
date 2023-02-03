@@ -8,6 +8,7 @@ import Header from "../components/Header";
 import ButtonSubmit from "../components/ButtonSubmit";
 import styled from "styled-components";
 import Loading from "../components/Loading";
+import ProfileModal from "../components/ProfileModal";
 
 // 리덕스
 import { __patchUser, clean } from "../redux/modules/userSlice";
@@ -16,11 +17,19 @@ function Profile() {
   const headstate = true
   const name = "수정완료"
   const { me, isUserLoading, isUpdateSucess } = useSelector((state) => state.user)
-  const [nickName, setNickName] = useState(me.nickName)
+  const [nickName, setNickName] = useState(me?.nickName)
   const [nameMessage, setNameMessage] = useState('')
+  const [modal, setModal] = useState(false)
   const [isName, setIsName] = useState(false)
+  const [profile, setProfile] = useState(me?.profile)
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!me) {
+      navigate('/login')
+    }
+  }, [me, navigate])
 
   const onChangeName = useCallback((e) => {
     setNickName(e.target.value)
@@ -35,15 +44,19 @@ function Profile() {
 
   const onEditHandler = (e) => {
     e.preventDefault()
-    if (nickName.trim() === "" || isName === false) {
+    if (nickName.trim() === "") {
       setNameMessage('2글자 이상 5글자 미만으로 입력해주세요.')
       return false
     }
-    dispatch(__patchUser({ nickName }))
+    dispatch(__patchUser({ nickName, profile }))
   }
 
+  useEffect(()=>{
+    setProfile(me?.profile)
+  },[me])
+
   useEffect(() => {
-    setNickName(me.nickName)
+    setNickName(me?.nickName)
   }, [me])
 
   useEffect(() => {
@@ -54,13 +67,9 @@ function Profile() {
     }
   }, [isUpdateSucess])
 
-  useEffect(() => {
-    if (!me) {
-      navigate('/login')
-    }
-  }, [me, navigate])
-
- 
+  const modalOpen = () => {
+    setModal(!modal)
+  }
 
   return (
     <>
@@ -74,13 +83,12 @@ function Profile() {
         </TextBox>
         <Form onSubmit={onEditHandler}>
           <ImgWrap>
-            <img src={`${process.env.PUBLIC_URL}/images/userbagic.png`} alt="" />
-            <label htmlFor="file">
+            <img src={profile == undefined ? `${process.env.PUBLIC_URL}/images/unknown.png` : profile} alt="" />
+            <div onClick={modalOpen}>
               <img src={`${process.env.PUBLIC_URL}/images/Asset 3.png`} alt="" />
-            </label>
-            <File type="file" name="file" id="file" action='http:' method='post' enctype="multipart/form-data" />
+            </div>
           </ImgWrap>
-          <span>{me.email}</span>
+          <span>{me?.email}</span>
           <input type="text" value={nickName || ""} onChange={onChangeName} />
           {nickName?.length > 0 ? <Message className={`message ${isName ? 'success' : 'error'}`}>{nameMessage}</Message> : <Message className={`message error`}>{nameMessage}</Message>}
           <ButtonWrap onClick={onEditHandler}>
@@ -88,6 +96,7 @@ function Profile() {
           </ButtonWrap>
         </Form>
       </Wrap>
+      {modal ? <ProfileModal setProfile={setProfile} setModal={setModal} modal={modal} /> : null}
       {isUserLoading ? <Loading /> : null}
     </>
   );
@@ -154,10 +163,6 @@ const Form = styled.form`
   }
 `
 
-const File = styled.input`
-  display:none;
-`
-
 const ImgWrap = styled.div`
   width: 120px;
   height: 120px;
@@ -168,7 +173,7 @@ const ImgWrap = styled.div`
     width: 100%;
   }
 
-  >label {
+  >div {
     display: flex;
     justify-content: center;
     align-items: center;
