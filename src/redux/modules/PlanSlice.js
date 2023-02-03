@@ -6,7 +6,6 @@ axios.defaults.withCredentials = true;
 export const __postPlan = createAsyncThunk(
   "plan/postplan",
   async (payload, thunkAPI) => {
-    console.log(payload)
     try {
       const data = await axios.post("/plan", payload);
       return thunkAPI.fulfillWithValue(data.data);
