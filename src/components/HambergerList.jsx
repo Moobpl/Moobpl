@@ -36,7 +36,7 @@ const HambergerList = ({ margin }) => {
                 <div><img src={`${process.env.PUBLIC_URL}/images/hamberger/1x/Asset 5.png`} alt="" /></div>
                 <span>프로필 수정</span>
             </li>
-            <img src={`${process.env.PUBLIC_URL}/images/hamberger/adbanner.png`} alt="" />
+            <Ad src={`${process.env.PUBLIC_URL}/images/hamberger/adbanner.png`} alt="" />
             <Logout className="logout" onClick={logoutHandler}>
                 <img src={`${process.env.PUBLIC_URL}/images/hamberger/1x/Asset 6.png`} alt="" />
                 <span>로그아웃</span>
@@ -49,6 +49,9 @@ export default HambergerList
 
 const Wrap = styled.ul`
     margin-top: ${props => props.margin};
+    height: calc(100vh - 104px - 60px - 28px - 60px);
+    display: flex;
+    flex-direction: column;
     li{
         display: flex;
         align-items: center;
@@ -57,6 +60,7 @@ const Wrap = styled.ul`
         font-size: 14px;
         letter-spacing: 0.3px;
         color: #666666;
+        cursor: pointer;
         div{
             width:32px;
             height: 32px;
@@ -76,11 +80,18 @@ const Wrap = styled.ul`
     }
 `
 
+const Ad = styled.img`
+    display: block;
+    margin-top: auto;
+`
+
 const Logout = styled.div`
     display: flex;
     justify-content: flex-end;
     align-items: center;
     margin-top: 17px;
+    margin-bottom: 24px;
+    cursor: pointer;
     >img {
         margin-right: 13px;
     }

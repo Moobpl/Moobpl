@@ -1,27 +1,25 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Hamberger from "../components/Hamberger";
-import { __getPlan } from "../redux/modules/PlanSlice";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 
 const Header = ({ headstate, page }) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [menuOpen, setMenuOpen] = useState("close");
 
   const openHandler = (text) => {
     setMenuOpen(text);
   }
-  
+
+  const location = useLocation();
+
   return (
     <>
       <HeaderWrap>
         <Container>
           {
             page ?
-              "로고" : <img src={`${process.env.PUBLIC_URL}/images/backarrow.png`} alt="" onClick={() => { navigate(-1) }} />
+              <Logo src={`${process.env.PUBLIC_URL}/images/logo.png`} alt="" /> : <img src={`${process.env.PUBLIC_URL}/images/backarrow.png`} alt="" onClick={() => { location.pathname === "/myplan" ? navigate("/main") : navigate(-1) }} />
           }
           {headstate ?
             <Menu onClick={() => { openHandler("open") }}>
@@ -60,6 +58,11 @@ const Container = styled.div`
   img{
     cursor: pointer;
   }
+`
+
+const Logo = styled.img`
+  display: block;
+  width: 75px;
 `
 
 const Menu = styled.div`

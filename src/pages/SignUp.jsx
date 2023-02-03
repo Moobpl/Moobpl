@@ -125,19 +125,19 @@ const Signup = () => {
     }
   }, [isSignupError, dispatch])
 
-  useEffect(()=>{
-    if(isSignupSucess){
+  useEffect(() => {
+    if (isSignupSucess) {
       alert("회원가입이 완료 되었습니다.")
       dispatch(clean())
       navigate('/login')
     }
-  },[isSignupSucess, dispatch, navigate])
+  }, [isSignupSucess, dispatch, navigate])
 
-  useEffect(()=>{
-    if(me){
+  useEffect(() => {
+    if (me) {
       navigate('main')
     }
-  },[me, navigate])
+  }, [me, navigate])
 
   return (
     <div>
@@ -149,18 +149,19 @@ const Signup = () => {
             회원가입
           </h1>
         </TextBox>
-        <InputNickName placeholder="닉네임" onChange={onChangeName}></InputNickName>
-        {nickName.length > 0 ? <Message className={`message ${isName ? 'success' : 'error'}`}>{nameMessage}</Message> : <Message className={`message error`}>{nameMessage}</Message>}
+        <form>
+          <InputNickName placeholder="닉네임" onChange={onChangeName}></InputNickName>
+          {nickName.length > 0 ? <Message className={`message ${isName ? 'success' : 'error'}`}>{nameMessage}</Message> : <Message className={`message error`}>{nameMessage}</Message>}
 
-        <InputNickEmail value={email} placeholder="Email를 입력하세요." onChange={onChangeEmail}></InputNickEmail>
-        {email.length > 0 ? <Message className={`message ${isEmail ? 'success' : 'error'}`}>{emailMessage}</Message> : <Message className={`message error`}>{emailMessage}</Message>}
+          <InputNickEmail value={email} placeholder="Email를 입력하세요." onChange={onChangeEmail}></InputNickEmail>
+          {email.length > 0 ? <Message className={`message ${isEmail ? 'success' : 'error'}`}>{emailMessage}</Message> : <Message className={`message error`}>{emailMessage}</Message>}
 
-        <InputPassword type="password" placeholder="비밀번호를 입력하세요." onChange={onChangePassword}></InputPassword>
-        {password.length > 0 ? <Message className={`message ${isPassword ? 'success' : 'error'}`} >{passwordMessage}</Message> : <Message className={`message error`}>{passwordMessage}</Message>}
+          <InputPassword type="password" placeholder="비밀번호를 입력하세요." onChange={onChangePassword}></InputPassword>
+          {password.length > 0 ? <Message className={`message ${isPassword ? 'success' : 'error'}`} >{passwordMessage}</Message> : <Message className={`message error`}>{passwordMessage}</Message>}
 
-        <InputPassword type="password" placeholder="동일한 비밀번호를 입력하세요." onChange={onChangePasswordConfirm}></InputPassword>
-        {passwordCheck.length > 0 ? <Message className={`message ${isPasswordConfirm ? 'success' : 'error'}`}>{passwordConfirmMessage}</Message> : <Message className={`message error`}>{passwordConfirmMessage}</Message>}
-
+          <InputPassword type="password" placeholder="동일한 비밀번호를 입력하세요." onChange={onChangePasswordConfirm}></InputPassword>
+          {passwordCheck.length > 0 ? <Message className={`message ${isPasswordConfirm ? 'success' : 'error'}`}>{passwordConfirmMessage}</Message> : <Message className={`message error`}>{passwordConfirmMessage}</Message>}
+        </form>
         <ButtonWrap onClick={onSubmit}>
           <ButtonSubmit buttonName={name}></ButtonSubmit>
         </ButtonWrap>
