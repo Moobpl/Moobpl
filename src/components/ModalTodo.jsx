@@ -44,8 +44,12 @@ const ModalTodo = ({setModalTodoOpen, modalId, data}) => {
 
   const onTransmitHandler = (event)=> {
     event.preventDefault();
-    if (title === "" || body === "" || category ===""){
-     return alert("내용을 입력해주세요");
+    if (title === ""){
+     return alert("제목을 입력해주세요.");
+    } else if (body === "") {
+      return alert("내용을 입력해주세요.");
+    } else if (category === "") {
+      return alert("카테고리를 선택해주세요.")
     }
     dispatch(__patchTodo(todoInfo));
     setModalTodoOpen(false);

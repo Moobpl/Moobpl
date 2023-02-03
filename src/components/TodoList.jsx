@@ -5,13 +5,13 @@ import { useDispatch } from "react-redux";
 import { __deleteTodos, __deleteTodo } from "../redux/modules/PlanSlice";
 import Dday from "./Dday";
 
-const TodoList = ({ todos, data, editMode, setEditMode }) => {
+const TodoList = ({ todos, data, editMode, setEditMode}) => {
+  const dispatch = useDispatch();
+  
   const [modalTodoOpen, setModalTodoOpen] = useState(false);
   const [modalId, setModalId] = useState('');
 
-  const dispatch = useDispatch();
-
-  const modalOpenHandler = (e) => {
+   const modalOpenHandler = (e) => {
     setModalTodoOpen(true);
     setModalId(e.target.name);
   }
@@ -40,7 +40,7 @@ const TodoList = ({ todos, data, editMode, setEditMode }) => {
             <AddTodoDate 
               todo={item.todo}
             >              
-              <Dday dday={item.date}></Dday> <TodoDay>{item.date}</TodoDay>            
+              <Dday dday={item.date}></Dday><TodoDay>{item.date}</TodoDay>            
               {
                 editMode ? <DeleteBtn name={item?._id} onClick={deleteTodosHandler}><span></span></DeleteBtn>
                 : null
@@ -63,12 +63,11 @@ const TodoList = ({ todos, data, editMode, setEditMode }) => {
                 </TodoBox>
               )
             )}
-            {editMode ? null
-              : <AddTodoBtn name={item._id} onClick={modalOpenHandler}>할일추가</AddTodoBtn> }
+            {editMode ? null 
+              : <AddTodoBtn setModalTodoOpen={setModalTodoOpen} name={item._id} onClick={modalOpenHandler}>할일추가</AddTodoBtn> }
           </TodoWrap>
         ))
       }
-
       {
         modalTodoOpen ?
           <ModalTodo data={data} modalId={modalId} setModalTodoOpen={setModalTodoOpen}></ModalTodo>
@@ -79,6 +78,7 @@ const TodoList = ({ todos, data, editMode, setEditMode }) => {
 };
 
 export default TodoList;
+
 
 const AddTodoDate = styled.h1`
   display: flex;
@@ -102,17 +102,16 @@ const TodoDay = styled.span`
     letter-spacing: 0.3px;
     vertical-align:bottom;
     margin-top:5px;
-  
 `
 const TodoWrap = styled.div`
-  margin-bottom: 15px;
+  margin-bottom: 40px;
 `
 const TodoBox = styled.div`
   background-color:#fff;
   border-radius: 14px;
   padding: 5px;
   box-shadow: 10px 24px 54px rgba(0, 0, 0, 0.04);
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -145,11 +144,12 @@ const TodoBox = styled.div`
           white-space:nowrap;
           overflow: hidden;
           text-overflow:ellipsis;
+          color: #121212;
         }
       dd {
           font-size:14px;
           font-weight: 400;
-          color:#121212;
+          color:#575757;
           white-space:nowrap;
           overflow: hidden;
           text-overflow:ellipsis;
@@ -167,7 +167,6 @@ const AddTodoBtn = styled.button`
   border: 1px solid #F2F2F2;
   border-radius: 14px;
   color:#aaa;
-  margin-top:15px;
   cursor: pointer;
 `
 const DeleteBtn = styled.button`

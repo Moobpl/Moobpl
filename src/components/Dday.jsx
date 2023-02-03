@@ -18,7 +18,15 @@ const Dday = ({dday}) => {
     diffDay();
   }, [dday]);
 
-  return <div><p>D{selectDay} /</p></div>;
+  return (
+  <div>
+    {
+      selectDay < 0 
+      ? <p>D{selectDay} /</p>
+      : <p>D+{selectDay} /</p>
+    }    
+  </div>
+  );
 };
 
 export default Dday;
