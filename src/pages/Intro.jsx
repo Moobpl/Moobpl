@@ -21,7 +21,7 @@ const Intro = () => {
   return (
     <LogoWrap>
       <Logo>
-        <img src={`${process.env.PUBLIC_URL}/images/mainlogo.png`} alt="" />
+        <img src={`${process.env.PUBLIC_URL}/images/logo.png`} alt="" />
       </Logo>
     </LogoWrap>
   );
@@ -34,6 +34,7 @@ const LogoWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #f9a76f;
 `
 
 const Logo = styled.div`

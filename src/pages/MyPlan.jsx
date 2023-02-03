@@ -50,7 +50,6 @@ const Myplan = () => {
           <span></span>
         </Edit>
         {plans?.map((item) =>
-
           <PlanCard style={{backgroundImage:`url("${item.cityImg}")`}} key={item._id}>
             <h4>{item.reigon}</h4>
             <span>{item.date}</span>

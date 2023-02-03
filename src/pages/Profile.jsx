@@ -83,7 +83,7 @@ function Profile() {
         </TextBox>
         <Form onSubmit={onEditHandler}>
           <ImgWrap>
-            <img src={profile == undefined ? `${process.env.PUBLIC_URL}/images/unknown.png` : profile} alt="" />
+            <img src={profile == undefined ? `${process.env.PUBLIC_URL}/images/profile/unknown.png` : profile} alt="" />
             <div onClick={modalOpen}>
               <img src={`${process.env.PUBLIC_URL}/images/Asset 3.png`} alt="" />
             </div>

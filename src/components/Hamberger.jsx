@@ -26,7 +26,7 @@ const Hamberger = ({ open, openHandler }) => {
       <section>
         <Container>
           <Profile>
-            <Photo><img src={ me?.profile === undefined ? `${process.env.PUBLIC_URL}/images/unknown.png` : me.profile } alt="" /></Photo>
+            <Photo><img src={ me?.profile ? me.profile : `${process.env.PUBLIC_URL}/images/profile/unknown.png` } alt="" /></Photo>
             <h4>{me?.nickName}</h4>
           </Profile>
           <Myplan onClick={() => { navigate("/myplan") }}>{`내 계획 : ${plans?.length}`}</Myplan>

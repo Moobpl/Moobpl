@@ -1,28 +1,29 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const ProfileModal = ({setProfile, setModal, modal}) => {
+const ProfileModal = ({ setProfile, setModal, modal }) => {
 
-    const onClickHandler = (e) =>{
-        console.log(e.target.src)
+    const onClickHandler = (e) => {
         setProfile(e.target.src)
     }
 
+    const profileList = [
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+    ]
+
     return (
-        <Wrap onClick={()=> setModal(!modal)}>
+        <Wrap onClick={() => setModal(!modal)}>
             <ul>
-                <li onClick={onClickHandler}>
-                    <img src={`${process.env.PUBLIC_URL}/images/profile1.png`} alt="" />
-                </li>
-                <li onClick={onClickHandler}>
-                    <img src={`${process.env.PUBLIC_URL}/images/profile1.png`} alt="" />
-                </li>
-                <li onClick={onClickHandler}>
-                    <img src={`${process.env.PUBLIC_URL}/images/profile1.png`} alt="" />
-                </li>
-                <li onClick={onClickHandler}>
-                    <img src={`${process.env.PUBLIC_URL}/images/profile1.png`} alt="" />
-                </li>
+                {profileList.map((item) => {
+                    return (
+                        <li onClick={onClickHandler}><img src={`${process.env.PUBLIC_URL}/images/profile/${item}`} alt="" /></li>
+                    )
+                })}
             </ul>
         </Wrap>
     )
