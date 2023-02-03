@@ -1,4 +1,3 @@
-import { upload } from '@testing-library/user-event/dist/upload';
 import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react'
@@ -7,7 +6,6 @@ import styled from 'styled-components';
 import { __patchTodo } from "../redux/modules/PlanSlice";
 
 const ModalTodo = ({setModalTodoOpen, modalId, data}) => {
-  
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
@@ -78,7 +76,7 @@ const ModalTodo = ({setModalTodoOpen, modalId, data}) => {
           {categoryList.map((item) => {
             return(
                 <li
-                  key={item.id}
+                  key={item.name}
                   style={{backgroundColor:`${item.color}`}}
                   onClick={(event)=> {
                     const {name, alt} = event.target;

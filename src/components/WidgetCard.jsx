@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-
-import dayjs from 'dayjs'; //날짜 포맷해주는 함수
+import "../fonts/Font.css";
 import { useNavigate } from "react-router-dom";
-
+import dayjs from 'dayjs'; 
 
 const WidgetCard = ({ data = [] }) => {
   const [dDay, setDday] = useState('');
@@ -95,8 +94,8 @@ const Left = styled.div`
   }
   p:nth-child(2){
     font-size: 42px;
-    font-family: 'SF Pro Text';
-    font-weight: 600;
+    font-family:'SF Pro Text';
+    font-weight: bold;
   }
 `
 const Right = styled.div`
@@ -111,7 +110,7 @@ const Right = styled.div`
     color:#fff;
     font-size: 42px;
     font-family: 'SF Pro Text';
-    font-weight: 600;
+    font-weight: bold;
     
   }
 `

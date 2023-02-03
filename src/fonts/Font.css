@@ -1,0 +1,20 @@
+@font-face {
+  font-family: "SF Pro Text";
+  font-style: normal;
+  font-weight: bold;
+  src: url("./SF-Pro-Text-Bold.woff") format("woff");
+}
+
+@font-face {
+  font-family: "SF Pro Text";
+  font-style: normal;
+  font-weight:normal;
+  src: url("./SF-Pro-Text-Medium.woff") format("woff");
+}
+
+@font-face {
+  font-family: "SF Pro Text";
+  font-style: normal;
+  font-weight:lighter;
+  src: url("./SF-Pro-Text-Regular.woff") format("woff");
+}

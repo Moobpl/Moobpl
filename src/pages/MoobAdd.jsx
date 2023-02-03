@@ -35,15 +35,6 @@ const MoobAdd = () => {
     }
   }, [me, navigate])
 
-  const planInfo = {
-    id: me.email,
-    region: areaName,
-    date: date,
-    todos: [],
-    checkList: [],
-  }
-
-
   const onSelectHandler = () => {
     setSelect(true);
     setShowRegBtn(false);
@@ -66,7 +57,7 @@ const MoobAdd = () => {
   return (
     <>
       <Header headstate={headstate}></Header>
-      <Toptext><p>이사, 어디로 가시나요?</p></Toptext>
+      <Toptext>{select === true ? <p>이사, 언제 가시나요?</p> : <p>이사, 어디로 가시나요?</p>}</Toptext>
       <Wrap>
         {
           select === true

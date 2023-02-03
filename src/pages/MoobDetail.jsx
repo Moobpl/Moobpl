@@ -28,8 +28,6 @@ function MoobDetail({data}) {
   const [todos, setTodos] = useState([]);
   const [editMode, setEditMode] = useState(false);
   
-  const [modalTodoOpen, setModalTodoOpen] = useState(false);
-
   const editModeHandler = (e) => {
     e.preventDefault();
     setEditMode(true);
