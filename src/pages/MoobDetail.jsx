@@ -1,7 +1,7 @@
 // 훅
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams, Navigate, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 // 컴포넌트
 import styled from "styled-components";
@@ -14,7 +14,7 @@ import Loading from "../components/Loading";
 // 리덕스
 import { __getPlan } from "../redux/modules/PlanSlice";
 
-function MoobDetail() {
+function MoobDetail({data}) {
   const headstate = true;
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -28,6 +28,8 @@ function MoobDetail() {
   const [todos, setTodos] = useState([]);
   const [editMode, setEditMode] = useState(false);
   
+  const [modalTodoOpen, setModalTodoOpen] = useState(false);
+
   const editModeHandler = (e) => {
     e.preventDefault();
     setEditMode(true);
@@ -89,8 +91,7 @@ function MoobDetail() {
           key={todos?._id}
           todos={todos}
           data={myplan}
-          editMode={editMode} setEditMode={setEditMode} 
-        >
+          editMode={editMode} setEditMode={setEditMode}>
         </TodoList>
 
         <AddBtn onClick={() => setIsOpen(true)}><img src="/images/add.png" /></AddBtn>
@@ -116,7 +117,6 @@ const Wrap = styled.div`
   padding:60px 24px 0 24px;
   box-sizing: border-box;
   overflow: scroll;
-  position:relative;
   &::-webkit-scrollbar {
   display: none;
   }
@@ -146,9 +146,10 @@ const AddBtn = styled.button`
   text-align: center;
   border-radius: 100%;
   background-color: #F9A76F;
-  position: absolute;
-  right:24px;
+  position: sticky;
+  right:0;
   bottom:24px;
+  margin-left: auto;
   cursor: pointer;
   display: flex;
   justify-content: center;
