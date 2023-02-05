@@ -19,7 +19,7 @@ const AnnouncementDetail = () => {
   const { me } = useSelector((state) => state.user)
   
   const findPost = post.find((item) => {
-    return item._id == id
+    return item._id === Number(id)
   })
 
   useEffect(()=>{

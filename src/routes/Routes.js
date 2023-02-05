@@ -23,10 +23,8 @@ import Service from "../pages/Service";
 import Privacy from "../pages/Privacy";
 import Event from "../pages/Event";
 
-const routes = ({user}) => {
-  const PrivateRoute = () => {
-    return user ? <Main /> : <Navigate to="/login" />
-  }
+const routes = () => {
+
   return (
     <BrowserRouter>
       <Routes>
