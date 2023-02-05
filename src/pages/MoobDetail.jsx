@@ -28,8 +28,6 @@ function MoobDetail({data}) {
   const [todos, setTodos] = useState([]);
   const [editMode, setEditMode] = useState(false);
   
-  const [modalTodoOpen, setModalTodoOpen] = useState(false);
-
   const editModeHandler = (e) => {
     e.preventDefault();
     setEditMode(true);
@@ -52,12 +50,12 @@ function MoobDetail({data}) {
   useEffect(() => {
     if (plans) {
       const findPlan = plans.find((item) => {
-        return item._id == id
+        return item._id === id
       })
       setMyplan(findPlan);
       setTodos(findPlan?.todos);
     }
-  }, [plans]);
+  }, [id, plans]);
 
   return (
     <>
@@ -69,7 +67,7 @@ function MoobDetail({data}) {
           ?
           <Addinfotext>
             <p>
-              <img src="/images/add_icon.png" alt="" />
+              <img src="/images/add_icon.png" alt=""/>
               일정을 등록하세요
               </p>
             </Addinfotext>

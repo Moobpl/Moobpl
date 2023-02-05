@@ -50,7 +50,6 @@ export const __patchUser = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await axios.patch("/user", payload);
-      console.log(data.data)
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);

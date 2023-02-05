@@ -65,7 +65,7 @@ const Modalcalendar = ({ onClose }) => {
           <Calendar className="calendar"
             locale={ko}
             months={4}
-            color={["#f9a76f"]}
+            color={"#f9a76f"}
             todoDate={todoDate}
             onChange={(todoDate) => handleSelect(dayjs(todoDate).format('YYYY-MM-DD'))}
           />

@@ -1,4 +1,3 @@
-import { upload } from '@testing-library/user-event/dist/upload';
 import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react'
@@ -7,7 +6,6 @@ import styled from 'styled-components';
 import { __patchTodo } from "../redux/modules/PlanSlice";
 
 const ModalTodo = ({setModalTodoOpen, modalId, data}) => {
-  
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
@@ -78,7 +76,7 @@ const ModalTodo = ({setModalTodoOpen, modalId, data}) => {
           {categoryList.map((item) => {
             return(
                 <li
-                  key={item.id}
+                  key={item.name}
                   style={{backgroundColor:`${item.color}`}}
                   onClick={(event)=> {
                     const {name, alt} = event.target;
@@ -117,23 +115,22 @@ const Overlay = styled.div`
   z-index: 9999;
   padding:0 20px;
   box-sizing: border-box;
+  overflow: scroll;
+  &::-webkit-scrollbar {
+  display: none;
+  }
 `;
 
 const ModalWrap = styled.div`
   width: 100%;
-  height: auto;
   box-sizing: border-box;
-
   border-radius:15px;
   background: #F9F9F9;
   position: relative;
   top: 50%;
   left:50%;
   transform: translate(-50%, -50%);
-  overflow: scroll;
-  &::-webkit-scrollbar {
-  display: none;
-  }
+
 `;
 
 const Form = styled.form`

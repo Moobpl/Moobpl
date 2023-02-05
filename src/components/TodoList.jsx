@@ -70,7 +70,7 @@ const TodoList = ({ todos, data, editMode, setEditMode}) => {
       }
       {
         modalTodoOpen ?
-          <ModalTodo data={data} modalId={modalId} setModalTodoOpen={setModalTodoOpen}></ModalTodo>
+          <ModalTodo key={modalId} data={data} modalId={modalId} setModalTodoOpen={setModalTodoOpen}></ModalTodo>
           : null
       }
     </>

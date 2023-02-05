@@ -107,7 +107,6 @@ const Profile = styled.div`
 const Photo = styled.div`
   width: 60px;
   height: 60px;
-  background-color: #666666;
   border-radius: 100%;
   overflow: hidden;
   >img{
