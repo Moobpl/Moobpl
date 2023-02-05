@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-axios.defaults.baseURL = process.env.REACT_APP_BASEURL;
-axios.defaults.withCredentials = true;
+// axios.defaults.baseURL = process.env.REACT_APP_BASEURL;
+// axios.defaults.withCredentials = true;
 
 
 // 회원가입
@@ -10,7 +10,7 @@ export const __postUser = createAsyncThunk(
   "user/signUp",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.post(`/user/signup`, payload);
+      const data = await axios.post(`https://moobplback.herokuapp.com/user/signup`, payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -23,7 +23,7 @@ export const __postLogin = createAsyncThunk(
   "user/login",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.post(`/user/login`, payload);
+      const data = await axios.post(`https://moobplback.herokuapp.com/user/login`, payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -36,7 +36,7 @@ export const __postLogout = createAsyncThunk(
   "user/logout",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.post(`/user/logout`, payload);
+      const data = await axios.post(`https://moobplback.herokuapp.com/user/logout`, payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -49,7 +49,7 @@ export const __patchUser = createAsyncThunk(
   "user/patchInfo",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.patch("/user", payload);
+      const data = await axios.patch("https://moobplback.herokuapp.com/user", payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -62,7 +62,7 @@ export const __getUser = createAsyncThunk(
   "user/getUserInfo",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.get("/user");
+      const data = await axios.get("https://moobplback.herokuapp.com/user");
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
