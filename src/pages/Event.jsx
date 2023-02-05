@@ -13,7 +13,7 @@ const Event = () => {
   const wrap = useRef();
   const navigate = useNavigate();
   const { me } = useSelector((state) => state.user)
-
+  const width = 'calc(100% - 48px)'
   useEffect(() => {
     if (!me) {
       navigate('/login')
@@ -30,7 +30,8 @@ const Event = () => {
             이벤트
           </h1>
         </TextBox>
-        <Footer></Footer>
+        <EventImg src={`${process.env.PUBLIC_URL}/images/event.png`} alt="" />
+        <Footer width={width}></Footer>
       </Wrap>
     </>
   )
@@ -46,7 +47,8 @@ const Wrap = styled.div`
   margin: 0 auto;
   position: relative;
   overflow-y: scroll;
-
+  display: flex;
+  flex-direction: column;
   &::-webkit-scrollbar {
   display: none; /* 크롬, 사파리, 오페라, 엣지 */
   }
@@ -72,4 +74,10 @@ const TextBox = styled.div`
     letter-spacing: 0.5px;
     color: #282B49;
   }
+`
+
+const EventImg = styled.img`
+  display: block;
+  width: ${wrapCalc};
+  margin: 40px auto;
 `
