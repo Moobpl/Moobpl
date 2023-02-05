@@ -30,7 +30,7 @@ const Event = () => {
             이벤트
           </h1>
         </TextBox>
-        <EventImg src={`${process.env.PUBLIC_URL}/images/event.png`} alt="" />
+        <a href='https://naver.me/FQIxWUPu' target={'_blank'} rel="noreferrer"><EventImg src={`${process.env.PUBLIC_URL}/images/event.png`} alt="" /></a>
         <Footer width={width}></Footer>
       </Wrap>
     </>
