@@ -115,23 +115,22 @@ const Overlay = styled.div`
   z-index: 9999;
   padding:0 20px;
   box-sizing: border-box;
+  overflow: scroll;
+  &::-webkit-scrollbar {
+  display: none;
+  }
 `;
 
 const ModalWrap = styled.div`
   width: 100%;
-  height: auto;
   box-sizing: border-box;
-
   border-radius:15px;
   background: #F9F9F9;
   position: relative;
   top: 50%;
   left:50%;
   transform: translate(-50%, -50%);
-  overflow: scroll;
-  &::-webkit-scrollbar {
-  display: none;
-  }
+
 `;
 
 const Form = styled.form`
