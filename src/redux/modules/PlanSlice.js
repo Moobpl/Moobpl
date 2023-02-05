@@ -7,7 +7,7 @@ export const __postPlan = createAsyncThunk(
   "plan/postplan",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.post("/plan", payload);
+      const data = await axios.post("api/plan", payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -20,7 +20,7 @@ export const __getPlan = createAsyncThunk(
   async (payload, thunkAPI) => {
     //dispatch(함수명(payload))
     try {
-      const data = await axios.get("/plan");
+      const data = await axios.get("api/plan");
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -33,7 +33,7 @@ export const __patchTodos = createAsyncThunk(
   "plan/todos/patchTodos",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.patch(`/plan/${payload._id}/todos`, payload);
+      const data = await axios.patch(`api/plan/${payload._id}/todos`, payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -46,7 +46,7 @@ export const __deleteTodos = createAsyncThunk(
   "plan/todos/deletTods",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.delete(`/plan/${payload.planId}/todos/${payload.todosId}`, payload);
+      const data = await axios.delete(`api/plan/${payload.planId}/todos/${payload.todosId}`, payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -59,7 +59,7 @@ export const __patchTodo = createAsyncThunk(
   "plan/todos/todo/patchTodo",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.patch(`/plan/${payload.planId}/todos/${payload._id}/todo`, payload);
+      const data = await axios.patch(`api/plan/${payload.planId}/todos/${payload._id}/todo`, payload);
 
       return thunkAPI.fulfillWithValue(data.data);
 
@@ -75,7 +75,7 @@ export const __deleteTodo = createAsyncThunk(
   async (payload, thunkAPI) => {
 
     try {
-      const data = await axios.delete(`/plan/${payload.planId}/todos/${payload.todosId}/todo/${payload._id}`);
+      const data = await axios.delete(`api/plan/${payload.planId}/todos/${payload.todosId}/todo/${payload._id}`);
 
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
@@ -89,7 +89,7 @@ export const __deletePlan = createAsyncThunk(
   async (payload, thunkAPI) => {
 
     try {
-      await axios.delete(`/plan/${payload}`);
+      await axios.delete(`api/plan/${payload}`);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -102,7 +102,7 @@ export const __patchCheckList = createAsyncThunk(
   async (payload, thunkAPI) => {
 
     try {
-      const data = await axios.patch(`/plan/${payload._id}/checklist`, payload);
+      const data = await axios.patch(`api/plan/${payload._id}/checklist`, payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
