@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { useEffect } from "react";
 import dayjs from 'dayjs'; //날짜 포맷해주는 함수
+import styled from "styled-components";
 
 const Dday = ({dday}) => {
   const [selectDay, setSelectDay] = useState('');
@@ -19,15 +20,20 @@ const Dday = ({dday}) => {
   }, [dday]);
 
   return (
-  <div>
+  <DdayText>
     {
       selectDay < 0 
       ? <p>D{selectDay} /</p>
       : <p>D+{selectDay} /</p>
     }    
-  </div>
+  </DdayText>
   );
 };
 
 export default Dday;
 
+const DdayText = styled.div`
+  > p {
+    font-family: 'SF Pro Text';
+  }
+`

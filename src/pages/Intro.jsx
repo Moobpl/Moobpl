@@ -9,8 +9,6 @@ import styled from "styled-components";
 const Intro = () => {
   const navigate = useNavigate();
 
-  
-
   useEffect(()=>{
     const movePage = () =>{
       navigate("/login")

@@ -12,9 +12,13 @@ li {
 }
 body {
   margin: 0;
-  background-color:#e5e5e5;
+  background-color:#eaedf2;
+  background-image: url(../public/images/root_back.png);
+  background-repeat: no-repeat;
+  background-size: contain;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  
 }
 
 #root {
@@ -26,8 +30,15 @@ body {
   background-color:#FBFBFC;
   overflow:hidden;
 }
+@media (min-width: 360px) and (max-width: 899px) {
+  body {
+      background-color: #ebeef3;
+      background-image: none;
+  }
+}
 
-code {
-  /* font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace; */
+@media all and (max-width:425px){
+  #root {
+    max-width: 600px;
+  }
 }
