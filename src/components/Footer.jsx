@@ -1,20 +1,18 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Footer = ({width}) => {
-
-  return (
-    <Wrap width={width}>
-        <FooterButton>
-            <div>친구에게 추천할래요</div>
-            <div>설문조사 참여하기</div>
-        </FooterButton>
-        <Info>
-            제작자 | 김한빛 위향훈
-            <p>copyright © moobpl all rights reserved</p>
-        </Info>
-    </Wrap>
-  )
+const Footer = ({ width }) => {
+    return (
+        <Wrap width={width}>
+            <FooterButton>
+                <div><a href='https://naver.me/FQIxWUPu' target={'_blank'} rel="noreferrer">설문조사 참여하기</a></div>
+            </FooterButton>
+            <Info>
+                제작자 | 김한빛 위향훈
+                <p>copyright © moobpl all rights reserved</p>
+            </Info>
+        </Wrap>
+    )
 }
 
 export default Footer
@@ -29,10 +27,14 @@ const FooterButton = styled.div`
         border-top: 1px solid #efefef;
         padding: 10px;
         text-align: center;
-        font-size: 11px;
-        font-weight: 100;
-        color: #acacac;
         cursor: pointer;
+        >a{
+            display: block;
+            font-size: 11px;
+            font-weight: 100;
+            color: #acacac;
+            text-decoration: none;
+        }
     }
     div:last-child{
         border-bottom: 1px solid #efefef;
