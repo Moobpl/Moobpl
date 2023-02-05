@@ -12,7 +12,7 @@ const ModalTodo = ({setModalTodoOpen, modalId, data}) => {
   const [category, setCategory] = useState("");
   const [color, setColor] = useState("");
   const [todosId, setTodosId] = useState("")
-
+  const [selected, setSelected] = useState("");
   useEffect(()=>{
     if(modalId){
       setTodosId(modalId);
@@ -20,11 +20,11 @@ const ModalTodo = ({setModalTodoOpen, modalId, data}) => {
   }, [modalId]);
   
   const categoryList = [
-    {imgSrc:"images/category/clean.png", name:"청소", color:"#668BA4"},
-    {imgSrc:"images/category/repair.png", name:"수리", color:"#F8A66F"},
-    {imgSrc:"images/category/papering.png", name:"도배", color:"#DDE0AB"},
-    {imgSrc:"images/category/reservation.png", name:"예약", color:"#EF5B5B"},
-    {imgSrc:"images/category/payment.png", name:"비용", color:"#57B0FB"}
+    { id:"1", imgSrc:"images/category/clean.png", name:"청소", color:"#668BA4"},
+    { id:"2", imgSrc:"images/category/repair.png", name:"수리", color:"#F8A66F"},
+    { id:"3", imgSrc:"images/category/papering.png", name:"도배", color:"#DDE0AB"},
+    { id:"4", imgSrc:"images/category/reservation.png", name:"예약", color:"#EF5B5B"},
+    { id:"5", imgSrc:"images/category/payment.png", name:"비용", color:"#57B0FB"}
   ]
 
   const todoInfo = {
@@ -76,13 +76,22 @@ const ModalTodo = ({setModalTodoOpen, modalId, data}) => {
           {categoryList.map((item) => {
             return(
                 <li
+                  className={selected === item.id ? "is-click" : null}
                   key={item.name}
                   style={{backgroundColor:`${item.color}`}}
                   onClick={(event)=> {
                     const {name, alt} = event.target;
+                    event.preventDefault();
                     setCategory(name);
                     setColor(alt);
+                    if(item.id === selected) {
+                      selected("");
+                      console.log(selected);
+                    } else {
+                       setSelected(item.id);
+                    }
                   }}
+                  selected
                 >
                   <img src={`${process.env.PUBLIC_URL}/${item.imgSrc}`} alt={item.color} name={`${process.env.PUBLIC_URL}/${item.imgSrc}`}/>
                 </li>
@@ -190,10 +199,12 @@ const Form = styled.form`
       width: 42px; 
       height: 42px;
       border-radius: 10px;
-      /* border: 1px solid #EDEDED; */
       cursor:pointer;
       box-sizing: border-box;
       overflow: hidden;
+      &.is-click {
+        transform: scale(1.3);
+      }
       img {
         position: absolute;
          display: block; 

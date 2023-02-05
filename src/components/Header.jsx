@@ -47,6 +47,9 @@ const HeaderWrap = styled.header`
   background-color: #FBFBFC;
   z-index: 998;
   overflow: hidden;
+  @media all and (max-width:425px){
+    max-width: 600px;
+  }
 `
 
 const Container = styled.div`
