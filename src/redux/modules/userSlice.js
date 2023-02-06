@@ -10,7 +10,7 @@ export const __postUser = createAsyncThunk(
   "user/signUp",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.post(`api/user/signup`, payload);
+      const data = await axios.post(`/api/user/signup`, payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -23,7 +23,7 @@ export const __postLogin = createAsyncThunk(
   "user/login",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.post(`api/user/login`, payload);
+      const data = await axios.post(`/api/user/login`, payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -36,7 +36,7 @@ export const __postLogout = createAsyncThunk(
   "user/logout",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.post(`api/user/logout`, payload);
+      const data = await axios.post(`/api/user/logout`, payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -49,7 +49,7 @@ export const __patchUser = createAsyncThunk(
   "user/patchInfo",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.patch("api/user", payload);
+      const data = await axios.patch("/api/user", payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -62,7 +62,7 @@ export const __getUser = createAsyncThunk(
   "user/getUserInfo",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.get("api/user");
+      const data = await axios.get("/api/user");
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
