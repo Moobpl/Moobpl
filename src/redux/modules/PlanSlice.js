@@ -7,7 +7,7 @@ export const __postPlan = createAsyncThunk(
   "plan/postplan",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.post("/plan", payload);
+      const data = await axios.post("api/plan", payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -59,7 +59,7 @@ export const __patchTodo = createAsyncThunk(
   "plan/todos/todo/patchTodo",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.patch(`/api/plan/${payload.planId}/todos/${payload._id}/todo`, payload);
+      const data = await axios.patch(`api/plan/${payload.planId}/todos/${payload._id}/todo`, payload);
 
       return thunkAPI.fulfillWithValue(data.data);
 
