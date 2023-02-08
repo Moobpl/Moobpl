@@ -4,7 +4,8 @@ import ko from 'date-fns/locale/ko';
 import 'react-date-range/dist/styles.css'; 
 import 'react-date-range/dist/theme/default.css';
 import './Calender.style.css'
-import dayjs from 'dayjs'; //날짜 포맷
+import moment from 'moment'; //momentjs
+import 'moment/locale/ko';
 
 const Calender = ({setDate, setshowDatBtn}) => {
   const [pickDate, setPickDate] = useState(new Date());
@@ -22,7 +23,7 @@ const Calender = ({setDate, setshowDatBtn}) => {
         months={4}
         color={'#f9a76f'}
         pickDate={pickDate}
-        onChange={(pickDate) => handleSelect(dayjs(pickDate).format('YYYY-MM-DD'))}
+        onChange={(pickDate) => handleSelect(moment(pickDate).format('YYYY,MM,DD'))}
       />
         
     </>

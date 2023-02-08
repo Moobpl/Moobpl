@@ -14,7 +14,8 @@ import { __patchTodos } from "../redux/modules/PlanSlice";
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
 import ButtonSubmit from "./ButtonSubmit";
-import dayjs from 'dayjs';
+import moment from 'moment'; //momentjs
+import 'moment/locale/ko';
 
 const Modalcalendar = ({ onClose }) => {
   const modalRef = useRef(null)
@@ -31,6 +32,8 @@ const Modalcalendar = ({ onClose }) => {
   const [todoDate, setTodoDate] = useState("");
   const [selectTodoDate, setSelectTodoDate] = useState(false);
   const name = "선택완료"
+
+  console.log("모달캘린더 투두데이트",todoDate)
 
   useEffect(() => {
     if (plan) {
@@ -67,7 +70,7 @@ const Modalcalendar = ({ onClose }) => {
             months={4}
             color={"#f9a76f"}
             todoDate={todoDate}
-            onChange={(todoDate) => handleSelect(dayjs(todoDate).format('YYYY-MM-DD'))}
+            onChange={(todoDate) => handleSelect(moment(todoDate).format('YYYY-MM-DD'))}
           />
           {selectTodoDate === true ? 
             <ButtonWrap onClick={()=>buttonHandler(todoDate)}>

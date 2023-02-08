@@ -1,17 +1,23 @@
 import React, {useState} from "react";
 import { useEffect } from "react";
-import dayjs from 'dayjs'; //날짜 포맷해주는 함수
 import styled from "styled-components";
+import moment from 'moment'; //momentjs
+import 'moment/locale/ko';
 
 const Dday = ({dday}) => {
   const [selectDay, setSelectDay] = useState('');
 
   const diffDay = () => {
-      const selectDay = String(dday).split('-').map(str => Number(str));    
+      const selectDay = String(dday).split('-').map(str => Number(str));
+      console.log("Dday 셀렉트데이",typeof selectDay)    
       const dayset = new Date();
-      const today = dayjs(dayset).format('YYYY-MM-DD').split('-').map(str => Number(str));
-      const todaySec = new Date(today).getTime();
-      const setdaySec = new Date(selectDay).getTime();
+      const today = moment(dayset).format('YYYY, MM, DD').split(',').map(str => Number(str));
+      console.log("Dday 투데이", today)
+
+      const todaySec = moment(today).valueOf();
+      console.log("Dday 투데이초", todaySec)
+      const setdaySec = moment(selectDay).valueOf();
+      console.log("Dday 선택날초", setdaySec)
       setSelectDay(Math.ceil(todaySec-setdaySec) / (1000*60*60*24));
   }
     
