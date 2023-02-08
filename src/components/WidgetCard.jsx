@@ -21,7 +21,7 @@ const WidgetCard = ({ data = [] }) => {
 
   useEffect(() => {
     diffDay();
-  }, [data])
+  }, [data, diffDay])
 
   return (
     <>
