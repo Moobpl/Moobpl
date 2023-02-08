@@ -9,7 +9,7 @@ const Dday = ({dday}) => {
   const diffDay = () => {
       const selectDay = String(dday).split('-').map(str => Number(str));    
       const dayset = new Date();
-      const today = dayjs(dayset).format('YYYY-MM-DD').split('-').map(str => Number(str));
+      const today = dayjs(dayset).format('YYYY/MM/DD').split('-').map(str => Number(str));
       const todaySec = new Date(today).getTime();
       const setdaySec = new Date(selectDay).getTime();
       setSelectDay(Math.ceil(todaySec-setdaySec) / (1000*60*60*24));
