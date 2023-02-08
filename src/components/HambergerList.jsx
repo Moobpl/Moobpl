@@ -50,6 +50,9 @@ export default HambergerList
 const Wrap = styled.ul`
     margin-top: ${props => props.margin};
     height: calc(100vh - 104px - 60px - 28px - 60px);
+    @supports (-webkit-touch-callout: none) { 
+      height: calc(-webkit-fill-available - 104px - 60px - 28px - 60px);
+    }
     display: flex;
     flex-direction: column;
     li{
@@ -68,6 +71,10 @@ const Wrap = styled.ul`
             display: flex;
             justify-content: center;
             align-items: center;
+
+            >img{
+                max-width: 21px;
+            }
         }
         span{
             display: block;
@@ -94,6 +101,7 @@ const Logout = styled.div`
     cursor: pointer;
     >img {
         margin-right: 13px;
+        max-width: 21px;
     }
     >span {
         font-weight: 400;

@@ -118,6 +118,10 @@ const Wrap = styled.div`
   &::-webkit-scrollbar {
   display: none;
   }
+
+  @supports (-webkit-touch-callout: none) { 
+    height: -webkit-fill-available;
+  }
 `;
 const Addinfotext = styled.div`
   text-align: center;
@@ -130,6 +134,7 @@ const Addinfotext = styled.div`
     font-size: 18px;
     color:#acacac;
     img { 
+      max-width: 43px;
       display: block;      
       margin: 0 auto;
     }

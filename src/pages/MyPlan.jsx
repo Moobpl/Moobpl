@@ -85,6 +85,10 @@ const Wrap = styled.div`
   &::-webkit-scrollbar {
   display: none; /* 크롬, 사파리, 오페라, 엣지 */
   }
+
+  @supports (-webkit-touch-callout: none) { 
+    height: -webkit-fill-available;
+  }
 `
 
 const TextBox = styled.div`

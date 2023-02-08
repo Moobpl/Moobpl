@@ -179,6 +179,10 @@ const Wrap = styled.div`
   min-height: 100vh;
   margin: 0 auto;
   position: relative;
+
+  @supports (-webkit-touch-callout: none) { 
+    height: -webkit-fill-available;
+  }
 `
 const Message = styled.span`
   display: block;

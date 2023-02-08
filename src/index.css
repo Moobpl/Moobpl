@@ -29,7 +29,15 @@ body {
   margin: 0 auto;
   background-color:#FBFBFC;
   overflow:hidden;
+  
 }
+
+@supports (-webkit-touch-callout: none) { 
+  #root{
+    height: -webkit-fill-available;
+  }
+}
+
 @media (min-width: 360px) and (max-width: 899px) {
   body {
       background-color: #ebeef3;

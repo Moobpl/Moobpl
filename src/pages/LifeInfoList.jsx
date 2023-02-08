@@ -57,7 +57,9 @@ const Wrap = styled.div`
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
-
+  @supports (-webkit-touch-callout: none) { 
+    height: -webkit-fill-available;
+  }
   &::-webkit-scrollbar {
   display: none; /* 크롬, 사파리, 오페라, 엣지 */
   }

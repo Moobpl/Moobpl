@@ -108,8 +108,10 @@ const Wrap = styled.div`
   height: 100vh;
   margin: 0 auto;
   position: relative;
-  overflow: auto;
-
+  overflow-y: auto;
+  @supports (-webkit-touch-callout: none) { 
+    height: -webkit-fill-available;
+  }
   &::-webkit-scrollbar {
   display: none; /* 크롬, 사파리, 오페라, 엣지 */
   }
@@ -150,7 +152,6 @@ const Form = styled.form`
   min-height: calc(100vh - 197px);
   display: flex;
   flex-direction: column;
-  overflow: auto;
 `
 
 const InputEmail = styled.input`
@@ -164,9 +165,14 @@ const InputEmail = styled.input`
   padding: 15px;
   box-sizing: border-box;
   margin-top: 51px;
-
+  outline: none;
   &::placeholder {
     color: #BEBEBE;
+  }
+  &:focus{
+    &::placeholder {
+      color: #f9a76f;
+    }
   }
 `
 
@@ -181,9 +187,14 @@ const InputPassword = styled.input`
   padding: 15px;
   box-sizing: border-box;
   margin-top: 12px;
-
+  outline: none;
   &::placeholder {
     color: #BEBEBE;
+  }
+  &:focus{
+    &::placeholder {
+      color: #f9a76f;
+    }
   }
 `
 

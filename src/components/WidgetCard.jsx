@@ -12,7 +12,7 @@ const WidgetCard = ({ data = [] }) => {
     const selectDay = String(data.date).split('-').map(str => Number(str));
 
     const dayset = new Date();
-    const today = dayjs(dayset).format('YYYY-MM-DD').split('-').map(str => Number(str));
+    const today = dayjs(dayset).format('YYYY/MM/DD').split('/').map(str => Number(str));
 
     const todaySec = new Date(today).getTime();
     const setdaySec = new Date(selectDay).getTime();
@@ -21,7 +21,7 @@ const WidgetCard = ({ data = [] }) => {
 
   useEffect(() => {
     diffDay();
-  }, [data, diffDay])
+  }, [data])
 
   return (
     <>
