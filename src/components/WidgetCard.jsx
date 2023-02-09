@@ -10,14 +10,23 @@ const WidgetCard = ({ data = [] }) => {
   const naviate = useNavigate();
 
   const diffDay = () => {
-    const selectDay = String(data.date).split('-').map(str => Number(str));
+    // const selectDay = String(data.date).split('-').map(str => Number(str));
 
+    // const dayset = new Date();
+    // const today = moment(dayset).format('YYYY-MM-DD').split('-').map(str => Number(str));
+
+    // const todaySec = moment(today).valueOf();
+    // const setdaySec = moment(selectDay).valueOf();
+    // setDday(Math.ceil(todaySec - setdaySec) / (1000 * 60 * 60 * 24));
+    const selectDay = data.date;
+    console.log("셀렉트데이!", selectDay);
+    
     const dayset = new Date();
-    const today = moment(dayset).format('YYYY-MM-DD').split('-').map(str => Number(str));
+    const today = moment(dayset).format('YYYY-MM-DD');
+    console.log("투데이", today);
 
-    const todaySec = moment(today).valueOf();
-    const setdaySec = moment(selectDay).valueOf();
-    setDday(Math.ceil(todaySec - setdaySec) / (1000 * 60 * 60 * 24));
+    setDday(moment(today).diff(moment(selectDay), 'days'));
+
   }
 
   useEffect(() => {

@@ -8,17 +8,23 @@ const Dday = ({dday}) => {
   const [selectDay, setSelectDay] = useState('');
 
   const diffDay = () => {
-      const selectDay = String(dday).split('-').map(str => Number(str));
-      console.log("셀렉트데이!",selectDay)
+      // const selectDay = String(dday).split('-').map(str => Number(str));
+      console.log("셀렉트데이!",dday)
 
       const dayset = new Date();
-      const today = moment(dayset).format('YYYY-MM-DD').split('-').map(str => Number(str));
-      const todaySec = moment(today).valueOf();
-      console.log("투데이!", todaySec)
+      // const today = moment(dayset).format('YYYY-MM-DD').split('-').map(str => Number(str));
+      const today = moment(dayset).format('YYYY-MM-DD');
+      console.log("투데이!",today)
+      
+      // const todaySec = moment(today).valueOf();
+      // console.log("투데이!", todaySec)
 
-      const setdaySec = moment(selectDay).valueOf();
-      console.log("셋데이!", setdaySec)
-      setSelectDay(Math.ceil(todaySec-setdaySec) / (1000*60*60*24));
+      // const setdaySec = moment(selectDay).valueOf();
+      // console.log("셋데이!", setdaySec)
+      // setSelectDay(Math.ceil(todaySec-setdaySec) / (1000*60*60*24));
+
+      setSelectDay(moment(today).diff(moment(dday), 'days'));
+      
   }
     
   useEffect(()=>{
