@@ -1,9 +1,8 @@
-import React from 'react'
+import React,{ useEffect } from 'react'
 import styled from 'styled-components'
 import { useNavigate, Navigate } from 'react-router-dom'
 import { __postLogout } from '../redux/modules/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
 
 const HambergerList = ({ margin }) => {
     const navigate = useNavigate();
@@ -13,6 +12,18 @@ const HambergerList = ({ margin }) => {
         dispatch(__postLogout())
         navigate("/login");
     }
+
+    const handleResize = () => {
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty("--vh", `${vh}px`); 
+      };
+
+    useEffect(()=>{
+        handleResize();
+        window.addEventListener("resize", handleResize);
+
+        return () => window.removeEventListener("resize", handleResize);
+    },[])
 
     return (
         <Wrap margin={"60px"}>
@@ -50,9 +61,11 @@ export default HambergerList
 const Wrap = styled.ul`
     margin-top: ${props => props.margin};
     height: calc(100vh - 104px - 60px - 28px - 60px);
+    
     @supports (-webkit-touch-callout: none) { 
-      height: calc(-webkit-fill-available - 104px - 60px - 28px - 60px);
+        height: calc(var(--vh) * 100 - 104px - 60px - 28px - 60px);
     }
+
     display: flex;
     flex-direction: column;
     li{
@@ -97,7 +110,7 @@ const Logout = styled.div`
     justify-content: flex-end;
     align-items: center;
     margin-top: 17px;
-    margin-bottom: 24px;
+    padding-bottom: 24px;
     cursor: pointer;
     >img {
         margin-right: 13px;
