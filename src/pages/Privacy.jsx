@@ -113,6 +113,7 @@ const TextBox = styled.div`
 `
 
 const Section = styled.section`
+  margin-bottom: 40px;
   p{
     margin-top: 40px;
     font-weight: 400;

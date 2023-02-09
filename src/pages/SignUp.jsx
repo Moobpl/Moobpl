@@ -135,7 +135,7 @@ const Signup = () => {
 
   useEffect(() => {
     if (me) {
-      navigate('main')
+      navigate('/main')
     }
   }, [me, navigate])
 
@@ -161,10 +161,10 @@ const Signup = () => {
 
           <InputPassword type="password" placeholder="동일한 비밀번호를 입력하세요." onChange={onChangePasswordConfirm}></InputPassword>
           {passwordCheck.length > 0 ? <Message className={`message ${isPasswordConfirm ? 'success' : 'error'}`}>{passwordConfirmMessage}</Message> : <Message className={`message error`}>{passwordConfirmMessage}</Message>}
+          <ButtonWrap onClick={onSubmit}>
+            <ButtonSubmit buttonName={name}></ButtonSubmit>
+          </ButtonWrap>
         </form>
-        <ButtonWrap onClick={onSubmit}>
-          <ButtonSubmit buttonName={name}></ButtonSubmit>
-        </ButtonWrap>
       </Wrap>
       {isUserLoading ? <Loading /> : null}
     </div>
@@ -176,12 +176,21 @@ export default Signup;
 
 const Wrap = styled.div`
   width: calc(100% - 48px);
-  min-height: 100vh;
+  height: 100vh;
   margin: 0 auto;
   position: relative;
-
+  overflow-y: scroll;
+  padding: 0px 2px;
   @supports (-webkit-touch-callout: none) { 
     height: -webkit-fill-available;
+  }
+  &::-webkit-scrollbar {
+  display: none; /* 크롬, 사파리, 오페라, 엣지 */
+  }
+  form{
+    height: calc(100vh - 91px - 81px);
+    display: flex;
+    flex-direction: column;
   }
 `
 const Message = styled.span`
@@ -197,6 +206,9 @@ const Message = styled.span`
   }
   &.error {
     color: #ff2727;
+  }
+  &:nth-child(8){
+    margin-bottom: 17px;
   }
 `
 
@@ -241,7 +253,7 @@ const InputNickName = styled.input`
   padding: 15px;
   box-sizing: border-box;
   margin-top: 81px;
-
+  outline: none;
   &::placeholder {
     color: #BEBEBE;
   }
@@ -258,7 +270,7 @@ const InputNickEmail = styled.input`
   padding: 15px;
   box-sizing: border-box;
   margin-top: 51px;
-
+  outline: none;
   &::placeholder {
     color: #BEBEBE;
   }
@@ -276,6 +288,7 @@ const InputPassword = styled.input`
   box-sizing: border-box;
   margin-top: 12px;
   letter-spacing: 3px;
+  outline: none;
   &::placeholder {
     color: #BEBEBE;
     letter-spacing: 0px;
@@ -284,7 +297,7 @@ const InputPassword = styled.input`
 
 const ButtonWrap = styled.div`
   width: 100%;
-  position: absolute;
+  margin-top: auto;
   bottom: 52px;
 
   p {

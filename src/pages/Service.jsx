@@ -124,7 +124,7 @@ const TextBox = styled.div`
 `
 
 const Section = styled.section`
-  
+  margin-bottom: 40px;
   dl{
     margin-top: 50px;
     dt{

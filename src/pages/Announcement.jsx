@@ -116,4 +116,7 @@ const ListCard = styled.div`
     letter-spacing: 0.5px;
     color: #999999;
   }
+  &:last-child{
+    margin-bottom: 40px;
+  }
 `

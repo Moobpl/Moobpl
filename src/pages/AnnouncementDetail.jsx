@@ -71,7 +71,7 @@ const Wrap = styled.div`
 const TextBox = styled.div`
   padding-top: 91px;
   width: ${wrapCalc};
-  margin: 0 auto;
+  margin: 0 auto 40px auto;
   span{
     font-size: 14px;
     line-height: 25px;

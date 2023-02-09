@@ -149,7 +149,7 @@ const TextBox = styled.div`
   }
 `
 const Form = styled.form`
-  min-height: calc(100vh - 197px);
+  min-height: calc(100% - 197px);
   display: flex;
   flex-direction: column;
 `
@@ -232,5 +232,8 @@ const Message = styled.span`
   }
   &.error {
     color: #ff2727;
+  }
+  &:nth-child(4){
+    margin-bottom: 17px;
   }
 `
