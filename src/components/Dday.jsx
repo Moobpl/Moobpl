@@ -8,13 +8,10 @@ const Dday = ({dday}) => {
   const [selectDay, setSelectDay] = useState('');
 
   const diffDay = () => {
-      const selectDay = String(dday).split('-').map(str => Number(str));
       const dayset = new Date();
-      const today = moment(dayset).format('YYYY, MM, DD').split(',').map(str => Number(str));
+      const today = moment(dayset).format('YYYY-MM-DD');
 
-      const todaySec = moment(today).valueOf();
-      const setdaySec = moment(selectDay).valueOf();
-      setSelectDay(Math.ceil(todaySec-setdaySec) / (1000*60*60*24));
+      setSelectDay(moment(today).diff(moment(dday), 'days'));
   }
     
   useEffect(()=>{
