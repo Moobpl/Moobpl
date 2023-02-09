@@ -105,5 +105,5 @@ const BackWrap = styled.div`
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(3.5px);
   position: absolute;
-  z-index: 998;
+  z-index: 1001;
 `

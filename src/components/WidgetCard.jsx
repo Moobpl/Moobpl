@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import "../fonts/Font.css";
 import { useNavigate } from "react-router-dom";
-import dayjs from 'dayjs'; 
+import moment from 'moment'; //momentjs
+import 'moment/locale/ko';
 
 const WidgetCard = ({ data = [] }) => {
   const [dDay, setDday] = useState('');
@@ -12,10 +13,10 @@ const WidgetCard = ({ data = [] }) => {
     const selectDay = String(data.date).split('-').map(str => Number(str));
 
     const dayset = new Date();
-    const today = dayjs(dayset).format('YYYY/MM/DD').split('/').map(str => Number(str));
+    const today = moment(dayset).format('YYYY,MM,DD').split(',').map(str => Number(str));
 
-    const todaySec = new Date(today).getTime();
-    const setdaySec = new Date(selectDay).getTime();
+    const todaySec = moment(today).valueOf();
+    const setdaySec = moment(selectDay).valueOf();
     setDday(Math.ceil(todaySec - setdaySec) / (1000 * 60 * 60 * 24));
   }
 

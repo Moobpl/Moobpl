@@ -111,7 +111,8 @@ export default MoobDetail;
 
 const Wrap = styled.div`
   width:100%;
-  height: 100%;
+  height: 100vh;
+  position: relative;
   padding:60px 24px 0 24px;
   box-sizing: border-box;
   overflow: scroll;
@@ -127,6 +128,9 @@ const Addinfotext = styled.div`
   text-align: center;
   width: 100%;
   height: calc(100% - 200px);
+  @supports (-webkit-touch-callout: none) { 
+    min-height: -webkit-fill-available;
+  }
   display: flex;
   justify-content: center;
   align-items: center;
@@ -149,14 +153,14 @@ const AddBtn = styled.button`
   text-align: center;
   border-radius: 100%;
   background-color: #F9A76F;
-  position: sticky;
-  right:0;
+  position: absolute;
+  right:24px;
   bottom:24px;
-  margin-left: auto;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 9998;
 `
 const EditBtnWrap = styled.div`
   margin-top:10px;
