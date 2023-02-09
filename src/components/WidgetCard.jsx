@@ -13,7 +13,7 @@ const WidgetCard = ({ data = [] }) => {
     const selectDay = String(data.date).split('-').map(str => Number(str));
 
     const dayset = new Date();
-    const today = moment(dayset).format('YYYY,MM,DD').split(',').map(str => Number(str));
+    const today = moment(dayset).format('YYYY-MM-DD').split('-').map(str => Number(str));
 
     const todaySec = moment(today).valueOf();
     const setdaySec = moment(selectDay).valueOf();
