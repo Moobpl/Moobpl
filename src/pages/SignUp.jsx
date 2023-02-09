@@ -99,7 +99,8 @@ const Signup = () => {
     [password]
   )
 
-  const onSubmit = () => {
+  const onSubmit = (e) => {
+    e.preventDefault()
     if (nickName.trim() === "" || isName === false) {
       setNameMessage('2글자 이상 5글자 미만으로 입력해주세요.')
       return false
@@ -126,7 +127,7 @@ const Signup = () => {
   }, [isSignupError, dispatch])
 
   useEffect(() => {
-    if (isSignupSucess) {
+    if (isSignupSucess === true) {
       alert("회원가입이 완료 되었습니다.")
       dispatch(clean())
       navigate('/login')
