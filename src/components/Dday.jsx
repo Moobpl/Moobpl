@@ -22,7 +22,6 @@ const Dday = ({dday}) => {
       // const setdaySec = moment(selectDay).valueOf();
       // console.log("셋데이!", setdaySec)
       // setSelectDay(Math.ceil(todaySec-setdaySec) / (1000*60*60*24));
-
       setSelectDay(moment(today).diff(moment(dday), 'days'));
       
   }
