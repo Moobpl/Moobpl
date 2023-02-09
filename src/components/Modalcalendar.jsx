@@ -67,7 +67,7 @@ const Modalcalendar = ({ onClose }) => {
             months={4}
             color={"#f9a76f"}
             todoDate={todoDate}
-            onChange={(todoDate) => handleSelect(dayjs(todoDate).format('YYYY-MM-DD'))}
+            onChange={(todoDate) => handleSelect(dayjs(todoDate).format('YYYY/MM/DD'))}
           />
           {selectTodoDate === true ? 
             <ButtonWrap onClick={()=>buttonHandler(todoDate)}>
