@@ -34,7 +34,7 @@ const LogoWrap = styled.div`
   align-items: center;
   background-color: #f9a76f;
   @supports (-webkit-touch-callout: none) { 
-    height: -webkit-fill-available;
+    min-height: -webkit-fill-available;
   }
 `
 

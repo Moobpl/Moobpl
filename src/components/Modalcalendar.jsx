@@ -33,7 +33,7 @@ const Modalcalendar = ({ onClose }) => {
   const [selectTodoDate, setSelectTodoDate] = useState(false);
   const name = "선택완료"
 
-  console.log("모달캘린더 투두데이트",todoDate)
+  // console.log("모달캘린더 투두데이트",todoDate)
 
   useEffect(() => {
     if (plan) {

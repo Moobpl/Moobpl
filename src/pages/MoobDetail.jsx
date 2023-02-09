@@ -92,7 +92,10 @@ function MoobDetail({data}) {
           editMode={editMode} setEditMode={setEditMode}>
         </TodoList>
 
-        <AddBtn onClick={() => setIsOpen(true)}><img src="/images/add.png" /></AddBtn>
+        
+       
+      </Wrap>
+      <AddBtn onClick={() => setIsOpen(true)}><img src="/images/add.png" /></AddBtn>
         {
           isOpen && (
             <Modalcalendar
@@ -101,7 +104,6 @@ function MoobDetail({data}) {
             />
           )
         }
-      </Wrap>
       {isPlansLoading ? <Loading /> : null}
     </>
   );

@@ -6,32 +6,21 @@ import moment from 'moment'; //momentjs
 import 'moment/locale/ko';
 
 const WidgetCard = ({ data = [] }) => {
+  console.log(data.date)
   const [dDay, setDday] = useState('');
   const naviate = useNavigate();
 
   const diffDay = () => {
-    // const selectDay = String(data.date).split('-').map(str => Number(str));
-
-    // const dayset = new Date();
-    // const today = moment(dayset).format('YYYY-MM-DD').split('-').map(str => Number(str));
-
-    // const todaySec = moment(today).valueOf();
-    // const setdaySec = moment(selectDay).valueOf();
-    // setDday(Math.ceil(todaySec - setdaySec) / (1000 * 60 * 60 * 24));
     const selectDay = data.date;
-    console.log("셀렉트데이!", selectDay);
-    
     const dayset = new Date();
     const today = moment(dayset).format('YYYY-MM-DD');
-    console.log("투데이", today);
 
     setDday(moment(today).diff(moment(selectDay), 'days'));
-
   }
 
   useEffect(() => {
     diffDay();
-  }, [data])
+  }, [diffDay])
 
   return (
     <>
