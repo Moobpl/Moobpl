@@ -23,7 +23,7 @@ const Calender = ({setDate, setshowDatBtn}) => {
         months={4}
         color={'#f9a76f'}
         pickDate={pickDate}
-        onChange={(pickDate) => handleSelect(moment(pickDate).format('YYYY,MM,DD'))}
+        onChange={(pickDate) => handleSelect(moment(pickDate).format('YYYY-MM-DD'))}
       />
         
     </>
