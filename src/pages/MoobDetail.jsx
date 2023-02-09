@@ -112,7 +112,7 @@ export default MoobDetail;
 const Wrap = styled.div`
   width:100%;
   height: 100vh;
-  position: relative;
+  // position: relative;
   padding:60px 24px 0 24px;
   box-sizing: border-box;
   overflow: scroll;
