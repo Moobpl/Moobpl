@@ -29,3 +29,5 @@
 |gather town|화상 회의|
 |notion|프로젝트 자료, 회의록 관리 및 기록|
 |vscode liveshare|코드 오류 협업|
+
+![image](https://user-images.githubusercontent.com/66665468/221137988-c8fa2d5f-b40a-4552-aa73-4932e1bf6d6d.png)
