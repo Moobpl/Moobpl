@@ -27,7 +27,7 @@ ID : moobpl@moobpl.com <br>PASSWORD : testtest1234!
 | [<img src="https://user-images.githubusercontent.com/66665468/221135646-c6102967-54a3-4361-8a74-931855330348.jpg" width=150> <br/> @bigbit99](https://github.com/bigbit99) | [<img src="https://user-images.githubusercontent.com/66665468/221135646-c6102967-54a3-4361-8a74-931855330348.jpg" width=150> <br/> @wihyanghoon](https://github.com/wihyanghoon) | 
 
 ## Tech Stack
-|제목|내용|
+|사용처|스택|
 |:---:|:---:|
 |Front-end|React|
 |Back-end|Express|
