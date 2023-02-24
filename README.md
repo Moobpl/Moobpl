@@ -15,10 +15,10 @@
 #### 프로젝트 노션
 https://www.notion.so/22140d94be744552a715ec05f86c1dc5
 
-##### 프로젝트 URL
+#### 프로젝트 URL
 https://moobplback.herokuapp.com/
 
-##### 테스트용 아이디
+#### 테스트용 아이디
 ID : moobpl@moobpl.com <br>PASSWORD : testtest1234!
 
 ## 팀원 구성
