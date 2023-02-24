@@ -21,11 +21,6 @@ https://moobplback.herokuapp.com/
 #### 테스트용 아이디
 ID : moobpl@moobpl.com <br>PASSWORD : testtest1234!
 
-## 팀원 구성
-**위향훈(프론트엔드, 백엔드)** |
-|  :------: |
-[<img src="https://user-images.githubusercontent.com/66665468/221135646-c6102967-54a3-4361-8a74-931855330348.jpg" width=150> <br/> @wihyanghoon](https://github.com/wihyanghoon) | 
-
 ## Tech Stack
 |사용처|스택|
 |:---:|:---:|
