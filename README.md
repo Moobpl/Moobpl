@@ -12,6 +12,13 @@
 이사를 앞둔 사람들에게는 얼마나 많은 준비가 필요할까요?
 뭅플은 그런 분들을 위해 출발하게 되었습니다
 
+##### 프로젝트 URL
+https://moobplback.herokuapp.com/
+
+##### 테스트용 아이디
+ID : moobpl@moobpl.com
+PASSWORD : testtest1234!
+
 ## 팀원 구성
 | **김한빛(서비스기획, 프론트엔드)** | **위향훈(프론트엔드, 백엔드)** |
 | :------: |  :------: |
@@ -34,7 +41,7 @@
 
 ## Library
 
-#####Front-end
+###Front-end
 |라이브러리|사용처|
 |:---|:---|
 |axios|서버통신|
@@ -46,7 +53,7 @@
 |swiper|배너 슬라이드|
 |react-date-range|달력|
 
-#####Back-end
+###Back-end
 |라이브러리|사용처|
 |:---|:---|
 |cookie-parser|쿠키 해석, 쿠키 객체 생성|
