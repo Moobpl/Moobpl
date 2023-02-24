@@ -1,5 +1,5 @@
 ## 뭅플 (이사일정 관리 서비스)
-![서울살이 와이어프레임_page-0001](https://user-images.githubusercontent.com/66665468/221139606-153a551e-bb90-4b98-a23f-e70ad8298480.jpg)
+![moobpl](https://user-images.githubusercontent.com/66665468/221149380-3870a1a4-a8ab-4808-ae37-430dc1ce95b9.jpg)
 
 #### 프로젝트 기간
 2022.12.14 ~ 2022.02.02 (약 2개월)
