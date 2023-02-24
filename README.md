@@ -1,5 +1,5 @@
 ## 뭅플 (이사일정 관리 서비스)
-![moobpl](https://user-images.githubusercontent.com/66665468/221149380-3870a1a4-a8ab-4808-ae37-430dc1ce95b9.jpg)
+![moobpl](https://user-images.githubusercontent.com/66665468/221160480-43e3102b-686c-44fe-9b58-7041f553e696.jpg)
 
 #### 프로젝트 기간
 2022.12.14 ~ 2022.02.02 (약 2개월)
