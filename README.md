@@ -41,7 +41,7 @@ PASSWORD : testtest1234!
 
 ## Library
 
-###Front-end
+### Front-end
 |라이브러리|사용처|
 |:---|:---|
 |axios|서버통신|
@@ -53,7 +53,7 @@ PASSWORD : testtest1234!
 |swiper|배너 슬라이드|
 |react-date-range|달력|
 
-###Back-end
+### Back-end
 |라이브러리|사용처|
 |:---|:---|
 |cookie-parser|쿠키 해석, 쿠키 객체 생성|
