@@ -15,9 +15,7 @@
 ##### 프로젝트 URL
 https://moobplback.herokuapp.com/
 
-##### 테스트용 아이디
-ID : moobpl@moobpl.com <br />
-PASSWORD : testtest1234!
+##### 테스트용 아이디<br>ID : moobpl@moobpl.com <br>PASSWORD : testtest1234!
 
 ## 팀원 구성
 | **김한빛(서비스기획, 프론트엔드)** | **위향훈(프론트엔드, 백엔드)** |
