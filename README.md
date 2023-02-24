@@ -16,7 +16,7 @@
 https://moobplback.herokuapp.com/
 
 ##### 테스트용 아이디
-ID : moobpl@moobpl.com
+ID : moobpl@moobpl.com <br />
 PASSWORD : testtest1234!
 
 ## 팀원 구성
