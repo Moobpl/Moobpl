@@ -12,6 +12,9 @@
 이사를 앞둔 사람들에게는 얼마나 많은 준비가 필요할까요?
 뭅플은 그런 분들을 위해 출발하게 되었습니다
 
+#### 프로젝트 노션
+https://www.notion.so/22140d94be744552a715ec05f86c1dc5
+
 ##### 프로젝트 URL
 https://moobplback.herokuapp.com/
 
