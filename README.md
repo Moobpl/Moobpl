@@ -1,5 +1,5 @@
 ## 뭅플 (이사일정 관리 서비스)
-
+![Uploading 서울살이 와이어프레임_page-0001.jpg…]()
 
 ###프로젝트 기간<br />
 2022.12.14 ~ 2022.02.02 (약 2개월)
@@ -15,7 +15,7 @@
 ## 팀원 구성
 | **김한빛(서비스기획, 프론트엔드)** | **위향훈(프론트엔드, 백엔드)** |
 | :------: |  :------: |
-| [<img src="https://user-images.githubusercontent.com/66665468/221135646-c6102967-54a3-4361-8a74-931855330348.jpg" width=150> <br/> @wihyanghoon](https://github.com/wihyanghoon) | [<img src="https://user-images.githubusercontent.com/66665468/221135646-c6102967-54a3-4361-8a74-931855330348.jpg" width=150> <br/> @wihyanghoon](https://github.com/wihyanghoon) | 
+| [<img src="https://user-images.githubusercontent.com/66665468/221135646-c6102967-54a3-4361-8a74-931855330348.jpg" width=150> <br/> @bigbit99](https://github.com/bigbit99) | [<img src="https://user-images.githubusercontent.com/66665468/221135646-c6102967-54a3-4361-8a74-931855330348.jpg" width=150> <br/> @wihyanghoon](https://github.com/wihyanghoon) | 
 
 ## Tech Stack
 |제목|내용|
