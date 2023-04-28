@@ -24,7 +24,7 @@ ID : moobpl@moobpl.com <br>PASSWORD : testtest1234!
 ## 팀원 구성
 | **김한빛(기획, 프론트엔드)** | **위향훈(프론트엔드, 백엔드)** |
 |  :------: | :------: |
-| [<img src="https://user-images.githubusercontent.com/108947985/221891446-8454e49a-545b-48ea-9be3-2485d37e0383.jpg" width=150> <br/> @bigbit99](https://github.com/bigbit99) | [<img src="https://user-images.githubusercontent.com/66665468/221801579-e6654496-2ef9-47cc-b8be-be606858025b.jpg" width=150> <br/> @wihyanghoon](https://github.com/wihyanghoon) |
+| [<img src="https://user-images.githubusercontent.com/108947985/235070427-909c7051-a4fb-4a0c-b9f5-19c3dc87add6.jpg" width=150> <br/> @bigbit99](https://github.com/bigbit99) | [<img src="https://user-images.githubusercontent.com/66665468/221801579-e6654496-2ef9-47cc-b8be-be606858025b.jpg" width=150> <br/> @wihyanghoon](https://github.com/wihyanghoon) |
 
 ## Tech Stack
 |사용처|스택|
